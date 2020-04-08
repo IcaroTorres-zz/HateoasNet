@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\icaro\.Rider2019.3\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\icaro\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\icaro\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Hateoas.-1277333690.00" t="ExcludeRecursive" />
+    <e p="C:\Users\icaro\source\repos\HateoasNet" t="IncludeFlat">
+      <e p="Hateoas.sln" t="IncludeFlat" />
+      <e p="HateoasNet" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Converters" t="Include">
+          <e p="DateTimeConverter.cs" t="Include" />
+          <e p="GuidConverter.cs" t="Include" />
+        </e>
+        <e p="HateoasLink.cs" t="Include" />
+        <e p="HateoasNet.csproj" t="IncludeRecursive" />
+        <e p="HateoasNetOptions.cs" t="Include" />
+        <e p="IHateoasLink.cs" t="Include" />
+        <e p="JsonHateoasFormatter.cs" t="Include" />
+        <e p="JsonHateoasFormatterExtensions.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="HateoasNet.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netstandard2.0" t="Include">
+              <e p="HateoasNet.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Resources" t="Include">
+          <e p="EnumerableResource.cs" t="Include" />
+          <e p="Pagination.cs" t="Include" />
+          <e p="PaginationResource.cs" t="Include" />
+          <e p="Resource.cs" t="Include" />
+          <e p="ResourceLink.cs" t="Include" />
+          <e p="SingleResource.cs" t="Include" />
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Sample" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="GuildsController.cs" t="Include" />
+          <e p="InvitesController.cs" t="Include" />
+          <e p="MembersController.cs" t="Include" />
+        </e>
+        <e p="HateoasExtensions.cs" t="Include" />
+        <e p="JsonData" t="Include">
+          <e p="guilds.json" t="Include" />
+          <e p="invites.json" t="Include" />
+          <e p="members.json" t="Include" />
+          <e p="Seeder.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="Guild.cs" t="Include" />
+          <e p="Invite.cs" t="Include" />
+          <e p="Member.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Sample.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Sample.csproj" t="IncludeRecursive" />
+        <e p="Startup.cs" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>
