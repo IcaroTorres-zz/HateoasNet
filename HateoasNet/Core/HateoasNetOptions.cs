@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Routing;
 
-namespace HateoasNet
+namespace HateoasNet.Core
 {
 	public class HateoasNetOptions
 	{
 		private readonly List<IHateoasLink> _links = new List<IHateoasLink>();
-		public IEnumerable<IHateoasLink> Links => _links.AsReadOnly();
+		public IReadOnlyList<IHateoasLink> Links => _links.AsReadOnly();
 
-		public HateoasNetOptions AddLink<T>(string routeName, Func<T, object> objectFunction = null,
+		public IHateoasLink<T> EnableLinkFor<T>(string routeName, 
+			Func<T, object> objectFunction = null,
 			Func<T, bool> predicate = null) where T : class
 		{
 			var valuesFunction = new Func<T, RouteValueDictionary>(
@@ -17,9 +18,11 @@ namespace HateoasNet
 					(objectFunction ?? (e => null))(sourceValue)
 				)
 			);
-
-			_links.Add(new HateoasLink<T>(routeName, valuesFunction, predicate));
-			return this;
+			predicate ??= t => true;
+			
+			var hateoasLink = new HateoasLink<T>(routeName, valuesFunction, predicate);
+			_links.Add(hateoasLink);
+			return hateoasLink;
 		}
 	}
 }
