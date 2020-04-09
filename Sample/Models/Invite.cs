@@ -6,30 +6,11 @@ namespace Sample.Models
 	public class Invite
 	{
 		public Guid Id { get; set; } = Guid.NewGuid();
-		public virtual InviteStatuses Status { get; set; } = InviteStatuses.Pending;
+		public InviteStatuses Status { get; set; } = InviteStatuses.Pending;
 		public Guid GuildId { get; set; }
 		public Guid MemberId { get; set; }
-		[JsonIgnore] public virtual Member Member { get; set; }
-		[JsonIgnore] public virtual Guild Guild { get; set; }
-
-		public virtual Invite BeAccepted()
-		{
-			Status = InviteStatuses.Accepted;
-			Guild.AcceptMember(Member.JoinGuild(Guild));
-			return this;
-		}
-
-		public virtual Invite BeDeclined()
-		{
-			Status = InviteStatuses.Declined;
-			return this;
-		}
-
-		public virtual Invite BeCanceled()
-		{
-			Status = InviteStatuses.Canceled;
-			return this;
-		}
+		[JsonIgnore] public Member Member { get; set; }
+		[JsonIgnore] public Guild Guild { get; set; }
 	}
 
 	public enum InviteStatuses : short
