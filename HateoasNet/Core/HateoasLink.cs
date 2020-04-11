@@ -1,4 +1,5 @@
 ﻿using System;
+using HateoasNet.Core.Abstractions;
 using Microsoft.AspNetCore.Routing;
 
 namespace HateoasNet.Core
@@ -21,21 +22,17 @@ namespace HateoasNet.Core
 
 		public RouteValueDictionary GetRouteDictionary(object routeData) => ValuesFunction(routeData as T);
 
-		public bool CheckLinkPredicate(object routeData) => PredicateFunction(routeData as T);
+		public bool CheckPredicateForData(object routeData) => PredicateFunction(routeData as T);
 
-		public IHateoasLink<T> WithRouteData(Func<T, object> routeDataFunction)
+		public IHateoasLink<T> WithData(Func<T, object> routeDataFunction)
 		{
 			if (routeDataFunction == null) throw new ArgumentNullException(nameof(routeDataFunction));
 
-			ValuesFunction = new Func<T, RouteValueDictionary>(
-				sourceValue => new RouteValueDictionary(
-					(routeDataFunction ?? (e => null))(sourceValue)
-				)
-			);
+			ValuesFunction = (T source) => new RouteValueDictionary(routeDataFunction(source));
 			return this;
 		}
 
-		public IHateoasLink<T> DisplayedWhen(Func<T, bool> predicate)
+		public IHateoasLink<T> When(Func<T, bool> predicate)
 		{
 			PredicateFunction = predicate ?? throw new ArgumentNullException(nameof(predicate));
 			return this;
