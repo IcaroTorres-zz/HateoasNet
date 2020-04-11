@@ -8,11 +8,11 @@ namespace HateoasNet.DependencyInjection
 {
 	public static class HateoasExtensions
 	{
-		public static IMvcBuilder EnableHateoas(this IMvcBuilder builder, Action<HateoasNetOptions> options = null)
+		public static IMvcBuilder ConfigureHateoasMap(this IMvcBuilder builder, Action<HateoasConfiguration> config = null)
 		{
-			if (options != null) builder.Services.Configure(options);
+			if (config != null) builder.Services.Configure(config);
 			builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-			builder.AddMvcOptions(o => o.OutputFormatters.Add(new JsonHateoasOutputFormatter()));
+			builder.AddMvcOptions(o => o.OutputFormatters.Add(new HateoasOutputFormatter()));
 			return builder;
 		}
 	}
