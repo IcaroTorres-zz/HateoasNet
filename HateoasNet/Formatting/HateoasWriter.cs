@@ -25,7 +25,9 @@ namespace HateoasNet.Formatting
 			    _context.ObjectType.GetGenericTypeDefinition() == typeof(Pagination<>))
 				return WriteAsPagination();
 
-			return _context.ObjectType.GetInterfaces().Contains(typeof(IEnumerable)) ? WriteAsEnumeration() : WriteAsSingle();
+			return _context.ObjectType.GetInterfaces().Contains(typeof(IEnumerable))
+				? WriteAsEnumeration()
+				: WriteAsSingleObject();
 		}
 
 		private string WriteAsPagination()
@@ -42,7 +44,7 @@ namespace HateoasNet.Formatting
 				originalPagination.Page);
 
 			var resource = _resourceConverter.ToPagination(resourcePagination, _context.ObjectType);
-			return SerializeFormattedResource(resource);
+			return SerializeConvertedResource(resource);
 		}
 
 		private string WriteAsEnumeration()
@@ -51,16 +53,16 @@ namespace HateoasNet.Formatting
 			var itemType = _context.ObjectType.GetGenericArguments().First();
 			var singleResources = enumerable.Select(item => _resourceConverter.ToSingle(item, itemType));
 			var resource = _resourceConverter.ToEnumerable(singleResources, _context.ObjectType);
-			return SerializeFormattedResource(resource);
+			return SerializeConvertedResource(resource);
 		}
 
-		private string WriteAsSingle()
+		private string WriteAsSingleObject()
 		{
 			var resource = _resourceConverter.ToSingle(_context.Object, _context.ObjectType);
-			return SerializeFormattedResource(resource);
+			return SerializeConvertedResource(resource);
 		}
 
-		private static string SerializeFormattedResource(Resource resource)
+		private static string SerializeConvertedResource(Resource resource)
 		{
 			var serializerOptions = new JsonSerializerOptions
 			{
