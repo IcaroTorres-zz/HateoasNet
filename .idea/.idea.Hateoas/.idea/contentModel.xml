@@ -13,17 +13,23 @@
           <e p="GuidConverter.cs" t="Include" />
         </e>
         <e p="Core" t="Include">
+          <e p="Abstractions" t="Include">
+            <e p="IHateoasBuilder.cs" t="Include" />
+            <e p="IHateoasLink.cs" t="Include" />
+            <e p="IHateoasMap.cs" t="Include" />
+          </e>
+          <e p="HateoasConfiguration.cs" t="Include" />
           <e p="HateoasLink.cs" t="Include" />
-          <e p="HateoasNetOptions.cs" t="Include" />
-          <e p="IHateoasLink.cs" t="Include" />
+          <e p="HateoasMap.cs" t="Include" />
+          <e p="HateoasOptions.cs" t="Include" />
         </e>
         <e p="DependencyInjection" t="Include">
           <e p="HateoasExtensions.cs" t="Include" />
         </e>
         <e p="Formatting" t="Include">
+          <e p="HateoasOutputFormatter.cs" t="Include" />
           <e p="HateoasWriter.cs" t="Include" />
           <e p="InternalExtensions.cs" t="Include" />
-          <e p="JsonHateoasOutputFormatter.cs" t="Include" />
           <e p="ResourceConverter.cs" t="Include" />
         </e>
         <e p="HateoasNet.csproj" t="IncludeRecursive" />
@@ -56,7 +62,15 @@
           <e p="InvitesController.cs" t="Include" />
           <e p="MembersController.cs" t="Include" />
         </e>
-        <e p="HateoasBootstrapper.cs" t="Include" />
+        <e p="HateoasMaps" t="Include">
+          <e p="GuildHateoas.cs" t="Include" />
+          <e p="InviteHateoas.cs" t="Include" />
+          <e p="ListGuildHateoas.cs" t="Include" />
+          <e p="ListMemberHateoas.cs" t="Include" />
+          <e p="MemberHateoas.cs" t="Include" />
+          <e p="PaginationInviteHateoas.cs" t="Include" />
+        </e>
+        <e p="HateoasSetupextensions.cs" t="Include" />
         <e p="JsonData" t="Include">
           <e p="guilds.json" t="Include" />
           <e p="invites.json" t="Include" />
