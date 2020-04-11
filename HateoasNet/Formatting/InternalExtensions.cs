@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HateoasNet.Core;
+using HateoasNet.Core.Abstractions;
 using HateoasNet.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -42,14 +43,16 @@ namespace HateoasNet.Formatting
 		{
 			var urlHelperFactory = context.GetService<IUrlHelperFactory>();
 			var actionContextAccessor = context.GetService<IActionContextAccessor>();
-			var options = context.GetService<IOptions<HateoasNetOptions>>().Value;
 			var urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 			var actionDescriptors = context
 				.GetService<IActionDescriptorCollectionProvider>()
 				.ActionDescriptors.Items;
 
-			var displayableLinks = options.Links
-				.Where(l => l.SourceType == sourceType && l.CheckLinkPredicate(resource.Data));
+			var configuration = context.GetService<IOptions<HateoasConfiguration>>()?.Value;
+			var configurationLinks = configuration?.GetConfiguredLinks() ?? new HashSet<IHateoasLink>();
+
+			var displayableLinks = configurationLinks
+				.Where(link => link.SourceType == sourceType && link.CheckPredicateForData(resource.Data));
 
 			foreach (var link in displayableLinks)
 			{
