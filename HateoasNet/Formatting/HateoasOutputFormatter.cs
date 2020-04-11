@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace HateoasNet.Formatting
 {
-	public class JsonHateoasOutputFormatter : OutputFormatter
+	public class HateoasOutputFormatter : OutputFormatter
 	{
-		public JsonHateoasOutputFormatter()
+		public HateoasOutputFormatter()
 		{
 			SupportedMediaTypes.Add("application/json");
 			SupportedMediaTypes.Add("application/json+hateoas");
