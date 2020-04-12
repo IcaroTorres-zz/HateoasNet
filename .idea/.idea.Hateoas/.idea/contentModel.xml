@@ -21,7 +21,6 @@
           <e p="HateoasConfiguration.cs" t="Include" />
           <e p="HateoasLink.cs" t="Include" />
           <e p="HateoasMap.cs" t="Include" />
-          <e p="HateoasOptions.cs" t="Include" />
         </e>
         <e p="DependencyInjection" t="Include">
           <e p="HateoasExtensions.cs" t="Include" />
