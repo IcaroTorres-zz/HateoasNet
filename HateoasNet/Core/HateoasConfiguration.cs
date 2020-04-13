@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using HateoasNet.Core.Abstractions;
+using HateoasNet.Abstractions;
 using Microsoft.AspNetCore.Routing;
 
 namespace HateoasNet.Core
@@ -10,53 +10,39 @@ namespace HateoasNet.Core
 	public sealed class HateoasConfiguration
 	{
 		private readonly Dictionary<Type, IHateoasMap> _maps = new Dictionary<Type, IHateoasMap>();
-		private readonly List<IHateoasLink> _links = new List<IHateoasLink>();
-		private static readonly string GENERIC_BUILDER_NAME = typeof(IHateoasBuilder<>).Name;
+		private readonly string _genericBuilderName = typeof(IHateoasBuilder<>).Name;
 
-		internal HashSet<IHateoasLink> GetConfiguredLinks()
+		internal IEnumerable<IHateoasLink> GetMappedLinks(Type sourceType, object resourceData)
 		{
-			var linksFromMaps = _maps.Values.SelectMany(map => map.GetLinks());
-
-			return new HashSet<IHateoasLink>(_links.Union(linksFromMaps));
+			var links = _maps[sourceType].GetLinks().Where(link => link.IsDisplayable(resourceData));
+			return new HashSet<IHateoasLink>(links);
 		}
 
-		public IHateoasLink<T> HasLink<T>(string routeName,
-			Func<T, object> objectFunction = null,
-			Func<T, bool> predicate = null) where T : class
-		{
-			var valuesFunction = new Func<T, RouteValueDictionary>(
-				sourceValue => new RouteValueDictionary(
-					(objectFunction ?? (e => null))(sourceValue)
-				)
-			);
-			predicate ??= t => true;
-
-			var hateoasLink = new HateoasLink<T>(routeName, valuesFunction, predicate);
-			_links.Add(hateoasLink);
-			return hateoasLink;
-		}
-
-		public void Map<T>(Action<HateoasMap<T>> mapper) where T : class
+		public HateoasConfiguration Map<T>(Action<HateoasMap<T>> mapper) where T : class
 		{
 			if (mapper == null) throw new ArgumentNullException(nameof(mapper));
 
 			mapper(GetOrInsert<T>());
+			
+			return this;
 		}
 
-		public void ApplyConfiguration<T>(IHateoasBuilder<T> builder) where T : class
+		public HateoasConfiguration ApplyConfiguration<T>(IHateoasBuilder<T> builder) where T : class
 		{
 			builder.Build(GetOrInsert<T>());
+			
+			return this;
 		}
 
-		public void ApplyConfigurationsFromAssembly(Assembly assembly)
+		public HateoasConfiguration ApplyConfigurationsFromAssembly(Assembly assembly)
 		{
 			var builderTypes = assembly.GetTypes()
 				.Where(predicate: t => t.GetInterfaces()
-					.Any(predicate: i => i.IsGenericType && i.Name.Contains(GENERIC_BUILDER_NAME))).ToList();
+					.Any(predicate: i => i.IsGenericType && i.Name.Contains(_genericBuilderName))).ToList();
 
 			builderTypes.ForEach(builderType =>
 			{
-				if (!(builderType.GetInterfaces().SingleOrDefault(i => i.Name.Contains(GENERIC_BUILDER_NAME)) is {}
+				if (!(builderType.GetInterfaces().SingleOrDefault(i => i.Name.Contains(_genericBuilderName)) is {}
 					interfaceType)) return;
 
 				var targetType = interfaceType.GetGenericArguments().First();
@@ -65,6 +51,8 @@ namespace HateoasNet.Core
 				var hateoasMap = GetOrInsert(targetType);
 				buildMethod.Invoke(builder, new object[] {hateoasMap});
 			});
+			
+			return this;
 		}
 
 		private HateoasMap<T> GetOrInsert<T>() where T : class
