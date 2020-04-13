@@ -1,5 +1,5 @@
-﻿using HateoasNet.Core;
-using HateoasNet.Core.Abstractions;
+﻿using HateoasNet.Abstractions;
+using HateoasNet.Core;
 using Sample.Models;
 
 namespace Sample.HateoasMaps
@@ -14,9 +14,9 @@ namespace Sample.HateoasMaps
 			map.HasLink("cancel-invite", e => new {id = e.Id}, e => e.Status == InviteStatuses.Pending);
 
 			// map type with links for single objects using inline routeData function
-			map.HasLink("get-invite").WithData(i => new {id = i.Id});
-			map.HasLink("get-guild").WithData(i => new {id = i.GuildId});
-			map.HasLink("get-member").WithData(i => new {id = i.MemberId});
+			map.HasLink("get-invite").HasRouteData(i => new {id = i.Id});
+			map.HasLink("get-guild").HasRouteData(i => new {id = i.GuildId});
+			map.HasLink("get-member").HasRouteData(i => new {id = i.MemberId});
 		}
 	}
 }

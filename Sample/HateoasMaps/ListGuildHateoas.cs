@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using HateoasNet.Abstractions;
 using HateoasNet.Core;
-using HateoasNet.Core.Abstractions;
 using Sample.Models;
 
 namespace Sample.HateoasMaps

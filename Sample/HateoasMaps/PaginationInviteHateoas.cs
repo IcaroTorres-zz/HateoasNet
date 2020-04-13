@@ -1,5 +1,5 @@
-﻿using HateoasNet.Core;
-using HateoasNet.Core.Abstractions;
+﻿using HateoasNet.Abstractions;
+using HateoasNet.Core;
 using HateoasNet.Resources;
 using Sample.Models;
 

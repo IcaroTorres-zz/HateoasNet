@@ -1,5 +1,5 @@
-﻿using HateoasNet.Core;
-using HateoasNet.Core.Abstractions;
+﻿using HateoasNet.Abstractions;
+using HateoasNet.Core;
 using Sample.Models;
 
 namespace Sample.HateoasMaps
@@ -13,22 +13,22 @@ namespace Sample.HateoasMaps
 			
 			map
 				.HasLink("get-guild")
-				.WithData(e => new {id = e.GuildId})
-				.When(e => e.GuildId != null);
+				.HasRouteData(e => new {id = e.GuildId})
+				.HasConditional(e => e.GuildId != null);
 
 			map
 				.HasLink("promote-member")
-				.WithData(e => new {id = e.Id})
-				.When(e => e.GuildId != null && !e.IsGuildMaster);
+				.HasRouteData(e => new {id = e.Id})
+				.HasConditional(e => e.GuildId != null && !e.IsGuildMaster);
 
 			map
 				.HasLink("demote-member")
-				.WithData(e => new {id = e.Id})
-				.When(e => e.GuildId != null && e.IsGuildMaster);
+				.HasRouteData(e => new {id = e.Id})
+				.HasConditional(e => e.GuildId != null && e.IsGuildMaster);
 
 			map.HasLink("leave-guild")
-				.WithData(e => new {id = e.Id})
-				.When(e => e.GuildId != null);
+				.HasRouteData(e => new {id = e.Id})
+				.HasConditional(e => e.GuildId != null);
 		}
 	}
 }
