@@ -1,4 +1,6 @@
-﻿namespace HateoasNet.Core.Abstractions
+﻿using HateoasNet.Core;
+
+namespace HateoasNet.Abstractions
 {
 	public interface IHateoasBuilder<T> where T : class
 	{
