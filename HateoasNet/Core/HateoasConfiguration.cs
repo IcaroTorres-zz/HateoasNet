@@ -17,7 +17,7 @@ namespace HateoasNet.Core
 			return _maps[sourceType].GetLinks().Where(link => link.IsDisplayable(resourceData));
 		}
 
-		public HateoasConfiguration Map<T>(Action<HateoasMap<T>> mapper) where T : class
+		public IHateoasConfiguration Map<T>(Action<HateoasMap<T>> mapper) where T : class
 		{
 			if (mapper == null) throw new ArgumentNullException(nameof(mapper));
 
@@ -26,14 +26,14 @@ namespace HateoasNet.Core
 			return this;
 		}
 
-		public HateoasConfiguration ApplyConfiguration<T>(IHateoasBuilder<T> builder) where T : class
+		public IHateoasConfiguration ApplyConfiguration<T>(IHateoasBuilder<T> builder) where T : class
 		{
 			builder.Build(GetOrInsert<T>());
 
 			return this;
 		}
 
-		public HateoasConfiguration ApplyConfigurationsFromAssembly(Assembly assembly)
+		public IHateoasConfiguration ApplyConfigurationsFromAssembly(Assembly assembly)
 		{
 			var builderTypes = assembly.GetTypes()
 				.Where(predicate: t => t.GetInterfaces()
