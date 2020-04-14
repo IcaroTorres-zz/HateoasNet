@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HateoasNet\HateoasNet.csproj" />
+      <ProjectReference Include="..\Sample\Sample.csproj" />
     </ItemGroup>
 
 </Project>
