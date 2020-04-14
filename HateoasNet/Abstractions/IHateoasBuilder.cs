@@ -1,9 +1,7 @@
-﻿using HateoasNet.Core;
-
-namespace HateoasNet.Abstractions
+﻿namespace HateoasNet.Abstractions
 {
-	public interface IHateoasBuilder<T> where T : class
+	public interface IHateoasBuilder<in T> where T : class
 	{
-		void Build(HateoasMap<T> map);
+		void Build(IHateoasMap<T> map);
 	}
 }

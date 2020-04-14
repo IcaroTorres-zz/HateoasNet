@@ -1,12 +1,11 @@
 ﻿using HateoasNet.Abstractions;
-using HateoasNet.Core;
 using Sample.Models;
 
 namespace Sample.HateoasMaps
 {
 	public class GuildHateoas : IHateoasBuilder<Guild>
 	{
-		public void Build(HateoasMap<Guild> map)
+		public void Build(IHateoasMap<Guild> map)
 		{
 			map.HasLink("get-guild", g => new {id = g.Id});
 			map.HasLink("get-members", g => new {guildId = g.Id});

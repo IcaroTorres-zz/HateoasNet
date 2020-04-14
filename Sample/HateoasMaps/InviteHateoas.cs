@@ -1,12 +1,11 @@
 ﻿using HateoasNet.Abstractions;
-using HateoasNet.Core;
 using Sample.Models;
 
 namespace Sample.HateoasMaps
 {
 	public class InviteHateoas : IHateoasBuilder<Invite>
 	{
-		public void Build(HateoasMap<Invite> map)
+		public void Build(IHateoasMap<Invite> map)
 		{
 			// map type with links for single objects using full shorthand
 			map.HasLink("accept-invite", e => new {id = e.Id}, e => e.Status == InviteStatuses.Pending);

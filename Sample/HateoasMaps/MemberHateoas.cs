@@ -1,16 +1,15 @@
 ﻿using HateoasNet.Abstractions;
-using HateoasNet.Core;
 using Sample.Models;
 
 namespace Sample.HateoasMaps
 {
 	public class MemberHateoas : IHateoasBuilder<Member>
 	{
-		public void Build(HateoasMap<Member> map)
+		public void Build(IHateoasMap<Member> map)
 		{
 			map.HasLink("get-member", e => new {id = e.Id});
 			map.HasLink("update-member", e => new {id = e.Id});
-			
+
 			map
 				.HasLink("get-guild")
 				.HasRouteData(e => new {id = e.GuildId})
