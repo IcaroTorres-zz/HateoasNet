@@ -20,8 +20,8 @@ namespace HateoasNet.Formatting
 		public string Write(object value, Type objectType)
 		{
 			Resource hateoasResource;
-
-			if (objectType.IsGenericTypeDefinition && objectType.GetGenericTypeDefinition() == typeof(Pagination<>))
+			
+			if (objectType.GetGenericTypeDefinition() == typeof(Pagination<>))
 			{
 				hateoasResource = _hateoasConverter.ToPaginationResource(value, objectType);
 			}
