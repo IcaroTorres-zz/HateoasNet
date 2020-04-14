@@ -13,20 +13,24 @@ namespace HateoasNet.Core
 
 		public IHateoasLink<T> HasLink(string routeName)
 		{
+			if (routeName == null) throw new ArgumentNullException(nameof(routeName));
+
 			var routeDataFunction = new Func<T, object>(e => null);
 			var predicate = new Func<T, bool>(e => true);
 			return HasLink(routeName, routeDataFunction, predicate);
 		}
 
-		public IHateoasLink<T> HasLink(string routeName, Func<T, object> routeDataFunction, Func<T, bool> predicate = null)
+		public IHateoasLink<T> HasLink(string routeName, Func<T, object> routeDataFunction, Func<T, bool> predicateFunction = null)
 		{
+			if (routeName == null) throw new ArgumentNullException(nameof(routeName));
+
 			if (routeDataFunction == null) throw new ArgumentNullException(nameof(routeDataFunction));
 
-			var valuesFunction = new Func<T, RouteValueDictionary>(e => new RouteValueDictionary(routeDataFunction(e)));
+			var routeDictionaryFunction = new Func<T, RouteValueDictionary>(e => new RouteValueDictionary(routeDataFunction(e)));
 
-			predicate ??= t => true;
+			predicateFunction ??= t => true;
 
-			var hateoasLink = new HateoasLink<T>(routeName, valuesFunction, predicate);
+			var hateoasLink = new HateoasLink<T>(routeName, routeDictionaryFunction, predicateFunction);
 			_hateoasLinks.Add(hateoasLink);
 			return hateoasLink;
 		}
