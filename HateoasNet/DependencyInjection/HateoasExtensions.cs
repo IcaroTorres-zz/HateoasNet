@@ -1,7 +1,7 @@
 ﻿using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Core;
 using HateoasNet.Formatting;
+using HateoasNet.Mapping;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +19,15 @@ namespace HateoasNet.DependencyInjection
 				.AddTransient<IHateoasWriter, HateoasWriter>();
 		}
 
-		public static IMvcBuilder ConfigureHateoasMap(this IMvcBuilder builder, Action<HateoasConfiguration> config = null)
+		public static IMvcBuilder ConfigureHateoasMap(this IMvcBuilder builder,
+			Action<IHateoasConfiguration> hateoasConfiguration)
 		{
-			if (config != null) builder.Services.Configure(config);
+			if (hateoasConfiguration == null) throw new ArgumentNullException(nameof(hateoasConfiguration));
+
+			// builder.Services.Configure(hateoasConfiguration);
+			var configuration = new HateoasConfiguration();
+			hateoasConfiguration(configuration);
+			builder.Services.AddTransient<IHateoasConfiguration, HateoasConfiguration>(x => configuration);
 			return builder.AddMvcOptions(o => o.OutputFormatters.Add(new HateoasOutputFormatter()));
 		}
 	}

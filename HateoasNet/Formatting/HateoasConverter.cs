@@ -78,7 +78,7 @@ namespace HateoasNet.Formatting
 			var actionDescriptors = context.RequestServices
 				.GetRequiredService<IActionDescriptorCollectionProvider>()
 				.ActionDescriptors.Items;
-			var configuration = context.RequestServices.GetRequiredService<IOptions<HateoasConfiguration>>().Value;
+			var configuration = context.RequestServices.GetRequiredService<IHateoasConfiguration>();
 
 			foreach (var link in configuration.GetMappedLinks(sourceType, resource.Data))
 			{
