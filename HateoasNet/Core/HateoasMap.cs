@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace HateoasNet.Core
 {
-	public sealed class HateoasMap<T> : IHateoasMap where T : class
+	public class HateoasMap<T> : IHateoasMap where T : class
 	{
 		private readonly List<IHateoasLink> _hateoasLinks = new List<IHateoasLink>();
 		public IEnumerable<IHateoasLink> GetLinks() => _hateoasLinks.AsReadOnly().Distinct();

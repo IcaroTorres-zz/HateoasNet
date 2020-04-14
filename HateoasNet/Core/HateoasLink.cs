@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace HateoasNet.Core
 {
-	public sealed class HateoasLink<T> : IHateoasLink<T> where T : class
+	public class HateoasLink<T> : IHateoasLink<T> where T : class
 	{
 		internal HateoasLink(string routeName,
 			Func<T, RouteValueDictionary> routeDictionaryFunction,
