@@ -27,7 +27,7 @@ namespace HateoasNet.Formatting
 			}
 			else if (objectType.GetInterfaces().Contains(typeof(IEnumerable)))
 			{
-				hateoasResource = _hateoasConverter.ToPaginationResource(value, objectType);
+				hateoasResource = _hateoasConverter.ToEnumerableResource(value, objectType);
 			}
 			else hateoasResource = _hateoasConverter.ToSingleResource(value, objectType);
 

@@ -7,15 +7,15 @@ namespace HateoasNet.Resources
 		public Pagination(IEnumerable<T> data, long count, int pageSize, int page = 1)
 		{
 			Data = data;
-			Page = page;
-			PageSize = pageSize;
 			Count = count;
+			PageSize = pageSize;
+			Page = page;
 		}
 
 		public IEnumerable<T> Data { get; }
-		public int Page { get; }
-		public int PageSize { get; }
 		public long Count { get; }
-		public long Pages => Count == 0 ? 1 : (Count + PageSize - 1) / PageSize;
+		public int PageSize { get; }
+		public int Page { get; }
+		public int Pages => (int) (Count == 0 ? 1 : (Count + PageSize - 1) / PageSize);
 	}
 }

@@ -97,30 +97,19 @@ namespace HateoasNet.Formatting
 
 			return resource;
 		}
-
-		private IEnumerable<object> GetItems(object source)
+		
+		private static T GetPropertyAsValue<T>(object source, string propertyName)
 		{
-			return (IEnumerable<object>) source.GetType().GetProperty(nameof(Pagination<object>.Data))?.GetValue(source);
-		}
-
-		private long GetCount(object source)
-		{
-			return (long) source.GetType().GetProperty(nameof(Pagination<object>.Count))?.GetValue(source);
-		}
-
-		private int GetPageSize(object source)
-		{
-			return (int) source.GetType().GetProperty(nameof(Pagination<object>.Data))?.GetValue(source);
-		}
-
-		private int GetPage(object source)
-		{
-			return (int) source.GetType().GetProperty(nameof(Pagination<object>.Data))?.GetValue(source);
+			return (T) source.GetType().GetProperty(propertyName)?.GetValue(source);
 		}
 
 		private Pagination<object> ToPagination(object source)
 		{
-			return new Pagination<object>(GetItems(source), GetCount(source), GetPageSize(source), GetPage(source));
+			var items = GetPropertyAsValue<IEnumerable<object>>(source, nameof(Pagination<object>.Data));
+			var count = GetPropertyAsValue<long>(source, nameof(Pagination<object>.Count));
+			var pageSize = GetPropertyAsValue<int>(source, nameof(Pagination<object>.PageSize));
+			var page = GetPropertyAsValue<int>(source, nameof(Pagination<object>.Page));
+			return new Pagination<object>(items, count, pageSize, page);
 		}
 	}
 }
