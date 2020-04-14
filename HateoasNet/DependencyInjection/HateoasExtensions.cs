@@ -14,7 +14,6 @@ namespace HateoasNet.DependencyInjection
 		{
 			return services.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
 				.AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-				.AddTransient<IHateoasConfiguration, HateoasConfiguration>()
 				.AddTransient<IHateoasConverter, HateoasConverter>()
 				.AddTransient<IHateoasSerializer, HateoasSerializer>()
 				.AddTransient<IHateoasWriter, HateoasWriter>();
@@ -25,7 +24,10 @@ namespace HateoasNet.DependencyInjection
 		{
 			if (hateoasConfiguration == null) throw new ArgumentNullException(nameof(hateoasConfiguration));
 
-			builder.Services.Configure(hateoasConfiguration);
+			// builder.Services.Configure(hateoasConfiguration);
+			var configuration = new HateoasConfiguration();
+			hateoasConfiguration(configuration);
+			builder.Services.AddTransient<IHateoasConfiguration, HateoasConfiguration>(x => configuration);
 			return builder.AddMvcOptions(o => o.OutputFormatters.Add(new HateoasOutputFormatter()));
 		}
 	}
