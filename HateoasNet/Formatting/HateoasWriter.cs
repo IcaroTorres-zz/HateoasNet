@@ -20,15 +20,11 @@ namespace HateoasNet.Formatting
 		public string Write(object value, Type objectType)
 		{
 			Resource hateoasResource;
-			
+
 			if (objectType.GetGenericTypeDefinition() == typeof(Pagination<>))
-			{
 				hateoasResource = _hateoasConverter.ToPaginationResource(value, objectType);
-			}
 			else if (objectType.GetInterfaces().Contains(typeof(IEnumerable)))
-			{
 				hateoasResource = _hateoasConverter.ToEnumerableResource(value, objectType);
-			}
 			else hateoasResource = _hateoasConverter.ToSingleResource(value, objectType);
 
 			return _hateoasSerializer.SerializeResource(hateoasResource);

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using HateoasNet.Resources;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
-#if NETCOREAPP3_1
+﻿#if NETCOREAPP3_1
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 #elif NETSTANDARD2_0
 using Microsoft.AspNetCore.Mvc.Internal;
 #endif
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using HateoasNet.Abstractions;
-using HateoasNet.Core;
+using HateoasNet.Mapping;
+using HateoasNet.Resources;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 

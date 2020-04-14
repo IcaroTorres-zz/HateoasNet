@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HateoasNet.Abstractions;
-using Microsoft.AspNetCore.Routing;
 
-namespace HateoasNet.Core
+namespace HateoasNet.Mapping
 {
 	public class HateoasConfiguration : IHateoasConfiguration
 	{
-		private readonly Dictionary<Type, IHateoasMap> _maps = new Dictionary<Type, IHateoasMap>();
 		private readonly string _genericBuilderName = typeof(IHateoasBuilder<>).Name;
+		private readonly Dictionary<Type, IHateoasMap> _maps = new Dictionary<Type, IHateoasMap>();
 
 		public IEnumerable<IHateoasLink> GetMappedLinks(Type sourceType, object resourceData)
 		{
@@ -36,8 +35,8 @@ namespace HateoasNet.Core
 		public IHateoasConfiguration ApplyConfigurationsFromAssembly(Assembly assembly)
 		{
 			var builderTypes = assembly.GetTypes()
-				.Where(predicate: t => t.GetInterfaces()
-					.Any(predicate: i => i.IsGenericType && i.Name.Contains(_genericBuilderName))).ToList();
+				.Where(t => t.GetInterfaces()
+					.Any(i => i.IsGenericType && i.Name.Contains(_genericBuilderName))).ToList();
 
 			builderTypes.ForEach(builderType =>
 			{

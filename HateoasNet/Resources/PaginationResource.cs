@@ -18,9 +18,9 @@ namespace HateoasNet.Resources
 		private List<T> DataList { get; }
 		public override object Data => DataList;
 		[JsonPropertyName("inPage")] public int InPage => DataList.Count;
-		[JsonPropertyName("page")] public int Page { get; private set; }
-		[JsonPropertyName("pageSize")] public int PageSize { get; private set; }
-		[JsonPropertyName("pages")] public int Pages { get; private set; }
-		[JsonPropertyName("count")] public long Count { get; private set; }
+		[JsonPropertyName("page")] public int Page { get; }
+		[JsonPropertyName("pageSize")] public int PageSize { get; }
+		[JsonPropertyName("pages")] public int Pages { get; }
+		[JsonPropertyName("count")] public long Count { get; }
 	}
 }

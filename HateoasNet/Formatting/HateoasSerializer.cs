@@ -12,7 +12,7 @@ namespace HateoasNet.Formatting
 			var serializerOptions = new JsonSerializerOptions
 			{
 				IgnoreNullValues = true,
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 			};
 			serializerOptions.Converters.Add(new GuidConverter());
 			serializerOptions.Converters.Add(new DateTimeConverter());
