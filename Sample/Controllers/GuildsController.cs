@@ -11,11 +11,11 @@ namespace Sample.Controllers
 	[Route("[controller]")]
 	public class GuildsController : ControllerBase
 	{
-		private readonly List<Guild> _guilds = new List<Guild>();
+		private readonly List<Guild> _guilds;
 
-		public GuildsController()
+		public GuildsController(Seeder seeder)
 		{
-			_guilds = Seeder.Seed<Guild>();
+			_guilds = seeder.Seed<Guild>();
 		}
 
 		[HttpGet("{id:Guid}", Name = "get-guild")]

@@ -12,11 +12,11 @@ namespace Sample.Controllers
 	[Route("[controller]")]
 	public class MembersController : ControllerBase
 	{
-		private readonly List<Member> _members = new List<Member>();
+		private readonly List<Member> _members;
 
-		public MembersController(ILogger<GuildsController> logger)
+		public MembersController(Seeder seeder)
 		{
-			_members = Seeder.Seed<Member>();
+			_members = seeder.Seed<Member>();
 		}
 
 		[HttpGet("{id:Guid}", Name = "get-member")]

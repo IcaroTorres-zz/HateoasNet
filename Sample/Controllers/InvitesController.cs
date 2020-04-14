@@ -12,11 +12,11 @@ namespace Sample.Controllers
 	[Route("[controller]")]
 	public class InvitesController : ControllerBase
 	{
-		private readonly List<Invite> _invites = new List<Invite>();
+		private readonly List<Invite> _invites;
 
-		public InvitesController()
+		public InvitesController(Seeder seeder)
 		{
-			_invites = Seeder.Seed<Invite>();
+			_invites = seeder.Seed<Invite>();
 		}
 
 		[HttpGet("{id:Guid}", Name = "get-invite")]

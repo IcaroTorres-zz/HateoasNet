@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sample.JsonData;
 
 namespace Sample
 {
@@ -21,6 +22,7 @@ namespace Sample
 		{
 			// register required services and dependencies for hateoas
 			services.AddHateoasServices();
+			services.AddScoped<Seeder>();
 
 			/*
 			 * switch this lines to test different configuration styles

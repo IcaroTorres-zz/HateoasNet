@@ -45,7 +45,7 @@ namespace HateoasNet.Formatting
 		{
 			var enumerable = value as IEnumerable<object> ??
 			                 throw new InvalidCastException(
-				                 $"Cannot cast from {value.GetType().Name} to {typeof(IEnumerable<object>).Name}");
+				                 $"Cannot cast from {value.GetType().Name} to {typeof(IEnumerable<object>).Name}.");
 
 			var itemType = objectType.GetGenericArguments().First();
 			var singleResources = enumerable.Select(item => ToSingleResource(item, itemType));
@@ -70,19 +70,15 @@ namespace HateoasNet.Formatting
 			return (EnumerableResource<Resource>) ApplyHateoasLinks(enumerableResource, type, _httpContext);
 		}
 
-		private static T GetService<T>(HttpContext context)
-		{
-			return (T) context.RequestServices.GetRequiredService(typeof(T));
-		}
-
 		private Resource ApplyHateoasLinks(Resource resource, Type sourceType, HttpContext context)
 		{
-			var urlHelperFactory = GetService<IUrlHelperFactory>(context);
-			var actionContextAccessor = GetService<IActionContextAccessor>(context);
+			var urlHelperFactory = context.RequestServices.GetRequiredService<IUrlHelperFactory>();
+			var actionContextAccessor = context.RequestServices.GetRequiredService<IActionContextAccessor>();
 			var urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
-			var actionDescriptors = GetService<IActionDescriptorCollectionProvider>(context)
+			var actionDescriptors = context.RequestServices
+				.GetRequiredService<IActionDescriptorCollectionProvider>()
 				.ActionDescriptors.Items;
-			var configuration = GetService<IOptions<HateoasConfiguration>>(context).Value;
+			var configuration = context.RequestServices.GetRequiredService<IOptions<HateoasConfiguration>>().Value;
 
 			foreach (var link in configuration.GetMappedLinks(sourceType, resource.Data))
 			{
@@ -97,18 +93,13 @@ namespace HateoasNet.Formatting
 
 			return resource;
 		}
-		
-		private static T GetPropertyAsValue<T>(object source, string propertyName)
-		{
-			return (T) source.GetType().GetProperty(propertyName)?.GetValue(source);
-		}
 
 		private Pagination<object> ToPagination(object source)
 		{
-			var items = GetPropertyAsValue<IEnumerable<object>>(source, nameof(Pagination<object>.Data));
-			var count = GetPropertyAsValue<long>(source, nameof(Pagination<object>.Count));
-			var pageSize = GetPropertyAsValue<int>(source, nameof(Pagination<object>.PageSize));
-			var page = GetPropertyAsValue<int>(source, nameof(Pagination<object>.Page));
+			var items = (IEnumerable<object>) source.GetType().GetProperty(nameof(Pagination<object>.Data)).GetValue(source);
+			var count = (long) source.GetType().GetProperty(nameof(Pagination<object>.Count)).GetValue(source);
+			var pageSize = (int) source.GetType().GetProperty(nameof(Pagination<object>.PageSize)).GetValue(source);
+			var page = (int) source.GetType().GetProperty(nameof(Pagination<object>.Page)).GetValue(source);
 			return new Pagination<object>(items, count, pageSize, page);
 		}
 	}

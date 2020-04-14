@@ -5,9 +5,9 @@ using HateoasNet.Converters;
 
 namespace Sample.JsonData
 {
-	public static class Seeder
+	public class Seeder
 	{
-		internal static List<T> Seed<T>() where T : class
+		internal List<T> Seed<T>() where T : class
 		{
 			var serializerOptions = new JsonSerializerOptions
 			{
