@@ -9,7 +9,7 @@ namespace HateoasNet.Abstractions
 		RouteValueDictionary GetRouteDictionary(object routeData);
 		bool IsDisplayable(object routeData);
 	}
-	
+
 	public interface IHateoasLink<out T> : IHateoasLink where T : class
 	{
 		IHateoasLink<T> HasRouteData(Func<T, object> routeDataFunction);
