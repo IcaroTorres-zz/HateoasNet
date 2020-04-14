@@ -7,15 +7,14 @@ using Microsoft.AspNetCore.Routing;
 
 namespace HateoasNet.Core
 {
-	public sealed class HateoasConfiguration
+	public class HateoasConfiguration : IHateoasConfiguration
 	{
 		private readonly Dictionary<Type, IHateoasMap> _maps = new Dictionary<Type, IHateoasMap>();
 		private readonly string _genericBuilderName = typeof(IHateoasBuilder<>).Name;
 
-		internal IEnumerable<IHateoasLink> GetMappedLinks(Type sourceType, object resourceData)
+		public IEnumerable<IHateoasLink> GetMappedLinks(Type sourceType, object resourceData)
 		{
-			var links = _maps[sourceType].GetLinks().Where(link => link.IsDisplayable(resourceData));
-			return new HashSet<IHateoasLink>(links);
+			return _maps[sourceType].GetLinks().Where(link => link.IsDisplayable(resourceData));
 		}
 
 		public HateoasConfiguration Map<T>(Action<HateoasMap<T>> mapper) where T : class
@@ -23,14 +22,14 @@ namespace HateoasNet.Core
 			if (mapper == null) throw new ArgumentNullException(nameof(mapper));
 
 			mapper(GetOrInsert<T>());
-			
+
 			return this;
 		}
 
 		public HateoasConfiguration ApplyConfiguration<T>(IHateoasBuilder<T> builder) where T : class
 		{
 			builder.Build(GetOrInsert<T>());
-			
+
 			return this;
 		}
 
@@ -51,7 +50,7 @@ namespace HateoasNet.Core
 				var hateoasMap = GetOrInsert(targetType);
 				buildMethod.Invoke(builder, new object[] {hateoasMap});
 			});
-			
+
 			return this;
 		}
 
