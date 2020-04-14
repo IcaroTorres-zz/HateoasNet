@@ -2,7 +2,7 @@
 using HateoasNet.Abstractions;
 using Microsoft.AspNetCore.Routing;
 
-namespace HateoasNet.Core
+namespace HateoasNet.Mapping
 {
 	public class HateoasLink<T> : IHateoasLink<T> where T : class
 	{
@@ -19,15 +19,21 @@ namespace HateoasNet.Core
 		public Func<T, RouteValueDictionary> RouteDictionaryFunction { get; private set; }
 		public string RouteName { get; }
 
-		public RouteValueDictionary GetRouteDictionary(object routeData) => RouteDictionaryFunction(routeData as T);
+		public RouteValueDictionary GetRouteDictionary(object routeData)
+		{
+			return RouteDictionaryFunction(routeData as T);
+		}
 
-		public bool IsDisplayable(object routeData) => PredicateFunction(routeData as T);
+		public bool IsDisplayable(object routeData)
+		{
+			return PredicateFunction(routeData as T);
+		}
 
 		public IHateoasLink<T> HasRouteData(Func<T, object> routeDataFunction)
 		{
 			if (routeDataFunction == null) throw new ArgumentNullException(nameof(routeDataFunction));
 
-			RouteDictionaryFunction = (T source) => new RouteValueDictionary(routeDataFunction(source));
+			RouteDictionaryFunction = source => new RouteValueDictionary(routeDataFunction(source));
 			return this;
 		}
 
