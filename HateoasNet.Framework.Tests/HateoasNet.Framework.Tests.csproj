@@ -8,10 +8,11 @@
         <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>HateoasNet.Tests.NetFull</RootNamespace>
-        <AssemblyName>HateoasNet.Tests.NetFull</AssemblyName>
+        <RootNamespace>HateoasNet.Framework.Tests</RootNamespace>
+        <AssemblyName>HateoasNet.Framework.Tests</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>

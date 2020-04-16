@@ -5,7 +5,7 @@ using HateoasNet.Mapping;
 using HateoasNet.TestingObjects;
 using Xunit;
 
-namespace HateoasNet.Tests.NetFull.Mapping
+namespace HateoasNet.Framework.Tests.Mapping
 {
 	public class HateoasLinkTests
 	{
@@ -15,13 +15,13 @@ namespace HateoasNet.Tests.NetFull.Mapping
 		public HateoasLinkTests()
 		{
 			_testObject = new TestObject{Value = "test-route"};
-			_sut = new HateoasMap<TestObject>().HasLink(_testObject.Value.ToString());
+			_sut = new AbstractHateoasMap<TestObject>().HasLink(_testObject.Value.ToString());
 		}
 		
 		[Fact]
 		public void Be_HateoasLink__TestObject()
 		{
-			Assert.IsType<HateoasLink<TestObject>>(_sut);
+			Assert.IsType<AbstractHateoasLink<TestObject>>(_sut);
 		}
 
 		[Fact]

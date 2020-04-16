@@ -7,7 +7,7 @@ using HateoasNet.Mapping;
 using HateoasNet.TestingObjects;
 using Xunit;
 
-namespace HateoasNet.Tests.NetFull.Mapping
+namespace HateoasNet.Framework.Tests.Mapping
 {
 	public class HateoasConfigurationTest
 	{
@@ -15,13 +15,13 @@ namespace HateoasNet.Tests.NetFull.Mapping
 
 		public HateoasConfigurationTest()
 		{
-			_sut = new HateoasConfiguration();
+			_sut = new AbstractHateoasConfiguration();
 		}
 
 		[Fact]
 		public void Be_HateoasConfiguration()
 		{
-			Assert.IsType<HateoasConfiguration>(_sut);
+			Assert.IsType<AbstractHateoasConfiguration>(_sut);
 		}
 
 		private void AssertHateoasLinks()
