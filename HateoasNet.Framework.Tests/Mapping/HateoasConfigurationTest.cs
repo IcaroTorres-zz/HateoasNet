@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HateoasNet.Abstractions;
-using HateoasNet.Mapping;
+using HateoasNet.Framework.Mapping;
 using HateoasNet.TestingObjects;
 using Xunit;
 
@@ -15,13 +15,13 @@ namespace HateoasNet.Framework.Tests.Mapping
 
 		public HateoasConfigurationTest()
 		{
-			_sut = new AbstractHateoasConfiguration();
+			_sut = new HateoasConfiguration();
 		}
 
 		[Fact]
 		public void Be_HateoasConfiguration()
 		{
-			Assert.IsType<AbstractHateoasConfiguration>(_sut);
+			Assert.IsType<HateoasConfiguration>(_sut);
 		}
 
 		private void AssertHateoasLinks()
@@ -80,7 +80,7 @@ namespace HateoasNet.Framework.Tests.Mapping
 		[Fact]
 		public void NotAllow_assembly_WithNo_IHateoasBuilder_On_ApplyConfigurationFromAssembly()
 		{
-			Assert.Throws<TargetException>(() => _sut.ApplyConfigurationsFromAssembly(typeof(IHateoasConfiguration).Assembly));
+			Assert.Throws<TargetException>(() => _sut.ApplyConfigurationsFromAssembly(typeof(string).Assembly));
 		}
 	}
 }

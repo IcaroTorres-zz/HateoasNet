@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HateoasNet.Abstractions;
+using HateoasNet.Framework.Mapping;
 using HateoasNet.Mapping;
 using HateoasNet.TestingObjects;
 using Xunit;
@@ -14,13 +15,13 @@ namespace HateoasNet.Framework.Tests.Mapping
 
 		public HateoasMapTest()
 		{
-			_sut = new AbstractHateoasConfiguration().GetOrInsert<TestObject>();
+			_sut = new HateoasConfiguration().GetOrInsert<TestObject>();
 		}
 
 		[Fact]
 		public void Be_HateoasMap__TestObject()
 		{
-			Assert.IsType<AbstractHateoasMap<TestObject>>(_sut);
+			Assert.IsType<HateoasMap<TestObject>>(_sut);
 		}
 
 		[Fact]
@@ -35,7 +36,7 @@ namespace HateoasNet.Framework.Tests.Mapping
 			var hateoasLink = _sut.HasLink("test");
 			
 			Assert.NotNull(hateoasLink);
-			Assert.IsType<AbstractHateoasLink<TestObject>>(hateoasLink);
+			Assert.IsType<HateoasLink<TestObject>>(hateoasLink);
 		}
 
 		[Fact]
