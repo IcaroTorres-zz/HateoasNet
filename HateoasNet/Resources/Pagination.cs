@@ -16,7 +16,7 @@ namespace HateoasNet.Resources
 		}
 		
 		[JsonIgnore]
-		public IEnumerable Enumeration { get; }
+		public virtual IEnumerable Enumeration { get; }
 		public IEnumerable<T> Data => Enumeration as IEnumerable<T>;
 		public long Count { get; }
 		public int PageSize { get; }
