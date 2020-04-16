@@ -3,7 +3,7 @@ using HateoasNet.Abstractions;
 using HateoasNet.Converters;
 using HateoasNet.Resources;
 
-namespace HateoasNet.Formatting
+namespace HateoasNet.Core.Formatting
 {
 	public class HateoasSerializer : IHateoasSerializer
 	{
