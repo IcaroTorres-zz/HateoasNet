@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace HateoasNet.Converters
+namespace HateoasNet.Core.Serialization
 {
 	public class DateTimeConverter : JsonConverter<DateTime>
 	{

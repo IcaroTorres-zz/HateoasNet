@@ -1,9 +1,8 @@
 ﻿using System.Text.Json;
 using HateoasNet.Abstractions;
-using HateoasNet.Converters;
 using HateoasNet.Resources;
 
-namespace HateoasNet.Core.Formatting
+namespace HateoasNet.Core.Serialization
 {
 	public class HateoasSerializer : IHateoasSerializer
 	{
