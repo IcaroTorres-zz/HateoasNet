@@ -1,4 +1,4 @@
-using HateoasNet.DependencyInjection;
+using HateoasNet.Core.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,17 +20,19 @@ namespace Sample
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			// register required services and dependencies for hateoas
-			services.AddHateoasServices();
-			services.AddScoped<Seeder>();
-
-			/*
-			 * switch this lines to test different configuration styles
-			 * Check 'HateoasSetupExtensions.cs' file for details of each one
-			 */
-			//services.AddControllers().HateoasOneFileMapping();
-			//services.AddControllers().HateoasSeparatedFilesMapping();
-			services.AddControllers().HateoasSeparatedFilesUsingAssembly();
+			services
+				.AddScoped<Seeder>()
+				/*
+				 * switch this lines to test different configuration styles
+				 * Check 'HateoasSetupExtensions.cs' file for details of each one
+				 */
+				//.HateoasOneFileMapping()
+        //.HateoasSeparatedFilesMapping()
+				.HateoasSeparatedFilesUsingAssembly()
+				
+				// MvcBuilder
+        .AddControllers()
+        .AddHateoasFormatter();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

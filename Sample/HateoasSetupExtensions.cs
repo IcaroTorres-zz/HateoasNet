@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using HateoasNet.DependencyInjection;
+using HateoasNet.Core.DependencyInjection;
 using HateoasNet.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.HateoasMaps;
@@ -9,17 +9,17 @@ namespace Sample
 {
 	public static class HateoasSetupExtensions
 	{
-		public static IMvcBuilder HateoasSeparatedFilesUsingAssembly(this IMvcBuilder builder)
+		public static IServiceCollection HateoasSeparatedFilesUsingAssembly(this IServiceCollection services)
 		{
 			// setup applying map configurations from classes in separated files found in a given assembly
-			return builder.ConfigureHateoasMap(
+			return services.ConfigureHateoasMap(
 				config => config.ApplyConfigurationsFromAssembly(typeof(GuildHateoas).Assembly));
 		}
 
-		public static IMvcBuilder HateoasSeparatedFilesMapping(this IMvcBuilder builder)
+		public static IServiceCollection HateoasSeparatedFilesMapping(this IServiceCollection services)
 		{
 			// setup applying map configurations from classes in separated files
-			return builder.ConfigureHateoasMap(config =>
+			return services.ConfigureHateoasMap(config =>
 			{
 				config.ApplyConfiguration(new GuildHateoas())
 					.ApplyConfiguration(new ListGuildHateoas())
@@ -30,9 +30,9 @@ namespace Sample
 			});
 		}
 
-		public static IMvcBuilder HateoasOneFileMapping(this IMvcBuilder builder)
+		public static IServiceCollection HateoasOneFileMapping(this IServiceCollection services)
 		{
-			return builder.ConfigureHateoasMap(config =>
+			return services.ConfigureHateoasMap(config =>
 			{
 				config
 					// map All Api returns of type List<Guild> to links with no routeData and no conditional predicate
