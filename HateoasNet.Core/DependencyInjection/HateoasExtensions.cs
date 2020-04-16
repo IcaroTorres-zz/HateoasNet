@@ -3,6 +3,7 @@ using HateoasNet.Abstractions;
 using HateoasNet.Core.Formatting;
 using HateoasNet.Core.Mapping;
 using HateoasNet.Core.Resources;
+using HateoasNet.Core.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
