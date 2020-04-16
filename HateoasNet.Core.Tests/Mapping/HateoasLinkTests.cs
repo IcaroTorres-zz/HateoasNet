@@ -1,11 +1,11 @@
 ﻿using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Mapping;
+using HateoasNet.Core.Mapping;
 using HateoasNet.TestingObjects;
 using Microsoft.AspNetCore.Routing;
 using Xunit;
 
-namespace HateoasNet.Tests.NetCore.Mapping
+namespace HateoasNet.Core.Tests.Mapping
 {
 	public class HateoasLinkTests
 	{

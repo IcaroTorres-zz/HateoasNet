@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using HateoasNet.Abstractions;
-using HateoasNet.Mapping;
+using HateoasNet.Core.Mapping;
 using HateoasNet.TestingObjects;
 using Xunit;
 
-namespace HateoasNet.Tests.NetCore.Mapping
+namespace HateoasNet.Core.Tests.Mapping
 {
 	public class HateoasMapTest
 	{
