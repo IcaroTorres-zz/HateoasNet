@@ -34,6 +34,7 @@
         </e>
         <e p="Formatting" t="Include">
           <e p="HateoasConverter.cs" t="Include" />
+          <e p="HateoasMediaTypeFormatter.cs" t="Include" />
           <e p="HateoasOutputFormatter.cs" t="Include" />
           <e p="HateoasSerializer.cs" t="Include" />
           <e p="HateoasWriter.cs" t="Include" />
@@ -46,6 +47,9 @@
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
+            <e p="net472" t="Include">
+              <e p="HateoasNet.AssemblyInfo.cs" t="Include" />
+            </e>
             <e p="netcoreapp3.1" t="Include">
               <e p="HateoasNet.AssemblyInfo.cs" t="Include" />
             </e>
@@ -62,28 +66,44 @@
           <e p="ResourceLink.cs" t="Include" />
           <e p="SingleResource.cs" t="Include" />
         </e>
-      </e>
-      <e p="HateoasNet.Tests.NetCore31" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="Core" t="Include">
-          <e p="HateoasConfigurationTest.cs" t="Include" />
-          <e p="HateoasLinkTest.cs" t="Include" />
-          <e p="HateoasMapTest.cs" t="Include" />
+        <e p="TestingObjects" t="Include">
+          <e p="TestObject.cs" t="Include" />
+          <e p="TestObjectHateoas.cs" t="Include" />
         </e>
+      </e>
+      <e p="HateoasNet.Tests.NetCore" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
         <e p="Formatting" t="Include">
           <e p="HateoasConverterTest.cs" t="Include" />
           <e p="HateoasSerializerTest.cs" t="Include" />
           <e p="HateoasWriterTest.cs" t="Include" />
         </e>
-        <e p="HateoasNet.Tests.NetCore31.csproj" t="IncludeRecursive" />
+        <e p="HateoasNet.Tests.NetCore.csproj" t="IncludeRecursive" />
+        <e p="Mapping" t="Include">
+          <e p="HateoasConfigurationTest.cs" t="Include" />
+          <e p="HateoasLinkTests.cs" t="Include" />
+          <e p="HateoasMapTest.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="HateoasNet.Tests.NetCore31.AssemblyInfo.cs" t="Include" />
+              <e p="HateoasNet.Tests.NetCore.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
-        <e p="UnitTest1.cs" t="Include" />
+      </e>
+      <e p="HateoasNet.Tests.NetFull" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="HateoasNet.Tests.NetFull.csproj" t="IncludeRecursive" />
+        <e p="Mapping" t="Include">
+          <e p="HateoasConfigurationTest.cs" t="Include" />
+          <e p="HateoasLinkTests.cs" t="Include" />
+          <e p="HateoasMapTest.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="Sample" t="IncludeRecursive">

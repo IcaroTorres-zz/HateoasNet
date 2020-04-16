@@ -5,8 +5,8 @@ namespace HateoasNet.Abstractions
 {
 	public interface IHateoasConverter
 	{
-		PaginationResource<Resource> ToPaginationResource(object value, Type objectType);
-		EnumerableResource<Resource> ToEnumerableResource(object value, Type objectType);
+		PaginationResource<Resource> ToPaginationResource(object source, Type objectType);
+		EnumerableResource<Resource> ToEnumerableResource(object source, Type objectType);
 		SingleResource ToSingleResource(object source, Type type);
 	}
 }

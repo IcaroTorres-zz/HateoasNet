@@ -7,8 +7,8 @@ namespace Sample.HateoasMaps
 	{
 		public void Build(IHateoasMap<Member> map)
 		{
-			map.HasLink("get-member", e => new {id = e.Id});
-			map.HasLink("update-member", e => new {id = e.Id});
+			map.HasLink("get-member").HasRouteData(e => new {id = e.Id});
+			map.HasLink("update-member").HasRouteData(e => new {id = e.Id});
 
 			map
 				.HasLink("get-guild")

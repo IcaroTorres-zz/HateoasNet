@@ -1,17 +1,20 @@
 ﻿using System;
-using Microsoft.AspNetCore.Routing;
+using System.Collections.Generic;
 
 namespace HateoasNet.Abstractions
 {
 	public interface IHateoasLink
 	{
 		string RouteName { get; }
-		RouteValueDictionary GetRouteDictionary(object routeData);
+		IDictionary<string, object> GetRouteDictionary(object routeData);
 		bool IsDisplayable(object routeData);
 	}
 
-	public interface IHateoasLink<out T> : IHateoasLink where T : class
+	public interface IHateoasLink<T> : IHateoasLink where T : class
 	{
+		Func<T, bool> PredicateFunction { get; }
+		Func<T, IDictionary<string, object>> RouteDictionaryFunction { get; }
+		
 		IHateoasLink<T> HasRouteData(Func<T, object> routeDataFunction);
 		IHateoasLink<T> HasConditional(Func<T, bool> predicate);
 	}

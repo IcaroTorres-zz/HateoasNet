@@ -1,9 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1; netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1; netstandard2.0; net472;</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
+        <PackageVersion>0.0.1</PackageVersion>
+        <Title>HateoasNet</Title>
+        <Authors>Icaro Torres</Authors>
+        <Description>.Net Library for ease output formatting Json responses with HATEOAS. Compatible with .Net Core 3.1 and Net Standard 2.0</Description>
+        <PackageProjectUrl>https://github.com/icarotorres/HateoasNet</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/icarotorres/HateoasNet.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>net-standard, net-core, json, hateoas, api-rest, hateoas-response, hateoasnet</PackageTags>
     </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>$(MSBuildProjectName).Tests.NetCore</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>$(MSBuildProjectName).Tests.NetFull</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="System.Text.Json" Version="4.7.1" />
@@ -16,6 +34,12 @@
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'NET472'">
+        <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.0" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     </ItemGroup>
 
 </Project>

@@ -57,34 +57,39 @@ namespace Sample
 						invites.HasLink("invite-member");
 					})
 
-					// map type with links for single objects using shorthand method
+					// map type with links for single objects
 					.Map<Guild>(guild =>
 					{
-						guild.HasLink("get-guild", g => new {id = g.Id});
-						guild.HasLink("get-members", g => new {guildId = g.Id});
-						guild.HasLink("update-guild", e => new {id = e.Id});
+						guild.HasLink("get-guild").HasRouteData(g => new {id = g.Id});
+						guild.HasLink("get-members").HasRouteData(g => new {guildId = g.Id});
+						guild.HasLink("update-guild").HasRouteData(e => new {id = e.Id});
 					})
+					
 					.Map<Invite>(invite =>
 					{
-						// map type with links for single objects using full shorthand
-						invite.HasLink("accept-invite", e => new {id = e.Id}, e => e.Status == InviteStatuses.Pending);
-						invite.HasLink("decline-invite", e => new {id = e.Id}, e => e.Status == InviteStatuses.Pending);
-						invite.HasLink("cancel-invite", e => new {id = e.Id}, e => e.Status == InviteStatuses.Pending);
+						invite.HasLink("accept-invite")
+							.HasRouteData(e => new {id = e.Id})
+							.HasConditional(e => e.Status == InviteStatuses.Pending);
+						
+						invite.HasLink("decline-invite")
+							.HasRouteData(e => new {id = e.Id})
+							.HasConditional(e => e.Status == InviteStatuses.Pending);
+						
+						invite.HasLink("cancel-invite")
+							.HasRouteData(e => new {id = e.Id})
+							.HasConditional(e => e.Status == InviteStatuses.Pending);
 
-						// map type with links for single objects using inline routeData function
 						invite.HasLink("get-invite").HasRouteData(i => new {id = i.Id});
 						invite.HasLink("get-guild").HasRouteData(i => new {id = i.GuildId});
 						invite.HasLink("get-member").HasRouteData(i => new {id = i.MemberId});
 					})
-
-					// map type with links for single objects using shorthand method
+					
 					.Map<Member>(member =>
 					{
-						member.HasLink("get-member", e => new {id = e.Id});
-						member.HasLink("update-member", e => new {id = e.Id});
+						member.HasLink("get-member").HasRouteData(e => new {id = e.Id});
+						member.HasLink("update-member").HasRouteData(e => new {id = e.Id});
 					})
-
-					// maps type with links for single objects using inline functions for routeData and conditional predicate
+					
 					.Map<Member>(member =>
 					{
 						member

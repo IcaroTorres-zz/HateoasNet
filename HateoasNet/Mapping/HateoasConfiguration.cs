@@ -8,15 +8,23 @@ namespace HateoasNet.Mapping
 {
 	public class HateoasConfiguration : IHateoasConfiguration
 	{
-		private readonly string _genericBuilderName = typeof(IHateoasBuilder<>).Name;
 		private readonly Dictionary<Type, IHateoasMap> _maps = new Dictionary<Type, IHateoasMap>();
 
 		public IEnumerable<IHateoasLink> GetMappedLinks(Type sourceType, object resourceData)
 		{
+			if (sourceType == null) throw new ArgumentNullException(nameof(sourceType));
+
+			if (resourceData == null) throw new ArgumentNullException(nameof(resourceData));
+
 			return _maps[sourceType].GetLinks().Where(link => link.IsDisplayable(resourceData));
 		}
 
-		public IHateoasConfiguration Map<T>(Action<HateoasMap<T>> mapper) where T : class
+		public bool HasMap(Type type)
+		{
+			return _maps.ContainsKey(type);
+		}
+
+		public IHateoasConfiguration Map<T>(Action<IHateoasMap<T>> mapper) where T : class
 		{
 			if (mapper == null) throw new ArgumentNullException(nameof(mapper));
 
@@ -27,6 +35,8 @@ namespace HateoasNet.Mapping
 
 		public IHateoasConfiguration ApplyConfiguration<T>(IHateoasBuilder<T> builder) where T : class
 		{
+			if (builder == null) throw new ArgumentNullException(nameof(builder));
+
 			builder.Build(GetOrInsert<T>());
 
 			return this;
@@ -34,39 +44,41 @@ namespace HateoasNet.Mapping
 
 		public IHateoasConfiguration ApplyConfigurationsFromAssembly(Assembly assembly)
 		{
-			var builderTypes = assembly.GetTypes()
-				.Where(t => t.GetInterfaces()
-					.Any(i => i.IsGenericType && i.Name.Contains(_genericBuilderName))).ToList();
+			if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-			builderTypes.ForEach(builderType =>
+			var builders = assembly.GetTypes()
+				.Where(t => t.GetInterfaces().Any(i => i.Name.Contains(typeof(IHateoasBuilder<>).Name))).ToList();
+
+			if (!builders.Any())
+				throw new TargetException($"No implementation of 'IHateoasBuilder' found in assembly '{assembly.FullName}'.");
+
+			builders.ForEach(builderType =>
 			{
-				if (!(builderType.GetInterfaces().SingleOrDefault(i => i.Name.Contains(_genericBuilderName)) is {}
-					interfaceType)) return;
-
+				var interfaceType = builderType.GetInterfaces().Single();
 				var targetType = interfaceType.GetGenericArguments().First();
+				var hateoasMap = GetOrInsert(targetType);
 				var builder = Activator.CreateInstance(builderType);
 				var buildMethod = builderType.GetMethod(nameof(IHateoasBuilder<object>.Build));
-				var hateoasMap = GetOrInsert(targetType);
 				buildMethod.Invoke(builder, new object[] {hateoasMap});
 			});
 
 			return this;
 		}
 
-		private HateoasMap<T> GetOrInsert<T>() where T : class
+		internal IHateoasMap<T> GetOrInsert<T>() where T : class
 		{
 			var targetType = typeof(T);
 
 			if (!_maps.ContainsKey(targetType)) _maps.Add(targetType, new HateoasMap<T>());
 
-			return (HateoasMap<T>) _maps[targetType];
+			return _maps[targetType] as IHateoasMap<T>;
 		}
 
-		private IHateoasMap GetOrInsert(Type targetType)
+		internal IHateoasMap GetOrInsert(Type targetType)
 		{
 			if (_maps.ContainsKey(targetType)) return _maps[targetType];
 			var hateoasMapType = typeof(HateoasMap<>).MakeGenericType(targetType);
-			_maps.Add(targetType, (IHateoasMap) Activator.CreateInstance(hateoasMapType));
+			_maps.Add(targetType, Activator.CreateInstance(hateoasMapType) as IHateoasMap);
 
 			return _maps[targetType];
 		}

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿#if !NET472
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HateoasNet.Abstractions;
@@ -34,3 +35,4 @@ namespace HateoasNet.Formatting
 		}
 	}
 }
+#endif
