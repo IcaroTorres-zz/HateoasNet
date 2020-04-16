@@ -1,6 +1,5 @@
-﻿#if NET472
-using System.Web.Routing;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,17 +12,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using HateoasNet.Abstractions;
 
-namespace HateoasNet.Formatting
+namespace HateoasNet.Framework.Formatting
 {
 	public class HateoasMediaTypeFormatter : MediaTypeFormatter
 	{
 		private readonly IHateoasConfiguration _hateoasConfiguration;
-		private readonly IHateoasWriter _hateoasWriter;
+		private readonly IHateoasSerializer _hateoasSerializer;
+		private readonly IResourceFactory _resourceFactory;
 
-		public HateoasMediaTypeFormatter(IHateoasConfiguration hateoasConfiguration, IHateoasWriter hateoasWriter)
+		public HateoasMediaTypeFormatter(IHateoasConfiguration hateoasConfiguration, 
+			IResourceFactory resourceFactory,
+			IHateoasSerializer hateoasSerializer)
 		{
 			_hateoasConfiguration = hateoasConfiguration;
-			_hateoasWriter = hateoasWriter;
+			_resourceFactory = resourceFactory;
+			_hateoasSerializer = hateoasSerializer;
+			
 			SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json+hateoas"));
 
 			SupportedEncodings.Add(new UTF8Encoding(false));
@@ -49,8 +53,13 @@ namespace HateoasNet.Formatting
 
 			var effectiveEncoding = SelectCharacterEncoding(content.Headers);
 			using var writer = new StreamWriter(writeStream, effectiveEncoding);
-			await writer.WriteAsync(_hateoasWriter.Write(value, type));
+			var resource = value switch
+			{
+				IPagination pagination => _resourceFactory.Create(pagination, type),
+				IEnumerable enumerable => _resourceFactory.Create(enumerable, type),
+				_ => _resourceFactory.Create(value, type)
+			};
+			await writer.WriteAsync(_hateoasSerializer.SerializeResource(resource));
 		}
 	}
 }
-#endif
