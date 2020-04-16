@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HateoasNet.Core.Sample.JsonData;
+using HateoasNet.Core.Sample.Models;
 using Microsoft.AspNetCore.Mvc;
-using Sample.JsonData;
-using Sample.Models;
 
-namespace Sample.Controllers
+namespace HateoasNet.Core.Sample.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]

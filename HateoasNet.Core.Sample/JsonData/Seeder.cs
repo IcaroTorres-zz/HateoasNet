@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using HateoasNet.Converters;
+using HateoasNet.Core.Serialization;
 
-namespace Sample.JsonData
+namespace HateoasNet.Core.Sample.JsonData
 {
 	public class Seeder
 	{

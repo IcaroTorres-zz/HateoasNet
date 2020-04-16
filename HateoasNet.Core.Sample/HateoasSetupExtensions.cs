@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using HateoasNet.Core.DependencyInjection;
+using HateoasNet.Core.Sample.HateoasMaps;
+using HateoasNet.Core.Sample.Models;
 using HateoasNet.Resources;
 using Microsoft.Extensions.DependencyInjection;
-using Sample.HateoasMaps;
-using Sample.Models;
 
-namespace Sample
+namespace HateoasNet.Core.Sample
 {
 	public static class HateoasSetupExtensions
 	{

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Sample.Models
+namespace HateoasNet.Core.Sample.Models
 {
 	public class Guild
 	{

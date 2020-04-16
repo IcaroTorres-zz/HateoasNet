@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using HateoasNet.Abstractions;
-using Sample.Models;
+using HateoasNet.Core.Sample.Models;
 
-namespace Sample.HateoasMaps
+namespace HateoasNet.Core.Sample.HateoasMaps
 {
 	public class ListGuildHateoas : IHateoasBuilder<List<Guild>>
 	{

@@ -1,8 +1,8 @@
 ﻿using HateoasNet.Abstractions;
+using HateoasNet.Core.Sample.Models;
 using HateoasNet.Resources;
-using Sample.Models;
 
-namespace Sample.HateoasMaps
+namespace HateoasNet.Core.Sample.HateoasMaps
 {
 	public class PaginationInviteHateoas : IHateoasBuilder<Pagination<Invite>>
 	{
