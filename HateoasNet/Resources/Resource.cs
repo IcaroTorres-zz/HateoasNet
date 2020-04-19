@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace HateoasNet.Resources
 {
@@ -10,7 +9,7 @@ namespace HateoasNet.Resources
 			Data = data;
 		}
 
-		[JsonPropertyName("data")] public virtual object Data { get; }
-		[JsonPropertyName("links")] public virtual List<ResourceLink> Links { get; } = new List<ResourceLink>();
+		public virtual object Data { get; }
+		public List<ResourceLink> Links { get; } = new List<ResourceLink>();
 	}
 }
