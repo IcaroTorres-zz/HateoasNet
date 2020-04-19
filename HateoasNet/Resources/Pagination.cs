@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 using HateoasNet.Abstractions;
 
 namespace HateoasNet.Resources
@@ -9,15 +8,18 @@ namespace HateoasNet.Resources
 	{
 		public Pagination(IEnumerable<T> data, long count, int pageSize, int page = 1)
 		{
-			Enumeration = data;
+			Data = data;
 			Count = count;
 			PageSize = pageSize;
 			Page = page;
 		}
-		
-		[JsonIgnore]
-		public virtual IEnumerable Enumeration { get; }
-		public IEnumerable<T> Data => Enumeration as IEnumerable<T>;
+
+		public virtual IEnumerable GetEnumeration()
+		{
+			return Data;
+		}
+
+		public IEnumerable<T> Data { get; }
 		public long Count { get; }
 		public int PageSize { get; }
 		public int Page { get; }
