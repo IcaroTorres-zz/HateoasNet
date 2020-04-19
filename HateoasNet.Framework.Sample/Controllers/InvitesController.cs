@@ -8,7 +8,7 @@ using HateoasNet.Resources;
 
 namespace HateoasNet.Framework.Sample.Controllers
 {
-	[Route("[controller]")]
+	[RoutePrefix("invites")]
 	public class InvitesController : ApiController
 	{
 		private readonly List<Invite> _invites;
@@ -18,26 +18,30 @@ namespace HateoasNet.Framework.Sample.Controllers
 			_invites = seeder.Seed<Invite>();
 		}
 
-		[HttpGet, Route("{id:Guid}", Name = "get-invite")]
+		[HttpGet]
+		[Route("{id:Guid}", Name = "get-invite")]
 		public IHttpActionResult Get(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
 			return invite != null ? Ok(invite) : NotFound() as IHttpActionResult;
 		}
 
-		[HttpGet, Route(Name = "get-invites")]
+		[HttpGet]
+		[Route(Name = "get-invites")]
 		public IHttpActionResult Get(int pageSize = 5)
 		{
 			return Ok(new Pagination<Invite>(_invites.Take(pageSize), _invites.Count, pageSize));
 		}
 
-		[HttpPost, Route(Name = "invite-member")]
+		[HttpPost]
+		[Route(Name = "invite-member")]
 		public IHttpActionResult Post([FromBody] Invite invite)
 		{
 			return CreatedAtRoute("get-invite", new {id = invite.Id}, invite);
 		}
 
-		[HttpPatch, Route("{id}/accept", Name = "accept-invite")]
+		[HttpPatch]
+		[Route("{id}/accept", Name = "accept-invite")]
 		public IHttpActionResult Accept(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
@@ -46,7 +50,8 @@ namespace HateoasNet.Framework.Sample.Controllers
 			return Ok(invite);
 		}
 
-		[HttpPatch, Route("{id}/decline", Name = "decline-invite")]
+		[HttpPatch]
+		[Route("{id}/decline", Name = "decline-invite")]
 		public IHttpActionResult Decline(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
@@ -55,7 +60,8 @@ namespace HateoasNet.Framework.Sample.Controllers
 			return Ok(invite);
 		}
 
-		[HttpPatch, Route("{id}/cancel", Name = "cancel-invite")]
+		[HttpPatch]
+		[Route("{id}/cancel", Name = "cancel-invite")]
 		public IHttpActionResult Cancel(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
