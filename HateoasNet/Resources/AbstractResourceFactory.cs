@@ -8,22 +8,22 @@ namespace HateoasNet.Resources
 {
 	public abstract class AbstractResourceFactory : IResourceFactory
 	{
-		public virtual Resource Create(object source, Type objectType)
+		public virtual Resource Create(object source, Type type)
 		{
-			return ApplyLinks(new SingleResource(source), objectType);
+			return ApplyLinks(new SingleResource(source), type);
 		}
 
-		public virtual Resource Create(IEnumerable source, Type objectType)
+		public virtual Resource Create(IEnumerable source, Type type)
 		{
-			return ApplyLinks(EnumerateToResources(source, objectType), objectType);
+			return ApplyLinks(EnumerateToResources(source, type), type);
 		}
-		
-		public virtual Resource Create(IPagination source, Type objectType)
+
+		public virtual Resource Create(IPagination source, Type type)
 		{
-			var singleResources = EnumerateToResources(source.Enumeration, objectType);
+			var singleResources = EnumerateToResources(source.GetEnumeration(), type);
 			var resourcesPagination = new Pagination<Resource>(singleResources, source.Count, source.PageSize, source.Page);
-			
-			return ApplyLinks(resourcesPagination, objectType);
+
+			return ApplyLinks(resourcesPagination, type);
 		}
 
 		public virtual Resource ApplyLinks(Resource source, Type type)
@@ -36,16 +36,16 @@ namespace HateoasNet.Resources
 			var enumerableResource = new EnumerableResource<Resource>(source);
 			return ApplyHateoasLinks(enumerableResource, type);
 		}
-		
+
 		public virtual Resource ApplyLinks(Pagination<Resource> source, Type type)
 		{
 			var paginationResource = new PaginationResource<Resource>(source);
 			return ApplyHateoasLinks(paginationResource, type);
 		}
 
-		private IEnumerable<Resource> EnumerateToResources(IEnumerable source, Type objectType)
+		private IEnumerable<Resource> EnumerateToResources(IEnumerable source, Type type)
 		{
-			return (from object item in source select Create(item, objectType.GetGenericArguments().First()));
+			return from object item in source select Create(item, type.GetGenericArguments().First());
 		}
 
 		protected abstract Resource ApplyHateoasLinks(Resource resource, Type sourceType);
