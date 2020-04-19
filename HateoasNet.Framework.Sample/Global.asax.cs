@@ -1,12 +1,18 @@
-﻿using System.Web.Http;
+﻿using System.Web;
+using System.Web.Http;
 
 namespace HateoasNet.Framework.Sample
 {
-	public class MvcApplication : System.Web.HttpApplication
+	public class MvcApplication : HttpApplication
 	{
 		protected void Application_Start()
 		{
-			ApiConfig.Register(GlobalConfiguration.Configuration);
+			GlobalConfiguration.Configure(config =>
+			{
+				FormattersConfig.RegisterFormatters(config);
+
+				RouteConfig.RegisterRoutes(config);
+			});
 		}
 	}
 }
