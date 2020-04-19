@@ -25,6 +25,7 @@
           <e p="IHateoasSerializer.cs" t="Include" />
           <e p="IPagination.cs" t="Include" />
           <e p="IResourceFactory.cs" t="Include" />
+          <e p="IResourceLinkFactory.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="HateoasNet.csproj" t="IncludeRecursive" />
@@ -144,6 +145,7 @@
         </e>
       </e>
       <e p="HateoasNet.Framework" t="IncludeRecursive">
+        <e p="app.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="DependencyInjection" t="Include">
           <e p="HateoasExtensions.cs" t="Include" />
@@ -163,8 +165,8 @@
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
         <e p="Resources" t="Include">
-          <e p="Pagination.cs" t="Include" />
           <e p="ResourceFactory.cs" t="Include" />
+          <e p="ResourceLinkFactory.cs" t="Include" />
         </e>
         <e p="Serialization" t="Include">
           <e p="HateoasSerializer.cs" t="Include" />
@@ -173,7 +175,11 @@
       <e p="HateoasNet.Framework.Sample" t="IncludeRecursive">
         <e p="App_Data" t="Include" />
         <e p="App_Start" t="Include">
-          <e p="ApiConfig.cs" t="Include" />
+          <e p="FormattersConfig.cs" t="Include" />
+          <e p="HateoasConfig.cs" t="Include" />
+          <e p="RouteConfig.cs" t="Include" />
+          <e p="UnityConfig.cs" t="Include" />
+          <e p="UnityWebApiActivator.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
@@ -214,6 +220,7 @@
         <e p="Web.Release.config" t="Include" />
       </e>
       <e p="HateoasNet.Framework.Tests" t="IncludeRecursive">
+        <e p="app.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="HateoasNet.Framework.Tests.csproj" t="IncludeRecursive" />
         <e p="Mapping" t="Include">
