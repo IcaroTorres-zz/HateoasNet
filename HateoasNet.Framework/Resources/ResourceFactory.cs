@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.Http.Routing;
 using HateoasNet.Abstractions;
 using HateoasNet.Resources;
 
@@ -8,21 +7,21 @@ namespace HateoasNet.Framework.Resources
 	public class ResourceFactory : AbstractResourceFactory
 	{
 		private readonly IHateoasConfiguration _hateoasConfiguration;
-		private readonly UrlHelper _urlHelper;
+		private readonly IResourceLinkFactory _resourceLinkFactory;
 
-		public ResourceFactory(IHateoasConfiguration hateoasConfiguration, UrlHelper urlHelper)
+		public ResourceFactory(IHateoasConfiguration hateoasConfiguration, IResourceLinkFactory resourceLinkFactory)
 		{
 			_hateoasConfiguration = hateoasConfiguration;
-			_urlHelper = urlHelper;
+			_resourceLinkFactory = resourceLinkFactory;
 		}
-		
+
 		protected override Resource ApplyHateoasLinks(Resource resource, Type sourceType)
 		{
-			foreach (var link in _hateoasConfiguration.GetMappedLinks(sourceType, resource.Data))
+			foreach (var hateoasLink in _hateoasConfiguration.GetMappedLinks(sourceType, resource.Data))
 			{
-				var method = _urlHelper.Request.Method.ToString();
-				var url = _urlHelper.Link(link.RouteName, link.GetRouteDictionary(resource.Data));
-				resource.Links.Add(new ResourceLink(link.RouteName, url, method));
+				var createdLink = _resourceLinkFactory.Create(resource, hateoasLink);
+
+				resource.Links.Add(createdLink);
 			}
 
 			return resource;
