@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,23 +19,29 @@ namespace HateoasNet.Framework.Formatting
 		private readonly IHateoasSerializer _hateoasSerializer;
 		private readonly IResourceFactory _resourceFactory;
 
-		public HateoasMediaTypeFormatter(IHateoasConfiguration hateoasConfiguration, 
+		public HateoasMediaTypeFormatter(IHateoasConfiguration hateoasConfiguration,
 			IResourceFactory resourceFactory,
 			IHateoasSerializer hateoasSerializer)
 		{
 			_hateoasConfiguration = hateoasConfiguration;
 			_resourceFactory = resourceFactory;
 			_hateoasSerializer = hateoasSerializer;
-			
+
 			SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json+hateoas"));
 
 			SupportedEncodings.Add(new UTF8Encoding(false));
 			SupportedEncodings.Add(Encoding.GetEncoding("iso-8859-1"));
 		}
 
-		public override bool CanReadType(Type type) => false;
+		public override bool CanReadType(Type type)
+		{
+			return false;
+		}
 
-		public override bool CanWriteType(Type type) => _hateoasConfiguration.HasMap(type);
+		public override bool CanWriteType(Type type)
+		{
+			return _hateoasConfiguration.HasMap(type);
+		}
 
 		public override async Task WriteToStreamAsync(Type type,
 			object value,
@@ -45,11 +50,12 @@ namespace HateoasNet.Framework.Formatting
 			TransportContext transportContext,
 			CancellationToken cancellationToken)
 		{
-			var requiredHeader = new KeyValuePair<string, IEnumerable<string>>("Accept", new[] {"application/json+hateoas"});
+			const string requiredHeader = "application/json+hateoas";
 			var notSupportedMessage =
 				$"The request using '{nameof(HateoasMediaTypeFormatter)}' does not have required Accept header '{SupportedMediaTypes.Last()}'.";
 
-			if (!content.Headers.Contains(requiredHeader)) throw new NotSupportedException(notSupportedMessage);
+			if (!content.Headers.Any(x => x.Value.Any(header => header.Contains(requiredHeader))))
+				throw new NotSupportedException(notSupportedMessage);
 
 			var effectiveEncoding = SelectCharacterEncoding(content.Headers);
 			using var writer = new StreamWriter(writeStream, effectiveEncoding);
@@ -59,6 +65,7 @@ namespace HateoasNet.Framework.Formatting
 				IEnumerable enumerable => _resourceFactory.Create(enumerable, type),
 				_ => _resourceFactory.Create(value, type)
 			};
+
 			await writer.WriteAsync(_hateoasSerializer.SerializeResource(resource));
 		}
 	}
