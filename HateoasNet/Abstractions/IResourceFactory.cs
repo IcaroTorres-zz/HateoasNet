@@ -7,9 +7,9 @@ namespace HateoasNet.Abstractions
 {
 	public interface IResourceFactory
 	{
-		Resource Create(object source, Type objectType);
-		Resource Create(IEnumerable source, Type objectType);
-		Resource Create(IPagination source, Type objectType);
+		Resource Create(object source, Type type);
+		Resource Create(IEnumerable source, Type type);
+		Resource Create(IPagination source, Type type);
 		Resource ApplyLinks(Resource source, Type type);
 		Resource ApplyLinks(IEnumerable<Resource> source, Type type);
 		Resource ApplyLinks(Pagination<Resource> source, Type type);
