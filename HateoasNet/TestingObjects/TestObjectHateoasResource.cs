@@ -2,11 +2,11 @@
 
 namespace HateoasNet.TestingObjects
 {
-	public class TestObjectHateoas : IHateoasBuilder<TestObject>
+	public class TestObjectHateoasResource : IHateoasResourceConfiguration<TestObject>
 	{
-		public void Build(IHateoasMap<TestObject> map)
+		public void Configure(IHateoasResource<TestObject> resource)
 		{
-			map
+			resource
 				.HasLink("test")
 				.HasRouteData(t => new {id = t.Value.ToString()})
 				.HasConditional(t => t.Conditional);
