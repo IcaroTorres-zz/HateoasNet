@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using HateoasNet.Abstractions;
-using HateoasNet.Mapping;
+using HateoasNet.Configurations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
