@@ -132,12 +132,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HateoasMaps\GuildHateoas.cs" />
-    <Compile Include="HateoasMaps\InviteHateoas.cs" />
-    <Compile Include="HateoasMaps\ListGuildHateoas.cs" />
-    <Compile Include="HateoasMaps\ListMemberHateoas.cs" />
-    <Compile Include="HateoasMaps\MemberHateoas.cs" />
-    <Compile Include="HateoasMaps\PaginationInviteHateoas.cs" />
+    <Compile Include="HateoasConfigurations\GuildHateoasResource.cs" />
+    <Compile Include="HateoasConfigurations\InviteHateoasResource.cs" />
+    <Compile Include="HateoasConfigurations\ListGuildHateoasResource.cs" />
+    <Compile Include="HateoasConfigurations\ListMemberHateoasResource.cs" />
+    <Compile Include="HateoasConfigurations\MemberHateoasResource.cs" />
+    <Compile Include="HateoasConfigurations\PaginationInviteHateoasResource.cs" />
     <Compile Include="JsonData\Seeder.cs" />
     <Compile Include="Models\Guild.cs" />
     <Compile Include="Models\Invite.cs" />
