@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using HateoasNet.Core.DependencyInjection;
-using HateoasNet.Core.Sample.HateoasMaps;
-using HateoasNet.Core.Sample.Models;
 using HateoasNet.Resources;
+using HateoasNet.Core.DependencyInjection;
+using HateoasNet.Core.Sample.HateoasConfigurations;
+using HateoasNet.Core.Sample.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HateoasNet.Core.Sample
@@ -13,7 +13,7 @@ namespace HateoasNet.Core.Sample
 		{
 			// setup applying map configurations from classes in separated files found in a given assembly
 			return services.ConfigureHateoasMap(
-				config => config.ApplyConfigurationsFromAssembly(typeof(GuildHateoas).Assembly));
+				config => config.ApplyConfigurationsFromAssembly(typeof(GuildHateoasConfiguration).Assembly));
 		}
 
 		public static IServiceCollection HateoasSeparatedFilesMapping(this IServiceCollection services)
@@ -21,12 +21,12 @@ namespace HateoasNet.Core.Sample
 			// setup applying map configurations from classes in separated files
 			return services.ConfigureHateoasMap(config =>
 			{
-				config.ApplyConfiguration(new GuildHateoas())
-					.ApplyConfiguration(new ListGuildHateoas())
-					.ApplyConfiguration(new MemberHateoas())
-					.ApplyConfiguration(new ListMemberHateoas())
-					.ApplyConfiguration(new InviteHateoas())
-					.ApplyConfiguration(new PaginationInviteHateoas());
+				config.ApplyConfiguration(new GuildHateoasConfiguration())
+					.ApplyConfiguration(new ListGuildHateoasConfiguration())
+					.ApplyConfiguration(new MemberHateoasConfiguration())
+					.ApplyConfiguration(new ListMemberHateoasConfiguration())
+					.ApplyConfiguration(new InviteHateoasConfiguration())
+					.ApplyConfiguration(new PaginationInviteHateoasConfiguration());
 			});
 		}
 
@@ -36,14 +36,14 @@ namespace HateoasNet.Core.Sample
 			{
 				config
 					// map All Api returns of type List<Guild> to links with no routeData and no conditional predicate
-					.Map<List<Guild>>(guilds =>
+					.Configure<List<Guild>>(guilds =>
 					{
 						guilds.HasLink("get-guilds");
 						guilds.HasLink("create-guild");
 					})
 
 					// map All Api returns of type List<Member> to links with no routeData and no conditional predicate
-					.Map<List<Member>>(members =>
+					.Configure<List<Member>>(members =>
 					{
 						members.HasLink("get-members");
 						members.HasLink("invite-member");
@@ -51,21 +51,21 @@ namespace HateoasNet.Core.Sample
 					})
 
 					// map type with links for Pagination with no routeData and no conditional predicate
-					.Map<Pagination<Invite>>(invites =>
+					.Configure<Pagination<Invite>>(invites =>
 					{
 						invites.HasLink("get-invites");
 						invites.HasLink("invite-member");
 					})
 
 					// map type with links for single objects
-					.Map<Guild>(guild =>
+					.Configure<Guild>(guild =>
 					{
 						guild.HasLink("get-guild").HasRouteData(g => new {id = g.Id});
 						guild.HasLink("get-members").HasRouteData(g => new {guildId = g.Id});
 						guild.HasLink("update-guild").HasRouteData(e => new {id = e.Id});
 					})
 					
-					.Map<Invite>(invite =>
+					.Configure<Invite>(invite =>
 					{
 						invite.HasLink("accept-invite")
 							.HasRouteData(e => new {id = e.Id})
@@ -84,13 +84,13 @@ namespace HateoasNet.Core.Sample
 						invite.HasLink("get-member").HasRouteData(i => new {id = i.MemberId});
 					})
 					
-					.Map<Member>(member =>
+					.Configure<Member>(member =>
 					{
 						member.HasLink("get-member").HasRouteData(e => new {id = e.Id});
 						member.HasLink("update-member").HasRouteData(e => new {id = e.Id});
 					})
 					
-					.Map<Member>(member =>
+					.Configure<Member>(member =>
 					{
 						member
 							.HasLink("get-guild")

@@ -1,31 +1,31 @@
 ﻿using HateoasNet.Abstractions;
 using HateoasNet.Core.Sample.Models;
 
-namespace HateoasNet.Core.Sample.HateoasMaps
+namespace HateoasNet.Core.Sample.HateoasConfigurations
 {
-	public class MemberHateoas : IHateoasBuilder<Member>
+	public class MemberHateoasConfiguration : IHateoasResourceConfiguration<Member>
 	{
-		public void Build(IHateoasMap<Member> map)
+		public void Configure(IHateoasResource<Member> resource)
 		{
-			map.HasLink("get-member").HasRouteData(e => new {id = e.Id});
-			map.HasLink("update-member").HasRouteData(e => new {id = e.Id});
+			resource.HasLink("get-member").HasRouteData(e => new {id = e.Id});
+			resource.HasLink("update-member").HasRouteData(e => new {id = e.Id});
 
-			map
+			resource
 				.HasLink("get-guild")
 				.HasRouteData(e => new {id = e.GuildId})
 				.HasConditional(e => e.GuildId != null);
 
-			map
+			resource
 				.HasLink("promote-member")
 				.HasRouteData(e => new {id = e.Id})
 				.HasConditional(e => e.GuildId != null && !e.IsGuildMaster);
 
-			map
+			resource
 				.HasLink("demote-member")
 				.HasRouteData(e => new {id = e.Id})
 				.HasConditional(e => e.GuildId != null && e.IsGuildMaster);
 
-			map.HasLink("leave-guild")
+			resource.HasLink("leave-guild")
 				.HasRouteData(e => new {id = e.Id})
 				.HasConditional(e => e.GuildId != null);
 		}
