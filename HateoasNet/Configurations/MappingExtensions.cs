@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace HateoasNet.Mapping
+namespace HateoasNet.Configurations
 {
 	public static class MappingExtensions
 	{

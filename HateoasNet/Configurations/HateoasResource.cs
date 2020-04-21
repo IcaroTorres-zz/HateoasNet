@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HateoasNet.Abstractions;
 
-namespace HateoasNet.Mapping
+namespace HateoasNet.Configurations
 {
 	/// <inheritdoc cref="IHateoasResource"/>
 	public sealed class HateoasResource<T> : IHateoasResource<T> where T : class

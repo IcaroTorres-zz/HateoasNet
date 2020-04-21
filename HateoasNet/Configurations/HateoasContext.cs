@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using HateoasNet.Abstractions;
 
-namespace HateoasNet.Mapping
+namespace HateoasNet.Configurations
 {
 	
 	///<inheritdoc cref="IHateoasContext"/>
