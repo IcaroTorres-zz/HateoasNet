@@ -3,24 +3,24 @@
 namespace HateoasNet.Abstractions
 {
 	/// <summary>
-	/// Custom interface for creating urls for routes
+	/// Represents an implementation which builds Urls of endpoint routes using Its names and route values.
 	/// </summary>
 	public interface IUrlBuilder
 	{
 		/// <summary>
-		/// Build an url string for a route with given name and values from route data.
+		/// Builds an url <see cref="string"/> with the <paramref name="routeName"/> and <paramref name="routeData"/>.
 		/// </summary>
 		/// <param name="routeName">Name of desired route to discover the url.</param>
-		/// <param name="routeData">Route data object to look for parameters and query strings.</param>
-		/// <returns>Generated Url string.</returns>
+		/// <param name="routeData">Route data object to look for route parameters and query strings.</param>
+		/// <returns>Generated Url <see cref="string"/> value.</returns>
 		public string Build(string routeName, object routeData);
 
 		/// <summary>
-		/// Build an url string for a route with given name and values from route data.
+		/// Builds an url <see cref="string"/> with the <paramref name="routeName"/> and <paramref name="routeDictionary"/>.
 		/// </summary>
 		/// <param name="routeName">Name of desired route to discover the url.</param>
 		/// <param name="routeDictionary">Route dictionary to look for parameters and query strings.</param>
-		/// <returns>Generated Url string.</returns>
+		/// <returns>Generated Url <see cref="string"/> value.</returns>
 		public string Build(string routeName, IDictionary<string, object> routeDictionary);
 	}
 }
