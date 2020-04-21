@@ -1,16 +1,22 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace HateoasNet.Resources
 {
+	/// <summary>
+	/// Represents an formatted enumeration wrapper of <see cref="Resource"/> wrapper items which inherit from <see cref="Resource"/>.
+	/// </summary>
 	public class EnumerableResource<T> : Resource where T : Resource
 	{
 		public EnumerableResource(IEnumerable<T> data) : base(data)
 		{
-			DataList = data.ToList();
+			EnumerableData = data;
 		}
 
-		private List<T> DataList { get; }
-		public override object Data => DataList;
+		private IEnumerable<T> EnumerableData { get; }
+
+		/// <summary>
+		/// The <see cref="IEnumerable{Resource}"/> items as <see cref="object"/>.
+		/// </summary>
+		public override object Data => EnumerableData;
 	}
 }
