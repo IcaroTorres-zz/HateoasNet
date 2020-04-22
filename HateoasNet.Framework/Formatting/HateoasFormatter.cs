@@ -15,15 +15,15 @@ namespace HateoasNet.Framework.Formatting
 {
 	public class HateoasMediaTypeFormatter : MediaTypeFormatter
 	{
-		private readonly IHateoasConfiguration _hateoasConfiguration;
-		private readonly IHateoasSerializer _hateoasSerializer;
+		private readonly IHateoasContext _hateoasContext;
 		private readonly IResourceFactory _resourceFactory;
+		private readonly IHateoasSerializer _hateoasSerializer;
 
-		public HateoasMediaTypeFormatter(IHateoasConfiguration hateoasConfiguration,
+		public HateoasMediaTypeFormatter(IHateoasContext hateoasContext,
 			IResourceFactory resourceFactory,
 			IHateoasSerializer hateoasSerializer)
 		{
-			_hateoasConfiguration = hateoasConfiguration;
+			_hateoasContext = hateoasContext;
 			_resourceFactory = resourceFactory;
 			_hateoasSerializer = hateoasSerializer;
 
@@ -40,7 +40,7 @@ namespace HateoasNet.Framework.Formatting
 
 		public override bool CanWriteType(Type type)
 		{
-			return _hateoasConfiguration.HasMap(type);
+			return _hateoasContext.HasSet(type);
 		}
 
 		public override async Task WriteToStreamAsync(Type type,
