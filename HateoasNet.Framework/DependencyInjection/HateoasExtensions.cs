@@ -1,6 +1,6 @@
 ﻿using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Framework.Mapping;
+using HateoasNet.Configurations;
 
 namespace HateoasNet.Framework.DependencyInjection
 {
@@ -9,18 +9,14 @@ namespace HateoasNet.Framework.DependencyInjection
 		/// <summary>
 		///   Configure Hateoas Resource mapping in .Net Framework (Full) Web Api
 		/// </summary>
-		/// <param name="mapConfiguration"></param>
+		/// <param name="configuration"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentNullException"></exception>
-		public static IHateoasConfiguration ConfigureHateoasMap(
-			Func<IHateoasConfiguration, IHateoasConfiguration> mapConfiguration)
+		public static IHateoasContext ConfigureHateoas(Func<IHateoasContext, IHateoasContext> configuration)
 		{
-			if (mapConfiguration == null) throw new ArgumentNullException(nameof(mapConfiguration));
+			if (configuration == null) throw new ArgumentNullException(nameof(configuration));
 
-			var hateoasConfiguration = new HateoasConfiguration();
-			mapConfiguration(hateoasConfiguration);
-
-			return hateoasConfiguration;
+			return configuration(new HateoasContext());
 		}
 	}
 }
