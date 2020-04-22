@@ -20,7 +20,6 @@ namespace HateoasNet.Factories
 		public ResourceLink Create(string routeName, IDictionary<string, object> routeValuesDictionary)
 		{
 			if (routeName == null) throw new ArgumentNullException(nameof(routeName));
-			if (routeValuesDictionary == null) throw new ArgumentNullException(nameof(routeValuesDictionary));
 
 			return new ResourceLink(routeName, 
 				_urlBuilder.Build(routeName, routeValuesDictionary),
