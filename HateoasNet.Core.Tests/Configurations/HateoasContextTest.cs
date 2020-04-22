@@ -62,13 +62,13 @@ namespace HateoasNet.Core.Tests.Configurations
 		[Fact]
 		public void NotAllowNull_mapper_On_Map__TestObject()
 		{
-			Assert.Throws<ArgumentNullException>("mapper", () => _sut.Configure<TestObject>(null));
+			Assert.Throws<ArgumentNullException>("resource", () => _sut.Configure<TestObject>(null));
 		}
 
 		[Fact]
 		public void NotAllowNull_builder_On_ApplyConfiguration__TestObject()
 		{
-			Assert.Throws<ArgumentNullException>("builder", () => _sut.ApplyConfiguration<TestObject>(null));
+			Assert.Throws<ArgumentNullException>("configuration", () => _sut.ApplyConfiguration<TestObject>(null));
 		}
 		
 		[Fact]
