@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using HateoasNet.Abstractions;
-using HateoasNet.Core.Mapping;
+using HateoasNet.Configurations;
 using HateoasNet.TestingObjects;
 using Xunit;
 
-namespace HateoasNet.Core.Tests.Mapping
+namespace HateoasNet.Core.Tests.Configurations
 {
 	public class HateoasMapTest
 	{
-		private readonly IHateoasMap<TestObject> _sut;
+		private readonly IHateoasResource<TestObject> _sut;
 
 		public HateoasMapTest()
 		{
-			_sut = new HateoasConfiguration().GetOrInsert<TestObject>();
+			_sut = new HateoasContext().GetOrInsert<TestObject>();
 		}
 
 		[Fact]
 		public void Be_HateoasMap__TestObject()
 		{
-			Assert.IsType<HateoasMap<TestObject>>(_sut);
+			Assert.IsType<HateoasResource<TestObject>>(_sut);
 		}
 
 		[Fact]

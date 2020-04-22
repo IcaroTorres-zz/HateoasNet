@@ -1,11 +1,11 @@
 ﻿using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Core.Mapping;
+using HateoasNet.Configurations;
 using HateoasNet.TestingObjects;
 using Microsoft.AspNetCore.Routing;
 using Xunit;
 
-namespace HateoasNet.Core.Tests.Mapping
+namespace HateoasNet.Core.Tests.Configurations
 {
 	public class HateoasLinkTests
 	{
@@ -15,7 +15,7 @@ namespace HateoasNet.Core.Tests.Mapping
 		public HateoasLinkTests()
 		{
 			_testObject = new TestObject{Value = "test-route"};
-			_sut = new HateoasMap<TestObject>().HasLink(_testObject.Value.ToString());
+			_sut = new HateoasResource<TestObject>().HasLink(_testObject.Value.ToString());
 		}
 		
 		[Fact]
@@ -53,7 +53,7 @@ namespace HateoasNet.Core.Tests.Mapping
 			_sut.HasConditional(x => x.Conditional);
 
 			// assert
-			Assert.Equal(_testObject.Conditional, _sut.IsDisplayable(_testObject));
+			Assert.Equal(_testObject.Conditional, _sut.IsApplicable(_testObject));
 		}
 
 		[Fact]
@@ -71,7 +71,7 @@ namespace HateoasNet.Core.Tests.Mapping
 		[Fact]
 		public void NotAllowNull_routeData_On_IsDisplayable()
 		{
-			Assert.Throws<ArgumentNullException>("routeData", () => _sut.IsDisplayable(null) as object);
+			Assert.Throws<ArgumentNullException>("routeData", () => _sut.IsApplicable(null) as object);
 		}
 		
 		[Fact]
