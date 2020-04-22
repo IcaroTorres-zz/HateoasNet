@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace HateoasNet.Resources
 {
@@ -9,7 +10,7 @@ namespace HateoasNet.Resources
 	{
 		public EnumerableResource(IEnumerable<T> data) : base(data)
 		{
-			EnumerableData = data;
+			EnumerableData = data.ToArray();
 		}
 
 		private IEnumerable<T> EnumerableData { get; }

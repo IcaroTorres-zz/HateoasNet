@@ -11,7 +11,7 @@ namespace HateoasNet.Resources
 	{
 		public PaginationResource(IPagination<T> values) : base(values.Data)
 		{
-			EnumerableData = values.Data;
+			EnumerableData = values.Data.ToArray();
 			Count = values.Count;
 			PageSize = values.PageSize;
 			Page = values.Page;

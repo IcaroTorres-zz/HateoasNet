@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using HateoasNet.Abstractions;
 
 namespace HateoasNet.Resources
@@ -9,13 +10,13 @@ namespace HateoasNet.Resources
 	{
 		public Pagination(IEnumerable<T> data, long count, int pageSize, int page = 1)
 		{
-			Data = data;
+			Data = data.ToArray();
 			Count = count;
 			PageSize = pageSize;
 			Page = page;
 		}
 
-		public virtual IEnumerable GetEnumeration()
+		public IEnumerable GetEnumeration()
 		{
 			return Data;
 		}
