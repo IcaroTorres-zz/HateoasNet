@@ -65,13 +65,13 @@ namespace HateoasNet.Framework.Tests.Configurations
 		[Fact]
 		public void NotAllowNull_routeData_On_GetRouteDictionary()
 		{
-			Assert.Throws<ArgumentNullException>("routeData", () => _sut.GetRouteDictionary(null));
+			Assert.Throws<ArgumentNullException>("resourceData", () => _sut.GetRouteDictionary(null));
 		}
 
 		[Fact]
 		public void NotAllowNull_routeData_On_IsDisplayable()
 		{
-			Assert.Throws<ArgumentNullException>("routeData", () => _sut.IsApplicable(null) as object);
+			Assert.Throws<ArgumentNullException>("resourceData", () => _sut.IsApplicable(null) as object);
 		}
 
 		[Fact]
