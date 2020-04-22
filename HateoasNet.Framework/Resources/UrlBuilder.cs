@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using HateoasNet.Abstractions;
-using HateoasNet.Mapping;
+using HateoasNet.Configurations;
 
 namespace HateoasNet.Framework.Resources
 {
