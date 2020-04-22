@@ -14,17 +14,14 @@ namespace HateoasNet.Core.Formatting
 	{
 		private IResourceFactory _resourceFactory;
 		private IHateoasSerializer _hateoasSerializer;
-
-		public HateoasFormatter()
-		{
-			SupportedMediaTypes.Add("application/json");
-			SupportedMediaTypes.Add("application/json+hateoas");
-		}
-
-		public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer) : this()
+		
+		public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer)
 		{
 			_resourceFactory = resourceFactory;
 			_hateoasSerializer = hateoasSerializer;
+			
+			SupportedMediaTypes.Add("application/json");
+			SupportedMediaTypes.Add("application/json+hateoas");
 		}
 
 		public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
