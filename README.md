@@ -2,11 +2,37 @@
 
 # Description
 
-.Net library for ease output formatting Json responses with HATEOAS.
+.Net library for ease output formatting .net Web Api responses int Json with HATEOAS.
 
-- [x] **Compatibility with .Net Core 3.1 and .Net Standard 2.0**;
-- [x] **Using new System.Text.Json Microsoft .Net Api**;
+## Net Standard Library
+
+- [x] **Features common to both target Platforms**;
+- [x] **Tests on HateoasNet.Configurations namespace**;
+- [ ] **Tests on HateoasNet.Resources namespace**;
+- [ ] **Tests on HateoasNet.Factories namespace**;
+- [x] **XML docs**;
+
+## Net Core 3.1
+
+- [x] **Platform-specific Features**;
 - [x] **Sample API project (output demonstration)**.
+- [ ] **Tests on HateoasNet.Core.DependencyInjection namespace**;
+- [ ] **Tests on HateoasNet.Core.Resources namespace**;
+- [ ] **Tests on HateoasNet.Core.Serialization namespace**;
+- [ ] **Tests on HateoasNet.Core.Formatting namespace**;
+- [ ] **Tests on HateoasNet.Core.Sample.Controllers namespace**;
+- [ ] **XML docs**;
+
+## Net Framework 4.72
+
+- [x] **Platform-specific Features**;
+- [x] **Sample API project (output demonstration)**.
+- [ ] **Tests on HateoasNet.Framework.DependencyInjection namespace**;
+- [ ] **Tests on HateoasNet.Framework.Resources namespace**;
+- [ ] **Tests on HateoasNet.Framework.Serialization namespace**;
+- [ ] **Tests on HateoasNet.Framework.Formatting namespace**;
+- [ ] **Tests on HateoasNet.Core.Sample.Controllers namespace**;
+- [ ] **XML docs**;
 
 # Table of Contents
 
