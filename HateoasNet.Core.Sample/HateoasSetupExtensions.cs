@@ -12,29 +12,27 @@ namespace HateoasNet.Core.Sample
 		public static IServiceCollection HateoasSeparatedFilesUsingAssembly(this IServiceCollection services)
 		{
 			// setup applying map configurations from classes in separated files found in a given assembly
-			return services.ConfigureHateoasMap(
+			return services.ConfigureHateoas(
 				config => config.ApplyConfigurationsFromAssembly(typeof(GuildHateoasConfiguration).Assembly));
 		}
 
 		public static IServiceCollection HateoasSeparatedFilesMapping(this IServiceCollection services)
 		{
 			// setup applying map configurations from classes in separated files
-			return services.ConfigureHateoasMap(config =>
-			{
-				config.ApplyConfiguration(new GuildHateoasConfiguration())
-					.ApplyConfiguration(new ListGuildHateoasConfiguration())
-					.ApplyConfiguration(new MemberHateoasConfiguration())
-					.ApplyConfiguration(new ListMemberHateoasConfiguration())
-					.ApplyConfiguration(new InviteHateoasConfiguration())
-					.ApplyConfiguration(new PaginationInviteHateoasConfiguration());
-			});
+			return services.ConfigureHateoas(config => config
+				.ApplyConfiguration(new GuildHateoasConfiguration())
+				.ApplyConfiguration(new ListGuildHateoasConfiguration())
+				.ApplyConfiguration(new MemberHateoasConfiguration())
+				.ApplyConfiguration(new ListMemberHateoasConfiguration())
+				.ApplyConfiguration(new InviteHateoasConfiguration())
+				.ApplyConfiguration(new PaginationInviteHateoasConfiguration()));
 		}
 
 		public static IServiceCollection HateoasOneFileMapping(this IServiceCollection services)
 		{
-			return services.ConfigureHateoasMap(config =>
+			return services.ConfigureHateoas(config =>
 			{
-				config
+				return config
 					// map All Api returns of type List<Guild> to links with no routeData and no conditional predicate
 					.Configure<List<Guild>>(guilds =>
 					{
@@ -64,17 +62,16 @@ namespace HateoasNet.Core.Sample
 						guild.HasLink("get-members").HasRouteData(g => new {guildId = g.Id});
 						guild.HasLink("update-guild").HasRouteData(e => new {id = e.Id});
 					})
-					
 					.Configure<Invite>(invite =>
 					{
 						invite.HasLink("accept-invite")
 							.HasRouteData(e => new {id = e.Id})
 							.HasConditional(e => e.Status == InviteStatuses.Pending);
-						
+
 						invite.HasLink("decline-invite")
 							.HasRouteData(e => new {id = e.Id})
 							.HasConditional(e => e.Status == InviteStatuses.Pending);
-						
+
 						invite.HasLink("cancel-invite")
 							.HasRouteData(e => new {id = e.Id})
 							.HasConditional(e => e.Status == InviteStatuses.Pending);
@@ -83,13 +80,11 @@ namespace HateoasNet.Core.Sample
 						invite.HasLink("get-guild").HasRouteData(i => new {id = i.GuildId});
 						invite.HasLink("get-member").HasRouteData(i => new {id = i.MemberId});
 					})
-					
 					.Configure<Member>(member =>
 					{
 						member.HasLink("get-member").HasRouteData(e => new {id = e.Id});
 						member.HasLink("update-member").HasRouteData(e => new {id = e.Id});
 					})
-					
 					.Configure<Member>(member =>
 					{
 						member
