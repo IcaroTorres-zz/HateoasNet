@@ -3,37 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HateoasNet.Abstractions;
-using HateoasNet.Framework.Mapping;
+using HateoasNet.Configurations;
 using HateoasNet.TestingObjects;
 using Xunit;
 
-namespace HateoasNet.Framework.Tests.Mapping
+namespace HateoasNet.Framework.Tests.Configurations
 {
 	public class HateoasConfigurationTest
 	{
-		private readonly IHateoasConfiguration _sut;
+		private readonly IHateoasContext _sut;
 
 		public HateoasConfigurationTest()
 		{
-			_sut = new HateoasConfiguration();
+			_sut = new HateoasContext();
 		}
 
 		[Fact]
 		public void Be_HateoasConfiguration()
 		{
-			Assert.IsType<HateoasConfiguration>(_sut);
+			Assert.IsType<HateoasContext>(_sut);
 		}
 
 		private void AssertHateoasLinks()
 		{
-			Assert.IsType<List<IHateoasLink>>(_sut.GetMappedLinks(typeof(TestObject), new TestObject()).ToList());
+			Assert.IsType<List<IHateoasLink>>(_sut.GetApplicableLinks(typeof(TestObject), new TestObject()).ToList());
 		}
 		
 		[Fact]
 		public void Have_HateoasLinks__TestObject__On_GetMappedLinks_When_Map__TestObject()
 		{
 			// act
-			_sut.Map<TestObject>(map => { });
+			_sut.Configure<TestObject>(map => { });
 			
 			// assert
 			AssertHateoasLinks();
@@ -43,7 +43,7 @@ namespace HateoasNet.Framework.Tests.Mapping
 		public void Have_HateoasLinks__TestObject__On_GetMappedLinks_When_ApplyConfiguration__TestObjectHateoas()
 		{
 			// act
-			_sut.ApplyConfiguration(new TestObjectHateoas());
+			_sut.ApplyConfiguration(new TestObjectHateoasResource());
 			
 			// assert
 			AssertHateoasLinks();
@@ -53,7 +53,7 @@ namespace HateoasNet.Framework.Tests.Mapping
 		public void Have_HateoasLinks__TestObject__On_GetMappedLinks_When_ApplyConfigurationFromAssembly()
 		{
 			// act
-			_sut.ApplyConfigurationsFromAssembly(typeof(TestObjectHateoas).Assembly);
+			_sut.ApplyConfigurationsFromAssembly(typeof(TestObjectHateoasResource).Assembly);
 
 			// assert
 			AssertHateoasLinks();
@@ -62,7 +62,7 @@ namespace HateoasNet.Framework.Tests.Mapping
 		[Fact]
 		public void NotAllowNull_mapper_On_Map__TestObject()
 		{
-			Assert.Throws<ArgumentNullException>("mapper", () => _sut.Map<TestObject>(null));
+			Assert.Throws<ArgumentNullException>("mapper", () => _sut.Configure<TestObject>(null));
 		}
 
 		[Fact]
