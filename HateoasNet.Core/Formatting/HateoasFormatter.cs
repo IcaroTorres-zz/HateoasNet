@@ -15,11 +15,14 @@ namespace HateoasNet.Core.Formatting
 		private IResourceFactory _resourceFactory;
 		private IHateoasSerializer _hateoasSerializer;
 		
-		public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer)
+		public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer) : this()
 		{
 			_resourceFactory = resourceFactory;
 			_hateoasSerializer = hateoasSerializer;
-			
+		}
+		
+		public HateoasFormatter()
+		{
 			SupportedMediaTypes.Add("application/json");
 			SupportedMediaTypes.Add("application/json+hateoas");
 		}

@@ -3,6 +3,7 @@ using HateoasNet.Abstractions;
 using HateoasNet.Configurations;
 using HateoasNet.Factories;
 using HateoasNet.Core.Formatting;
+using HateoasNet.Core.Resources;
 using HateoasNet.Core.Serialization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -25,14 +26,15 @@ namespace HateoasNet.Core.DependencyInjection
 		{
 			if (hateoasConfiguration == null) throw new ArgumentNullException(nameof(hateoasConfiguration));
 
-			return services.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
+			return services
+				.AddSingleton<IActionContextAccessor, ActionContextAccessor>()
 				.AddSingleton<IUrlHelperFactory, UrlHelperFactory>()
-				.AddSingleton<IActionDescriptorCollectionProvider, ActionDescriptorCollectionProvider>()
 				.AddTransient(x => hateoasConfiguration(new HateoasContext()))
+				.AddTransient<IUrlBuilder, UrlBuilder>()
+				.AddTransient<IHttpMethodFinder, HttpMethodFinder>()
 				.AddTransient<IResourceLinkFactory, ResourceLinkFactory>()
 				.AddTransient<IResourceFactory, ResourceFactory>()
-				.AddTransient<IHateoasSerializer, HateoasSerializer>()
-				.AddTransient<HateoasFormatter>();
+				.AddTransient<IHateoasSerializer, HateoasSerializer>();
 		}
 
 		/// <summary>
@@ -43,8 +45,7 @@ namespace HateoasNet.Core.DependencyInjection
 		/// <exception cref="ArgumentNullException"></exception>
 		public static IMvcBuilder AddHateoasFormatter(this IMvcBuilder builder)
 		{
-			var hateoasFormatter = builder.Services.BuildServiceProvider().GetRequiredService<HateoasFormatter>();
-			return builder.AddMvcOptions(o => o.OutputFormatters.Add(hateoasFormatter));
+			return builder.AddMvcOptions(o => o.OutputFormatters.Add(new HateoasFormatter()));
 		}
 	}
 }
