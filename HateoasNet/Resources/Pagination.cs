@@ -1,15 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using HateoasNet.Abstractions;
 
 namespace HateoasNet.Resources
 {
-	public class Pagination<T> where T : class
+	/// <inheritdoc cref="IPagination{T}"/>
+	public class Pagination<T> : IPagination<T> where T : class
 	{
 		public Pagination(IEnumerable<T> data, long count, int pageSize, int page = 1)
 		{
-			Data = data;
+			Data = data.ToArray();
 			Count = count;
 			PageSize = pageSize;
 			Page = page;
+		}
+
+		public IEnumerable GetEnumeration()
+		{
+			return Data;
 		}
 
 		public IEnumerable<T> Data { get; }

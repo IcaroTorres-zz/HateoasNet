@@ -1,26 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
+using HateoasNet.Abstractions;
 
 namespace HateoasNet.Resources
 {
+	/// /// <summary>
+	/// Represents an formatted pagination wrapper of <see cref="Resource"/> wrapper items which inherit from <see cref="Resource"/>.
+	/// </summary>
 	public class PaginationResource<T> : Resource where T : Resource
 	{
-		public PaginationResource(Pagination<T> values) : base(values.Data)
+		public PaginationResource(IPagination<T> values) : base(values.Data)
 		{
-			DataList = values.Data.ToList();
+			EnumerableData = values.Data.ToArray();
 			Count = values.Count;
 			PageSize = values.PageSize;
 			Page = values.Page;
 			Pages = values.Pages;
 		}
 
-		private List<T> DataList { get; }
-		public override object Data => DataList;
-		[JsonPropertyName("inPage")] public int InPage => DataList.Count;
-		[JsonPropertyName("page")] public int Page { get; }
-		[JsonPropertyName("pageSize")] public int PageSize { get; }
-		[JsonPropertyName("pages")] public int Pages { get; }
-		[JsonPropertyName("count")] public long Count { get; }
+		private IEnumerable<T> EnumerableData { get; }
+		
+		/// <summary>
+		/// The <see cref="IEnumerable{Resource}"/> items as <see cref="object"/>.
+		/// </summary>
+		public override object Data => EnumerableData;
+		public int InPage => EnumerableData.Count();
+		public int Page { get; }
+		public int PageSize { get; }
+		public int Pages { get; }
+		public long Count { get; }
 	}
 }
