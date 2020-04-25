@@ -4,7 +4,7 @@ using HateoasNet.Abstractions;
 
 namespace HateoasNet.Configurations
 {
-	/// <inheritdoc cref="IHateoasLink"/>
+	/// <inheritdoc cref="IHateoasLink" />
 	public sealed class HateoasLink<T> : IHateoasLink<T> where T : class
 	{
 		internal HateoasLink(string routeName) : this(routeName, e => null, e => true)
@@ -12,8 +12,8 @@ namespace HateoasNet.Configurations
 		}
 
 		private HateoasLink(string routeName,
-			Func<T, IDictionary<string, object>> routeDictionaryFunction,
-			Func<T, bool> predicateFunction)
+		                    Func<T, IDictionary<string, object>> routeDictionaryFunction,
+		                    Func<T, bool> predicateFunction)
 		{
 			RouteName = routeName;
 			RouteDictionaryFunction = routeDictionaryFunction;
@@ -28,14 +28,14 @@ namespace HateoasNet.Configurations
 		{
 			if (resourceData == null) throw new ArgumentNullException(nameof(resourceData));
 
-			return RouteDictionaryFunction(resourceData as T);
+			return RouteDictionaryFunction((T) resourceData);
 		}
 
 		public bool IsApplicable(object resourceData)
 		{
 			if (resourceData == null) throw new ArgumentNullException(nameof(resourceData));
 
-			return PredicateFunction(resourceData as T);
+			return PredicateFunction((T) resourceData);
 		}
 
 		public IHateoasLink<T> HasRouteData(Func<T, object> routeDataFunction)
