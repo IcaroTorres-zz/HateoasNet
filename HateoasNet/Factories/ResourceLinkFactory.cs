@@ -5,11 +5,11 @@ using HateoasNet.Resources;
 
 namespace HateoasNet.Factories
 {
-	/// <inheritdoc cref="IResourceLinkFactory"/>
+	/// <inheritdoc cref="IResourceLinkFactory" />
 	public sealed class ResourceLinkFactory : IResourceLinkFactory
 	{
-		private readonly IUrlBuilder _urlBuilder;
 		private readonly IHttpMethodFinder _httpMethodFinder;
+		private readonly IUrlBuilder _urlBuilder;
 
 		public ResourceLinkFactory(IUrlBuilder urlBuilder, IHttpMethodFinder httpMethodFinder)
 		{
@@ -21,9 +21,9 @@ namespace HateoasNet.Factories
 		{
 			if (routeName == null) throw new ArgumentNullException(nameof(routeName));
 
-			return new ResourceLink(routeName, 
-				_urlBuilder.Build(routeName, routeValuesDictionary),
-				_httpMethodFinder.Find(routeName));
+			return new ResourceLink(routeName,
+			                        _urlBuilder.Build(routeName, routeValuesDictionary),
+			                        _httpMethodFinder.Find(routeName));
 		}
 	}
 }

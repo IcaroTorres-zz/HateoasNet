@@ -7,7 +7,7 @@ using HateoasNet.Resources;
 
 namespace HateoasNet.Factories
 {
-	/// <inheritdoc cref="IResourceFactory"/>
+	/// <inheritdoc cref="IResourceFactory" />
 	public sealed class ResourceFactory : IResourceFactory
 	{
 		private readonly IHateoasContext _hateoasConfiguration;
@@ -45,7 +45,8 @@ namespace HateoasNet.Factories
 		{
 			foreach (var hateoasLink in _hateoasConfiguration.GetApplicableLinks(type, resource.Data))
 			{
-				var createdLink = _resourceLinkFactory.Create(hateoasLink.RouteName, hateoasLink.GetRouteDictionary(resource.Data));
+				var createdLink =
+					_resourceLinkFactory.Create(hateoasLink.RouteName, hateoasLink.GetRouteDictionary(resource.Data));
 
 				resource.Links.Add(createdLink);
 			}
