@@ -1,7 +1,7 @@
 ﻿namespace HateoasNet.Resources
 {
 	/// <summary>
-	/// Represents a HATEOAS link witch is an item of <see cref="Resource.Links"/>.
+	///   Represents a HATEOAS link witch is an item of <see cref="Resource.Links" />.
 	/// </summary>
 	public class ResourceLink
 	{
@@ -13,21 +13,23 @@
 		}
 
 		/// <summary>
-		/// The Url link address to access some available action of the <see cref="Resource"/> containing this <see cref="ResourceLink"/>.
+		///   The Url link address to access some available action of the <see cref="Resource" /> containing this
+		///   <see cref="ResourceLink" />.
 		/// </summary>
-		/// <value>Url <see cref="string"/> value.</value>
+		/// <value>Url <see cref="string" /> value.</value>
 		public string Href { get; }
-		
+
 		/// <summary>
-		/// The name assigned to the action available for <see cref="Resource"/> containing this <see cref="ResourceLink"/>.
+		///   The name assigned to the action available for <see cref="Resource" /> containing this <see cref="ResourceLink" />.
 		/// </summary>
-		/// <value>The <see cref="string"/> value of assigned <see cref="Rel"/>.</value>
+		/// <value>The <see cref="string" /> value of assigned <see cref="Rel" />.</value>
 		public string Rel { get; }
-		
+
 		/// <summary>
-		/// The HTTP method used to access the action available for <see cref="Resource"/> containing this <see cref="ResourceLink"/>.
+		///   The HTTP method used to access the action available for <see cref="Resource" /> containing this
+		///   <see cref="ResourceLink" />.
 		/// </summary>
-		/// <value>The <see cref="string"/> value of HTTP method.</value>
+		/// <value>The <see cref="string" /> value of HTTP method.</value>
 		public string Method { get; }
 	}
 }

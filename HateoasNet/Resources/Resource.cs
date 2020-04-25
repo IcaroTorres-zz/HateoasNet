@@ -3,7 +3,7 @@
 namespace HateoasNet.Resources
 {
 	/// <summary>
-	/// Represents a formatted wrapper of requested data in addition to HATEOAS <see cref="Links"/>.
+	///   Represents a formatted wrapper of requested data in addition to HATEOAS <see cref="Links" />.
 	/// </summary>
 	public abstract class Resource
 	{
@@ -13,11 +13,12 @@ namespace HateoasNet.Resources
 		}
 
 		/// <summary>
-		/// Requested original data
+		///   Requested original data
 		/// </summary>
 		public virtual object Data { get; }
+
 		/// <summary>
-		/// Additional <see cref="List{ResourceLink}" /> as HATEOAS data.
+		///   Additional <see cref="List{T}" /> as HATEOAS data.
 		/// </summary>
 		public List<ResourceLink> Links { get; } = new List<ResourceLink>();
 	}

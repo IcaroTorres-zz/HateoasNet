@@ -4,7 +4,8 @@ using System.Linq;
 namespace HateoasNet.Resources
 {
 	/// <summary>
-	/// Represents an formatted enumeration wrapper of <see cref="Resource"/> wrapper items which inherit from <see cref="Resource"/>.
+	///   Represents an formatted enumeration wrapper of <see cref="Resource" /> wrapper items which inherit from
+	///   <see cref="Resource" />.
 	/// </summary>
 	public class EnumerableResource<T> : Resource where T : Resource
 	{
@@ -16,7 +17,7 @@ namespace HateoasNet.Resources
 		private IEnumerable<T> EnumerableData { get; }
 
 		/// <summary>
-		/// The <see cref="IEnumerable{Resource}"/> items as <see cref="object"/>.
+		///   The <see cref="IEnumerable{Resource}" /> items as <see cref="object" />.
 		/// </summary>
 		public override object Data => EnumerableData;
 	}

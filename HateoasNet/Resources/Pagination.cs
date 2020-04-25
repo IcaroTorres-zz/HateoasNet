@@ -5,7 +5,7 @@ using HateoasNet.Abstractions;
 
 namespace HateoasNet.Resources
 {
-	/// <inheritdoc cref="IPagination{T}"/>
+	/// <inheritdoc cref="IPagination{T}" />
 	public class Pagination<T> : IPagination<T> where T : class
 	{
 		public Pagination(IEnumerable<T> data, long count, int pageSize, int page = 1)
