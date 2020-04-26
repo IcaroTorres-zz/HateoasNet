@@ -19,7 +19,7 @@ namespace HateoasNet.Core.Resources
 		public string Find(string routeName)
 		{
 			return _actionDescriptors.SingleOrDefault(x => x.AttributeRouteInfo.Name == routeName)
-				?.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
+			                         ?.ActionConstraints.OfType<HttpMethodActionConstraint>().First().HttpMethods.First();
 		}
 	}
 }

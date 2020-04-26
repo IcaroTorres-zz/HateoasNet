@@ -12,15 +12,15 @@ namespace HateoasNet.Core.Formatting
 {
 	public class HateoasFormatter : OutputFormatter
 	{
-		private IResourceFactory _resourceFactory;
 		private IHateoasSerializer _hateoasSerializer;
-		
+		private IResourceFactory _resourceFactory;
+
 		public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer) : this()
 		{
 			_resourceFactory = resourceFactory;
 			_hateoasSerializer = hateoasSerializer;
 		}
-		
+
 		public HateoasFormatter()
 		{
 			SupportedMediaTypes.Add("application/json");
@@ -38,7 +38,7 @@ namespace HateoasNet.Core.Formatting
 
 			_resourceFactory ??= context.HttpContext.RequestServices.GetRequiredService<IResourceFactory>();
 			_hateoasSerializer ??= context.HttpContext.RequestServices.GetRequiredService<IHateoasSerializer>();
-			
+
 			var resource = context.Object switch
 			{
 				IPagination pagination => _resourceFactory.Create(pagination, context.ObjectType),

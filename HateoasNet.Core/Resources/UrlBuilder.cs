@@ -16,9 +16,14 @@ namespace HateoasNet.Core.Resources
 			_urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 		}
 
-		public string Build(string routeName, object routeData) => Build(routeName, routeData.ToRouteDictionary());
+		public string Build(string routeName, object routeData)
+		{
+			return Build(routeName, routeData.ToRouteDictionary());
+		}
 
-		public string Build(string routeName, IDictionary<string, object> routeDictionary) =>
-			_urlHelper.Link(routeName, routeDictionary);
+		public string Build(string routeName, IDictionary<string, object> routeDictionary)
+		{
+			return _urlHelper.Link(routeName, routeDictionary);
+		}
 	}
 }
