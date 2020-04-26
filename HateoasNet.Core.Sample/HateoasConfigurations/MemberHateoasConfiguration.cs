@@ -26,8 +26,8 @@ namespace HateoasNet.Core.Sample.HateoasConfigurations
 				.HasConditional(e => e.GuildId != null && e.IsGuildMaster);
 
 			resource.HasLink("leave-guild")
-				.HasRouteData(e => new {id = e.Id})
-				.HasConditional(e => e.GuildId != null);
+			        .HasRouteData(e => new {id = e.Id})
+			        .HasConditional(e => e.GuildId != null);
 		}
 	}
 }
