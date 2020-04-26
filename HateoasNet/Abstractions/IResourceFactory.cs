@@ -40,11 +40,12 @@ namespace HateoasNet.Abstractions
 		/// <summary>
 		///   Builds the <see cref="Resource.Links" /> collection for created <see cref="Resource" />.
 		/// </summary>
-		/// <param name="resource">Original value Formatted as <see cref="Resource" /> instance.</param>
+		/// <param name="resource">Original value wrapped in a <see cref="Resource" /> instance.</param>
+		/// <param name="value">Original value of the configured type.</param>
 		/// <param name="type">
 		///   type parameter of <see cref="IHateoasLink{T}" /> configuration to builds the <see cref="Resource.Links" />.
 		/// </param>
 		/// <returns>A formatted <see cref="PaginationResource{Resource}" /> instance.</returns>
-		Resource BuildResourceLinks(Resource resource, Type type);
+		Resource BuildResourceLinks(Resource resource, object value, Type type);
 	}
 }

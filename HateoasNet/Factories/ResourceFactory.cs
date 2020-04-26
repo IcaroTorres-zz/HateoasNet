@@ -21,7 +21,7 @@ namespace HateoasNet.Factories
 
 		public Resource Create(object source, Type type)
 		{
-			return BuildResourceLinks(new SingleResource(source), type);
+			return BuildResourceLinks(new SingleResource(source), source, type);
 		}
 
 		public Resource Create(IEnumerable source, Type type)
@@ -29,7 +29,7 @@ namespace HateoasNet.Factories
 			var enumeration = EnumerateToResources(source, type);
 			var enumeratedResource = new EnumerableResource<Resource>(enumeration);
 
-			return BuildResourceLinks(enumeratedResource, type);
+			return BuildResourceLinks(enumeratedResource, source, type);
 		}
 
 		public Resource Create(IPagination source, Type type)
@@ -38,15 +38,15 @@ namespace HateoasNet.Factories
 			var resourcesPagination = new Pagination<Resource>(singleResources, source.Count, source.PageSize, source.Page);
 			var paginationResource = new PaginationResource<Resource>(resourcesPagination);
 
-			return BuildResourceLinks(paginationResource, type);
+			return BuildResourceLinks(paginationResource, source, type);
 		}
 
-		public Resource BuildResourceLinks(Resource resource, Type type)
+		public Resource BuildResourceLinks(Resource resource, object data, Type type)
 		{
-			foreach (var hateoasLink in _hateoasConfiguration.GetApplicableLinks(type, resource.Data))
+			foreach (var hateoasLink in _hateoasConfiguration.GetApplicableLinks(type, data))
 			{
 				var createdLink =
-					_resourceLinkFactory.Create(hateoasLink.RouteName, hateoasLink.GetRouteDictionary(resource.Data));
+					_resourceLinkFactory.Create(hateoasLink.RouteName, hateoasLink.GetRouteDictionary(data));
 
 				resource.Links.Add(createdLink);
 			}
