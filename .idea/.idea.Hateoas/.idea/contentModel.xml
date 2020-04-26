@@ -9,10 +9,18 @@
     <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.abstractions.dll" t="Include" />
+    <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.runner.reporters.net452.dll" t="Include" />
+    <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.runner.utility.net452.dll" t="Include" />
+    <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.runner.visualstudio.testadapter.dll" t="Include" />
+    <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\icaro\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
     <e p="C:\Users\icaro\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
     <e p="C:\Users\icaro\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_Hateoas.-1277333690.00" t="ExcludeRecursive" />
     <e p="C:\Users\icaro\AppData\Roaming\JetBrains\Rider2020.1\scratches" t="IncludeRecursive" />
     <e p="C:\Users\icaro\source\repos\HateoasNet" t="IncludeFlat">
+      <e p="Common" t="Include" />
       <e p="Core" t="Include" />
       <e p="Framework" t="Include" />
       <e p="Hateoas.sln" t="IncludeFlat" />
@@ -57,8 +65,12 @@
           <e p="SingleResource.cs" t="Include" />
         </e>
         <e p="TestingObjects" t="Include">
-          <e p="TestObject.cs" t="Include" />
-          <e p="TestObjectHateoasResource.cs" t="Include" />
+          <e p="GenericTestee.cs" t="Include" />
+          <e p="GenericTesteeResourceConfiguration.cs" t="Include" />
+          <e p="NestedTestee.cs" t="Include" />
+          <e p="NestedTesteeResourceConfiguration.cs" t="Include" />
+          <e p="Testee.cs" t="Include" />
+          <e p="TesteeResourceConfiguration.cs" t="Include" />
         </e>
       </e>
       <e p="HateoasNet.Core" t="IncludeRecursive">
@@ -132,11 +144,6 @@
       </e>
       <e p="HateoasNet.Core.Tests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Configurations" t="Include">
-          <e p="HateoasContextTest.cs" t="Include" />
-          <e p="HateoasLinkTests.cs" t="Include" />
-          <e p="HateoasResourceTest.cs" t="Include" />
-        </e>
         <e p="HateoasNet.Core.Tests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -220,15 +227,47 @@
       <e p="HateoasNet.Framework.Tests" t="IncludeRecursive">
         <e p="app.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Configurations" t="Include">
-          <e p="HateoasContextTest.cs" t="Include" />
-          <e p="HateoasLinkTests.cs" t="Include" />
-          <e p="HateoasResourceTest.cs" t="Include" />
-        </e>
         <e p="HateoasNet.Framework.Tests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="HateoasNet.Tests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Configurations" t="Include">
+          <e p="HateoasContextTests" t="Include">
+            <e p="HateoasContextShould.cs" t="Include" />
+            <e p="HateoasContextThrows.cs" t="Include" />
+          </e>
+          <e p="HateoasLinkTests" t="Include">
+            <e p="HateoasLinkCollectionFixture.cs" t="Include" />
+            <e p="HateoasLinkFixture.cs" t="Include" />
+            <e p="HateoasLinkShould.cs" t="Include" />
+            <e p="HateoasLinkThrows.cs" t="Include" />
+          </e>
+          <e p="HateoasResourceTests" t="Include">
+            <e p="HateoasResourceShould.cs" t="Include" />
+            <e p="HateoasResourceThrows.cs" t="Include" />
+          </e>
+        </e>
+        <e p="HateoasNet.Tests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net472" t="Include">
+              <e p="HateoasNet.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netcoreapp3.1" t="Include">
+              <e p="HateoasNet.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestHelpers" t="Include">
+          <e p="ConfigurationDataAttribute.cs" t="Include" />
+          <e p="ConfigureDataAttribute.cs" t="Include" />
+          <e p="GenericMethodAttribute.cs" t="Include" />
+          <e p="GenericTestDiscoverer.cs" t="Include" />
+          <e p="GenericTestMethod.cs" t="Include" />
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
