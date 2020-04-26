@@ -14,7 +14,7 @@ namespace HateoasNet.Framework.Resources
 			this IEnumerable<HttpActionDescriptor> actionDescriptors, string routeName)
 		{
 			return actionDescriptors.Select(descriptor => (descriptor, descriptor.GetRouteAttribute()))
-				.SingleOrDefault(x => x.Item2.Name == routeName);
+			                        .SingleOrDefault(x => x.Item2.Name == routeName);
 		}
 
 		internal static RouteAttribute GetRouteAttribute(this HttpActionDescriptor descriptor)
@@ -32,6 +32,9 @@ namespace HateoasNet.Framework.Resources
 			       throw new InvalidOperationException(Error<HttpMethod>());
 		}
 
-		private static string Error<T>() => $"Unable to get '{typeof(T).Name}' needed to create the link.";
+		private static string Error<T>()
+		{
+			return $"Unable to get '{typeof(T).Name}' needed to create the link.";
+		}
 	}
 }

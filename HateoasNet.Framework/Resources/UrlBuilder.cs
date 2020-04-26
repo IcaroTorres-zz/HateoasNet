@@ -35,7 +35,7 @@ namespace HateoasNet.Framework.Resources
 		}
 
 		private string BuildResourceUrl(HttpActionDescriptor descriptor, string template,
-			IDictionary<string, object> routeDictionary)
+		                                IDictionary<string, object> routeDictionary)
 		{
 			if (descriptor == null) throw new ArgumentNullException(nameof(descriptor));
 
@@ -54,7 +54,7 @@ namespace HateoasNet.Framework.Resources
 			// parameters for possible query strings
 			var parameters = descriptor.GetParameters().ToDictionary(x => x.ParameterName);
 
-			return HandleQueryStrings(resourceUrl, parameters, template, routeDictionary);
+			return HandleQueryStrings(resourceUrl, template, parameters, routeDictionary);
 		}
 
 		private string HandleRouteTemplate(string resourceUrl, string template, IDictionary<string, object> routeDictionary)
@@ -83,9 +83,9 @@ namespace HateoasNet.Framework.Resources
 			return $"{resourceUrl}/{replacedTemplate}";
 		}
 
-		private string HandleQueryStrings(string resourceUrl,
-			IDictionary<string, HttpParameterDescriptor> parameterDescriptors,
-			string routeTemplate, IDictionary<string, object> routeDictionary)
+		private string HandleQueryStrings(string resourceUrl, string routeTemplate,
+		                                  IDictionary<string, HttpParameterDescriptor> parameterDescriptors,
+		                                  IDictionary<string, object> routeDictionary)
 		{
 			if (resourceUrl == null) throw new ArgumentNullException(nameof(resourceUrl));
 			if (routeDictionary == null) return resourceUrl;
@@ -94,11 +94,14 @@ namespace HateoasNet.Framework.Resources
 			if (routeTemplate == null) throw new ArgumentNullException(nameof(routeTemplate));
 
 			return parameterDescriptors
-				.Where(p => routeDictionary.ContainsKey(p.Key))
-				.Where(p => !routeTemplate.Contains($"{{{p.Key}"))
-				.OrderBy(p => p.Key)
-				.Aggregate(resourceUrl,
-					(query, pair) => $"{query}{(query == resourceUrl ? "?" : "&")}{pair.Key}={routeDictionary[pair.Key]}");
+			       .Where(p => routeDictionary.ContainsKey(p.Key))
+			       .Where(p => !routeTemplate.Contains($"{{{p.Key}"))
+			       .OrderBy(p => p.Key)
+			       .Aggregate(resourceUrl, (query, pair) =>
+			       {
+				       var symbol = (query == resourceUrl ? "?" : "&");
+				       return $"{query}{symbol}{pair.Key}={routeDictionary[pair.Key]}";
+			       });
 		}
 	}
 }

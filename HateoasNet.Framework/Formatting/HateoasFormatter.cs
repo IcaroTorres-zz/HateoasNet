@@ -16,12 +16,12 @@ namespace HateoasNet.Framework.Formatting
 	public class HateoasMediaTypeFormatter : MediaTypeFormatter
 	{
 		private readonly IHateoasContext _hateoasContext;
-		private readonly IResourceFactory _resourceFactory;
 		private readonly IHateoasSerializer _hateoasSerializer;
+		private readonly IResourceFactory _resourceFactory;
 
 		public HateoasMediaTypeFormatter(IHateoasContext hateoasContext,
-			IResourceFactory resourceFactory,
-			IHateoasSerializer hateoasSerializer)
+		                                 IResourceFactory resourceFactory,
+		                                 IHateoasSerializer hateoasSerializer)
 		{
 			_hateoasContext = hateoasContext;
 			_resourceFactory = resourceFactory;
@@ -40,15 +40,15 @@ namespace HateoasNet.Framework.Formatting
 
 		public override bool CanWriteType(Type type)
 		{
-			return _hateoasContext.HasSet(type);
+			return _hateoasContext.HasResource(type);
 		}
 
 		public override async Task WriteToStreamAsync(Type type,
-			object value,
-			Stream writeStream,
-			HttpContent content,
-			TransportContext transportContext,
-			CancellationToken cancellationToken)
+		                                              object value,
+		                                              Stream writeStream,
+		                                              HttpContent content,
+		                                              TransportContext transportContext,
+		                                              CancellationToken cancellationToken)
 		{
 			const string requiredHeader = "application/json+hateoas";
 			var notSupportedMessage =

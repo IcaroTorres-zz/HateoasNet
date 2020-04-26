@@ -17,8 +17,8 @@ namespace HateoasNet.Framework.Resources
 		public string Find(string routeName)
 		{
 			return _actionDescriptors
-				.SingleOrDefault(x => x.GetRouteAttribute().Name == routeName)
-				.GetMethod().Method;
+			       .SingleOrDefault(x => x.GetRouteAttribute().Name == routeName)
+			       .GetMethod().Method;
 		}
 	}
 }
