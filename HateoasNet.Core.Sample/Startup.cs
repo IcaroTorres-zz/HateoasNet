@@ -26,13 +26,13 @@ namespace HateoasNet.Core.Sample
 				 * switch this lines to test different configuration styles
 				 * Check 'HateoasSetupExtensions.cs' file for details of each one
 				 */
-				//.HateoasOneFileMapping()
-        //.HateoasSeparatedFilesMapping()
-				.HateoasSeparatedFilesUsingAssembly()
-				
+				//.HateoasInlineConfiguration()
+				//.HateoasConfigurations()
+				.HateoasConfigurationUsingAssembly()
+
 				// MvcBuilder
-        .AddControllers()
-        .AddHateoasFormatter();
+				.AddControllers()
+				.AddHateoasFormatter();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,9 +41,9 @@ namespace HateoasNet.Core.Sample
 			if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
 			app.UseHttpsRedirection()
-				.UseRouting()
-				.UseAuthorization()
-				.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+			   .UseRouting()
+			   .UseAuthorization()
+			   .UseEndpoints(endpoints => { endpoints.MapControllers(); });
 		}
 	}
 }
