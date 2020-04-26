@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Http.Controllers;
 using System.Web.Routing;
 using HateoasNet.Abstractions;
-using HateoasNet.Configurations;
 using HateoasNet.Factories;
 using HateoasNet.Framework.Formatting;
 using HateoasNet.Framework.Resources;
@@ -41,11 +40,8 @@ namespace HateoasNet.Framework.Sample
 		/// </remarks>
 		public static void RegisterTypes(IUnityContainer container)
 		{
-			// Hateoas map configuration
-			var hateoasConfiguration = HateoasConfig.MapFromAssembly(new HateoasContext(), typeof(GuildHateoasResource));
-
 			container
-				.RegisterFactory<IHateoasContext>(f => hateoasConfiguration)
+				.RegisterFactory<IHateoasContext>(f => HateoasConfig.ConfigureFromAssembly(typeof(GuildHateoasResource)))
 				.RegisterType<Seeder>()
 				.RegisterFactory<IHttpMethodFinder>(f => new HttpMethodFinder(GetActionDescriptors()))
 				.RegisterFactory<IUrlBuilder>(f => new UrlBuilder(GetActionDescriptors()))
@@ -55,10 +51,13 @@ namespace HateoasNet.Framework.Sample
 				.RegisterType<HateoasMediaTypeFormatter>();
 		}
 
-		private static IEnumerable<HttpActionDescriptor> GetActionDescriptors() =>
-			RouteTable.Routes
-				.OfType<Route>()
-				.Select(route => route.DataTokens.Values.OfType<HttpActionDescriptor[]>().FirstOrDefault()?.First())
-				.Where(x => x != null);
+		private static IEnumerable<HttpActionDescriptor> GetActionDescriptors()
+		{
+			return RouteTable
+			       .Routes
+			       .OfType<Route>()
+			       .Select(route => route.DataTokens.Values.OfType<HttpActionDescriptor[]>()
+			                             .FirstOrDefault()?.First()).Where(x => x != null);
+		}
 	}
 }

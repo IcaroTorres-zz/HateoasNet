@@ -1,14 +1,14 @@
 ﻿using System;
 using HateoasNet.Abstractions;
+using HateoasNet.Configurations;
 
 namespace HateoasNet.Framework.Sample
 {
 	public static class HateoasConfig
 	{
-		public static IHateoasContext MapFromAssembly(IHateoasContext config, Type containedInAssembly)
+		public static IHateoasContext ConfigureFromAssembly(Type containedInAssembly)
 		{
-			// Hateoas map configuration using IHateoasBuilders from assembly
-			return config.ApplyConfigurationsFromAssembly(containedInAssembly.Assembly);
+			return new HateoasContext().ConfigureFromAssembly(containedInAssembly.Assembly);
 		}
 	}
 }

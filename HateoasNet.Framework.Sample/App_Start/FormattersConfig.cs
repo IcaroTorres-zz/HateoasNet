@@ -8,8 +8,10 @@ namespace HateoasNet.Framework.Sample
 		public static void RegisterFormatters(HttpConfiguration config)
 		{
 			// set hateoas formatter using configured IoC container
-			config.Formatters.Add(
-				config.DependencyResolver.GetService(typeof(HateoasMediaTypeFormatter)) as HateoasMediaTypeFormatter);
+			var hateoasFormatter =
+				config.DependencyResolver.GetService(typeof(HateoasMediaTypeFormatter)) as HateoasMediaTypeFormatter;
+
+			config.Formatters.Add(hateoasFormatter);
 		}
 	}
 }
