@@ -53,9 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\HateoasContextTest.cs" />
-    <Compile Include="Configurations\HateoasLinkTests.cs" />
-    <Compile Include="Configurations\HateoasResourceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
