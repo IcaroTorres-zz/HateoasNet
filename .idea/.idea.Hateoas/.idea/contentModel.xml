@@ -251,6 +251,14 @@
             <e p="HateoasResourceThrows.cs" t="Include" />
           </e>
         </e>
+        <e p="Factories" t="Include">
+          <e p="ResourceFactoryTests" t="Include">
+            <e p="ResourceFactoryShould.cs" t="Include" />
+          </e>
+          <e p="ResourceLinkFactoryTests" t="Include">
+            <e p="ResourceLinkFactoryShould.cs" t="Include" />
+          </e>
+        </e>
         <e p="HateoasNet.Tests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -263,11 +271,12 @@
           </e>
         </e>
         <e p="TestHelpers" t="Include">
+          <e p="BuildResourceLinksDataAttribute.cs" t="Include" />
           <e p="ConfigurationDataAttribute.cs" t="Include" />
           <e p="ConfigureDataAttribute.cs" t="Include" />
-          <e p="GenericMethodAttribute.cs" t="Include" />
-          <e p="GenericTestDiscoverer.cs" t="Include" />
-          <e p="GenericTestMethod.cs" t="Include" />
+          <e p="CreateResourceDataAttribute.cs" t="Include" />
+          <e p="CreateResourceLinkDataAttribute.cs" t="Include" />
+          <e p="EnumerateToResourceDataAttribute.cs" t="Include" />
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />

@@ -8,14 +8,6 @@ namespace HateoasNet.Abstractions
 	public interface IUrlBuilder
 	{
 		/// <summary>
-		///   Builds an url <see cref="string" /> with the <paramref name="routeName" /> and <paramref name="routeData" />.
-		/// </summary>
-		/// <param name="routeName">Name of desired route to discover the url.</param>
-		/// <param name="routeData">Route data object to look for route parameters and query strings.</param>
-		/// <returns>Generated Url <see cref="string" /> value.</returns>
-		public string Build(string routeName, object routeData);
-
-		/// <summary>
 		///   Builds an url <see cref="string" /> with the <paramref name="routeName" /> and <paramref name="routeDictionary" />.
 		/// </summary>
 		/// <param name="routeName">Name of desired route to discover the url.</param>

@@ -2,6 +2,7 @@
 using HateoasNet.Configurations;
 using HateoasNet.TestingObjects;
 using HateoasNet.Tests.Configurations.HateoasContextTests;
+using HateoasNet.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
 

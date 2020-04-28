@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using HateoasNet.Abstractions;
+using HateoasNet.Resources;
 
 namespace HateoasNet.Framework.Formatting
 {
@@ -59,7 +60,7 @@ namespace HateoasNet.Framework.Formatting
 
 			var effectiveEncoding = SelectCharacterEncoding(content.Headers);
 			using var writer = new StreamWriter(writeStream, effectiveEncoding);
-			var resource = value switch
+			Resource resource = value switch
 			{
 				IPagination pagination => _resourceFactory.Create(pagination, type),
 				IEnumerable enumerable => _resourceFactory.Create(enumerable, type),

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 
 namespace HateoasNet.Configurations
 {
@@ -7,9 +10,17 @@ namespace HateoasNet.Configurations
 	{
 		public static IDictionary<string, object> ToRouteDictionary(this object source)
 		{
-			return source.GetType().GetProperties()
-			             .Where(propertyInfo => propertyInfo.CanRead)
-			             .ToDictionary(p => p.Name, p => p.GetValue(source));
+			if (source is IEnumerable) return new Dictionary<string, object>();
+
+			string NameFunction(MemberInfo info) => info.Name;
+
+			object ValueFunction(PropertyInfo info) =>
+				info.GetValue(source, BindingFlags.Public, null, null, CultureInfo.InvariantCulture);
+
+			return source.GetType()
+			             .GetProperties()
+			             .Where(x => x.CanRead && x.MemberType == MemberTypes.Property)
+			             .ToDictionary(NameFunction, ValueFunction);
 		}
 	}
 }

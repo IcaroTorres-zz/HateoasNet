@@ -19,29 +19,31 @@ namespace HateoasNet.Factories
 			_resourceLinkFactory = resourceLinkFactory;
 		}
 
-		public Resource Create(object source, Type type)
+		public SingleResource Create(object source, Type type)
 		{
-			return BuildResourceLinks(new SingleResource(source), source, type);
+			var singleResource = new SingleResource(source);
+			BuildResourceLinks(singleResource, source, type);
+			return singleResource;
 		}
 
-		public Resource Create(IEnumerable source, Type type)
+		public EnumerableResource Create(IEnumerable source, Type type)
 		{
 			var enumeration = EnumerateToResources(source, type);
-			var enumeratedResource = new EnumerableResource<Resource>(enumeration);
-
-			return BuildResourceLinks(enumeratedResource, source, type);
+			var enumeratedResource = new EnumerableResource(enumeration);
+			BuildResourceLinks(enumeratedResource, source, type);
+			return enumeratedResource;
 		}
 
-		public Resource Create(IPagination source, Type type)
+		public PaginationResource Create(IPagination source, Type type)
 		{
 			var singleResources = EnumerateToResources(source.GetEnumeration(), type);
 			var resourcesPagination = new Pagination<Resource>(singleResources, source.Count, source.PageSize, source.Page);
-			var paginationResource = new PaginationResource<Resource>(resourcesPagination);
-
-			return BuildResourceLinks(paginationResource, source, type);
+			var paginationResource = new PaginationResource(resourcesPagination);
+			BuildResourceLinks(paginationResource, source, type);
+			return paginationResource;
 		}
 
-		public Resource BuildResourceLinks(Resource resource, object data, Type type)
+		public void BuildResourceLinks(Resource resource, object data, Type type)
 		{
 			foreach (var hateoasLink in _hateoasConfiguration.GetApplicableLinks(type, data))
 			{
@@ -50,11 +52,9 @@ namespace HateoasNet.Factories
 
 				resource.Links.Add(createdLink);
 			}
-
-			return resource;
 		}
 
-		private IEnumerable<Resource> EnumerateToResources(IEnumerable source, Type type)
+		internal IEnumerable<Resource> EnumerateToResources(IEnumerable source, Type type)
 		{
 			return from object item in source select Create(item, type.GetGenericArguments().First());
 		}

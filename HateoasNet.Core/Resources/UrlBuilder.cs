@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HateoasNet.Abstractions;
 using HateoasNet.Configurations;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,10 @@ namespace HateoasNet.Core.Resources
 			_urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 		}
 
-		public string Build(string routeName, object routeData)
-		{
-			return Build(routeName, routeData.ToRouteDictionary());
-		}
-
 		public string Build(string routeName, IDictionary<string, object> routeDictionary)
 		{
+			if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
+
 			return _urlHelper.Link(routeName, routeDictionary);
 		}
 	}
