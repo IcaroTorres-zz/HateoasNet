@@ -17,13 +17,13 @@ namespace HateoasNet.Factories
 			_httpMethodFinder = httpMethodFinder;
 		}
 
-		public ResourceLink Create(string routeName, IDictionary<string, object> routeValuesDictionary)
+		public ResourceLink Create(string rel, IDictionary<string, object> routeValuesDictionary)
 		{
-			if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
+			if (string.IsNullOrWhiteSpace(rel)) throw new ArgumentNullException(nameof(rel));
 
-			return new ResourceLink(routeName,
-									_urlBuilder.Build(routeName, routeValuesDictionary),
-									_httpMethodFinder.Find(routeName));
+			var href = _urlBuilder.Build(rel, routeValuesDictionary);
+			var method = _httpMethodFinder.Find(rel);
+			return new ResourceLink(rel, href, method);
 		}
 	}
 }

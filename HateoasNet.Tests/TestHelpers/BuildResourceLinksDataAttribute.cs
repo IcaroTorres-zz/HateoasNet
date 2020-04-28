@@ -17,7 +17,7 @@ namespace HateoasNet.Tests.TestHelpers
 
 			var singleResources = listTestee.Select(x => new SingleResource(x)).ToList();
 			var enumerableResource = new EnumerableResource(singleResources);
-			var paginationResources = new PaginationResource(new Pagination<Resource>(singleResources, 1, 10, 1));
+			var paginationResources = new PaginationResource(singleResources, 1, 10, 1);
 
 			yield return new object[] {new SingleResource(testee), testee, typeof(Testee)};                //,(Testee) null};
 			yield return new object[] {enumerableResource, listTestee, typeof(List<Testee>)};              //, testee};

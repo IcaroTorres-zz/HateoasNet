@@ -43,11 +43,13 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 					innerLinks = enumerableResource.EnumerableData.SelectMany(x => x.Links).ToList();
 					resource = enumerableResource;
 					break;
+
 				case IPagination pagination:
 					var paginationResource = _sut.Create(pagination, typeof(T));
 					innerLinks = paginationResource.EnumerableData.SelectMany(x => x.Links).ToList();
 					resource = paginationResource;
 					break;
+
 				default:
 					resource = _sut.Create(source, typeof(T));
 					break;
@@ -63,7 +65,7 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 
 		[Theory]
 		[BuildResourceLinksData]
-		[Trait(nameof(IResourceFactory), nameof(IResourceFactory.BuildResourceLinks))]
+		[Trait(nameof(IResourceFactory), nameof(ResourceFactory.BuildResourceLinks))]
 		public void AddsLinksToResource_FromCalling_BuildResourceLinks<T>(Resource resource, T source, Type type)
 			where T : class
 
@@ -73,7 +75,7 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 			var resourceLink = GetResourceLinkFromMockArrangements<T>();
 
 			// act
-			_sut.BuildResourceLinks(resource, source, type);
+			((ResourceFactory) _sut).BuildResourceLinks(resource, source, type);
 
 			// assert
 			Assert.True(wasEmptyBeforeAct);
@@ -84,7 +86,7 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 
 		[Theory]
 		[EnumerateToResourceData]
-		[Trait(nameof(IResourceFactory), nameof(ResourceFactory.EnumerateToResources))]
+		[Trait(nameof(IResourceFactory), nameof(ResourceFactory.ToEnumerableOfResources))]
 		public void ReturnsIEnumerable__Resource__FromCalling_EnumerateToResources<T>(T source) where T : class
 		{
 			// arrange
@@ -92,7 +94,7 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 
 			// act
 			var resources =
-				(_sut as ResourceFactory)?.EnumerateToResources(source as IEnumerable, typeof(T)).ToArray();
+				((ResourceFactory) _sut).ToEnumerableOfResources(source as IEnumerable, typeof(T)).ToArray();
 
 			// assert
 			Assert.IsAssignableFrom<IEnumerable<Resource>>(resources);

@@ -36,15 +36,5 @@ namespace HateoasNet.Abstractions
 		/// <param name="type">type parameter of <see cref="IHateoasResource{T}" /> configuration.</param>
 		/// <returns>A formatted <see cref="PaginationResource" /> instance.</returns>
 		PaginationResource Create(IPagination source, Type type);
-
-		/// <summary>
-		///   Builds the <see cref="Resource.Links" /> collection for created <see cref="Resource" />.
-		/// </summary>
-		/// <param name="resource">Original value wrapped in a <see cref="Resource" /> instance.</param>
-		/// <param name="value">Original value of the configured type.</param>
-		/// <param name="type">
-		///   type parameter of <see cref="IHateoasLink{T}" /> configuration to builds the <see cref="Resource.Links" />.
-		/// </param>
-		void BuildResourceLinks(Resource resource, object value, Type type);
 	}
 }
