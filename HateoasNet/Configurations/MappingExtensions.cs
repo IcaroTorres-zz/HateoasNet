@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace HateoasNet.Configurations
 			return source.GetType()
 			             .GetProperties()
 			             .Where(x => x.CanRead && x.MemberType == MemberTypes.Property)
-			             .ToDictionary(NameFunction, ValueFunction);
+			             .ToDictionary(NameFunction, ValueFunction, StringComparer.OrdinalIgnoreCase);
 		}
 	}
 }
