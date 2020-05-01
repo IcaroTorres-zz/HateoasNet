@@ -8,7 +8,7 @@ using HateoasNet.Resources;
 
 namespace HateoasNet.Framework.Sample.Controllers
 {
-	[RoutePrefix("invites")]
+	[RoutePrefix("some-other-prefix/invites")]
 	public class InvitesController : ApiController
 	{
 		private readonly List<Invite> _invites;

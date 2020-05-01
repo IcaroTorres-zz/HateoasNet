@@ -7,7 +7,7 @@ using HateoasNet.Framework.Sample.Models;
 
 namespace HateoasNet.Framework.Sample.Controllers
 {
-	[RoutePrefix("guilds")]
+	[RoutePrefix("some-prefix/guilds")]
 	public class GuildsController : ApiController
 	{
 		private readonly List<Guild> _guilds;
