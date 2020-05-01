@@ -3,7 +3,7 @@ using System.Reflection;
 using HateoasNet.TestingObjects;
 using Xunit.Sdk;
 
-namespace HateoasNet.Tests.Configurations.HateoasContextTests
+namespace HateoasNet.Tests.TestHelpers
 {
 	public class ConfigurationDataAttribute : DataAttribute
 	{

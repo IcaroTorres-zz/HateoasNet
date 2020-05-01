@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HateoasNet.Abstractions;
+using HateoasNet.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -39,7 +40,7 @@ namespace HateoasNet.Core.Formatting
 			_resourceFactory ??= context.HttpContext.RequestServices.GetRequiredService<IResourceFactory>();
 			_hateoasSerializer ??= context.HttpContext.RequestServices.GetRequiredService<IHateoasSerializer>();
 
-			var resource = context.Object switch
+			Resource resource = context.Object switch
 			{
 				IPagination pagination => _resourceFactory.Create(pagination, context.ObjectType),
 				IEnumerable enumerable => _resourceFactory.Create(enumerable, context.ObjectType),
