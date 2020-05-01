@@ -1,10 +1,11 @@
 ﻿using System;
 using HateoasNet.Abstractions;
 using HateoasNet.Configurations;
-using HateoasNet.Core.Formatting;
-using HateoasNet.Core.Resources;
-using HateoasNet.Core.Serialization;
 using HateoasNet.Factories;
+using HateoasNet.Core.Formatting;
+using HateoasNet.Core.Serialization;
+using HateoasNet.Core.Factories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,9 +31,9 @@ namespace HateoasNet.Core.DependencyInjection
 			       .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
 			       .AddSingleton<IUrlHelperFactory, UrlHelperFactory>()
 			       .AddTransient(x => hateoasConfiguration(new HateoasContext()))
-			       .AddTransient<IUrlBuilder, UrlBuilder>()
-			       .AddTransient<IHttpMethodFinder, HttpMethodFinder>()
-			       .AddTransient<IResourceLinkFactory, ResourceLinkFactory>()
+			       .AddTransient<IUrlHelper>(x => x.GetRequiredService<IUrlHelperFactory>()
+			                                       .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext))
+			       .AddTransient<IResourceLinkFactory, Factories.ResourceLinkFactory>()
 			       .AddTransient<IResourceFactory, ResourceFactory>()
 			       .AddTransient<IHateoasSerializer, HateoasSerializer>();
 		}

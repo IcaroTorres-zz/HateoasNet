@@ -11,6 +11,10 @@ namespace HateoasNet.Configurations
 	/// <inheritdoc cref="IHateoasContext" />
 	public sealed class HateoasContext : IHateoasContext
 	{
+		internal HateoasContext()
+		{
+		}
+
 		private readonly SafeHandle _handle = new SafeFileHandle(IntPtr.Zero, true);
 		private readonly Dictionary<Type, IHateoasResource> _resources = new Dictionary<Type, IHateoasResource>();
 		private bool _disposed;

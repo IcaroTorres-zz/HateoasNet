@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace HateoasNet.Resources
 {
@@ -7,17 +6,17 @@ namespace HateoasNet.Resources
 	///   Represents an formatted enumeration wrapper of <see cref="Resource" /> wrapper items which inherit from
 	///   <see cref="Resource" />.
 	/// </summary>
-	public class EnumerableResource<T> : Resource where T : Resource
+	public class EnumerableResource : Resource
 	{
-		public EnumerableResource(IEnumerable<T> data) : base(data)
+		public EnumerableResource(IEnumerable<Resource> data) : base(data)
 		{
-			EnumerableData = data.ToArray();
+			EnumerableData = data;
 		}
 
-		private IEnumerable<T> EnumerableData { get; }
+		internal IEnumerable<Resource> EnumerableData { get; }
 
 		/// <summary>
-		///   The <see cref="IEnumerable{Resource}" /> items as <see cref="object" />.
+		///   The <see cref="Resource.Data"/> property overriden to return <see cref="IEnumerable{Resource}" />.
 		/// </summary>
 		public override object Data => EnumerableData;
 	}

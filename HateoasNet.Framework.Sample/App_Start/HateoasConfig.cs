@@ -1,6 +1,6 @@
 ﻿using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Configurations;
+using HateoasNet.Framework.DependencyInjection;
 
 namespace HateoasNet.Framework.Sample
 {
@@ -8,7 +8,7 @@ namespace HateoasNet.Framework.Sample
 	{
 		public static IHateoasContext ConfigureFromAssembly(Type containedInAssembly)
 		{
-			return new HateoasContext().ConfigureFromAssembly(containedInAssembly.Assembly);
+			return HateoasExtensions.ConfigureHateoas(context => context.ConfigureFromAssembly(containedInAssembly.Assembly));
 		}
 	}
 }

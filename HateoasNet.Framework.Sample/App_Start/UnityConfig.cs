@@ -5,8 +5,8 @@ using System.Web.Http.Controllers;
 using System.Web.Routing;
 using HateoasNet.Abstractions;
 using HateoasNet.Factories;
+using HateoasNet.Framework.Factories;
 using HateoasNet.Framework.Formatting;
-using HateoasNet.Framework.Resources;
 using HateoasNet.Framework.Sample.HateoasConfigurations;
 using HateoasNet.Framework.Sample.JsonData;
 using HateoasNet.Framework.Serialization;
@@ -42,13 +42,11 @@ namespace HateoasNet.Framework.Sample
 		{
 			container
 				.RegisterFactory<IHateoasContext>(f => HateoasConfig.ConfigureFromAssembly(typeof(GuildHateoasResource)))
-				.RegisterType<Seeder>()
-				.RegisterFactory<IHttpMethodFinder>(f => new HttpMethodFinder(GetActionDescriptors()))
-				.RegisterFactory<IUrlBuilder>(f => new UrlBuilder(GetActionDescriptors()))
+				.RegisterFactory<IResourceLinkFactory>(f => new ResourceLinkFactory())
 				.RegisterType<IHateoasSerializer, HateoasSerializer>()
-				.RegisterType<IResourceLinkFactory, ResourceLinkFactory>()
 				.RegisterType<IResourceFactory, ResourceFactory>()
-				.RegisterType<HateoasMediaTypeFormatter>();
+				.RegisterType<HateoasMediaTypeFormatter>()
+				.RegisterType<Seeder>();
 		}
 
 		private static IEnumerable<HttpActionDescriptor> GetActionDescriptors()
