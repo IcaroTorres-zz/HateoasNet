@@ -2,9 +2,9 @@
 
 namespace HateoasNet.TestingObjects
 {
-	public class GenericTestee<T> : Testee
-	{
-		public T Nested { get; set; }
-		public ICollection<T> Collection { get; set; } = new List<T>();
-	}
+  public class GenericTestee<T> : Testee
+  {
+    public T Nested { get; set; }
+    public List<T> Collection { get; set; } = new List<T>();
+  }
 }

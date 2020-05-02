@@ -2,19 +2,33 @@
 using HateoasNet.Resources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 
 namespace HateoasNet.Framework.Serialization
 {
-	public class HateoasSerializer : IHateoasSerializer
-	{
-		public string SerializeResource(Resource resource)
-		{
-			var jsonSerializerSettings = new JsonSerializerSettings
-			{
-				NullValueHandling = NullValueHandling.Ignore,
-				ContractResolver = new CamelCasePropertyNamesContractResolver()
-			};
-			return JsonConvert.SerializeObject(resource, jsonSerializerSettings);
-		}
-	}
+  /// <inheritdoc cref="IHateoasSerializer"/>
+  public class HateoasSerializer : IHateoasSerializer
+  {
+    /// <summary>
+    ///   Constructor accepting an optional <see cref="JsonSerializerSettings"/> as <paramref name="settings" />.
+    /// </summary>
+    /// <param name="settings">Optional settings for custom output serialization.</param>
+    public HateoasSerializer(JsonSerializerSettings settings = null)
+    {
+      _settings = settings ?? new JsonSerializerSettings
+      {
+        NullValueHandling = NullValueHandling.Ignore,
+        ContractResolver = new CamelCasePropertyNamesContractResolver()
+      };
+    }
+
+    private readonly JsonSerializerSettings _settings;
+
+    public string SerializeResource<TResource>(TResource resource) where TResource : Resource
+    {
+      if (resource == null) throw new ArgumentNullException(nameof(resource));
+
+      return JsonConvert.SerializeObject(resource, typeof(TResource), _settings);
+    }
+  }
 }

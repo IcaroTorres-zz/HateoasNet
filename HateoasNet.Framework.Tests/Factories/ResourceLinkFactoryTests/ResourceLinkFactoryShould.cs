@@ -93,7 +93,8 @@ namespace HateoasNet.Framework.Tests.Factories.ResourceLinkFactoryTests
 		ResourceLinkFactory GenerateFullSut(ResourceLinkFactoryTestData data)
 		{
 			var config = new Mock<HttpConfiguration>().Object;
-			var controllerDescriptor = new HttpControllerDescriptor(config, data.ControllerName, typeof(ApiController));
+			var prefix = new RoutePrefixAttribute(data.Prefix);
+			var controllerDescriptor = new TestControllerDescriptor(config, data.ControllerName, typeof(ApiController), prefix);
 			var actionParameters =
 				data.RouteValues.Keys.Aggregate(new Collection<HttpParameterDescriptor>(),
 				                                (collection, parameterName) =>

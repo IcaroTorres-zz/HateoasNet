@@ -29,6 +29,7 @@ namespace HateoasNet.Framework.Tests.TestHelpers
 				{
 					BaseUrl = baseUrls[0],
 					ControllerName = controllerNames[0],
+					Prefix = $"api/{controllerNames[0]}",
 					RouteName = testRoutes[0],
 					Method = "DELETE",
 					Template = "{id:guid}",
@@ -43,6 +44,7 @@ namespace HateoasNet.Framework.Tests.TestHelpers
 				{
 					BaseUrl = baseUrls[1],
 					ControllerName = controllerNames[1],
+					Prefix = $"api/{controllerNames[1]}",
 					RouteName = testRoutes[1],
 					Method = "PATCH",
 					Template = "{id:guid}",
@@ -57,6 +59,7 @@ namespace HateoasNet.Framework.Tests.TestHelpers
 				{
 					BaseUrl = baseUrls[2],
 					ControllerName = controllerNames[2],
+					Prefix = $"api/{controllerNames[2]}",
 					RouteName = testRoutes[2],
 					Method = "PUT",
 					Template = "{id}",
@@ -71,6 +74,7 @@ namespace HateoasNet.Framework.Tests.TestHelpers
 				{
 					BaseUrl = baseUrls[3],
 					ControllerName = controllerNames[3],
+					Prefix = $"api/v1/{controllerNames[3]}",
 					RouteName = testRoutes[3],
 					Method = "POST",
 					Template = "",
@@ -85,6 +89,7 @@ namespace HateoasNet.Framework.Tests.TestHelpers
 				{
 					BaseUrl = baseUrls[4],
 					ControllerName = controllerNames[4],
+					Prefix = $"api/v2/{controllerNames[4]}",
 					RouteName = testRoutes[4],
 					Method = "GET",
 					Template = "",

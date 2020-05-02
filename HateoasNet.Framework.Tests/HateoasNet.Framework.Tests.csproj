@@ -87,12 +87,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\HttpMethodFinderTests\HttpMethodFinderShould.cs" />
     <Compile Include="Factories\ResourceLinkFactoryTests\ResourceLinkFactoryShould.cs" />
-    <Compile Include="Factories\UrlBuilderTests\UrlBuilderShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\HateoasSerializerTests\HateoasSerializerShould.cs" />
+    <Compile Include="Serialization\HateoasSerializerTests\SerializationDataAttribute.cs" />
     <Compile Include="TestHelpers\ResourceLinkFactoryTestData.cs" />
     <Compile Include="TestHelpers\TestActionDescriptor.cs" />
+    <Compile Include="TestHelpers\TestControllerDescriptor.cs" />
     <Compile Include="TestHelpers\TestMethodInfo.cs" />
     <Compile Include="TestHelpers\UrlResourceLinkDataAttribute.cs" />
   </ItemGroup>
@@ -109,6 +110,15 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Serialization\HateoasSerializerTests\EnumerableResource.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Serialization\HateoasSerializerTests\PaginationResource.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Serialization\HateoasSerializerTests\SingleResource.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

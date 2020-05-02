@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using HateoasNet.Abstractions;
 using HateoasNet.Configurations;
 using HateoasNet.Core.Factories;
-using HateoasNet.Core.Tests.TestHelpers;
 using HateoasNet.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

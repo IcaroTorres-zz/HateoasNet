@@ -2,16 +2,17 @@
 
 namespace HateoasNet.Abstractions
 {
-	/// <summary>
-	///   Represents a custom Serializer for  <see cref="Resource" /> formatted with HATEOAS.
-	/// </summary>
-	public interface IHateoasSerializer
-	{
-		/// <summary>
-		///   Serialize a formatted <see cref="Resource" /> instance.
-		/// </summary>
-		/// <param name="resource">The formatted <see cref="Resource" />.</param>
-		/// <returns>Json <see cref="string" /> representing formatted <see cref="Resource" /> output.</returns>
-		string SerializeResource(Resource resource);
-	}
+  /// <summary>
+  ///   Represents a custom Serializer for  <see cref="Resource" /> formatted with HATEOAS.
+  /// </summary>
+  public interface IHateoasSerializer
+  {
+    /// <summary>
+    ///   Serializes a formatted <typeparamref name="TResource" /> instance.
+    /// </summary>
+    /// <param name="resource">The formatted <typeparamref name="TResource" /> inheriting from <see cref="Resource" />.</param>
+    /// <typeparam name="TResource">The type inheriting from <see cref="Resource" />.<typeparam/>
+    /// <returns>Json <see langword="string" /> representing formatted <typeparamref name="TResource" /> output.</returns>
+    string SerializeResource<TResource>(TResource resource) where TResource : Resource;
+  }
 }

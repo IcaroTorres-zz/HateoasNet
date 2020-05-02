@@ -11,45 +11,53 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HateoasNet.Core.Formatting
 {
-	public class HateoasFormatter : OutputFormatter
-	{
-		private IHateoasSerializer _hateoasSerializer;
-		private IResourceFactory _resourceFactory;
+  /// <inheritdoc cref="OutputFormatter" />
+  public class HateoasFormatter : OutputFormatter
+  {
+    private IHateoasSerializer _hateoasSerializer;
+    private IResourceFactory _resourceFactory;
 
-		public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer) : this()
-		{
-			_resourceFactory = resourceFactory;
-			_hateoasSerializer = hateoasSerializer;
-		}
+    /// <summary>
+    /// 	Constructor with depdendencies injected for testing purposes.
+    /// </summary>
+    public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer) : this()
+    {
+      _resourceFactory = resourceFactory;
+      _hateoasSerializer = hateoasSerializer;
+    }
 
-		public HateoasFormatter()
-		{
-			SupportedMediaTypes.Add("application/json");
-			SupportedMediaTypes.Add("application/json+hateoas");
-		}
+    /// <summary>
+    /// 	Parameterless Constructor, used when getting dependencies within <see cref="WriteResponseBodyAsync" />
+		///		implementation through <see cref="HttpContext.RequestServices"/>.
+    /// </summary>
+    public HateoasFormatter()
+    {
+      SupportedMediaTypes.Add("application/json");
+      SupportedMediaTypes.Add("application/json+hateoas");
+    }
 
-		public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
-		{
-			if (context.Object is SerializableError error)
-			{
-				var errorOutput = JsonSerializer.Serialize(error);
-				context.HttpContext.Response.ContentType = SupportedMediaTypes.First();
-				return context.HttpContext.Response.WriteAsync(errorOutput);
-			}
+    public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
+    {
+      if (context.Object is SerializableError error)
+      {
+        var errorOutput = JsonSerializer.Serialize(error);
+        context.HttpContext.Response.ContentType = SupportedMediaTypes.First();
+        return context.HttpContext.Response.WriteAsync(errorOutput);
+      }
 
-			_resourceFactory ??= context.HttpContext.RequestServices.GetRequiredService<IResourceFactory>();
-			_hateoasSerializer ??= context.HttpContext.RequestServices.GetRequiredService<IHateoasSerializer>();
+      _resourceFactory ??= context.HttpContext.RequestServices.GetRequiredService<IResourceFactory>();
+      _hateoasSerializer ??= context.HttpContext.RequestServices.GetRequiredService<IHateoasSerializer>();
 
-			Resource resource = context.Object switch
-			{
-				IPagination pagination => _resourceFactory.Create(pagination, context.ObjectType),
-				IEnumerable enumerable => _resourceFactory.Create(enumerable, context.ObjectType),
-				_ => _resourceFactory.Create(context.Object, context.ObjectType)
-			};
-			var formattedResponse = _hateoasSerializer.SerializeResource(resource);
+      Resource resource = context.Object switch
+      {
+        IPagination pagination => _resourceFactory.Create(pagination, context.ObjectType),
+        IEnumerable enumerable => _resourceFactory.Create(enumerable, context.ObjectType),
+        _ => _resourceFactory.Create(context.Object, context.ObjectType)
+      };
+      var formattedResponse = _hateoasSerializer.SerializeResource(resource);
 
-			context.HttpContext.Response.ContentType = SupportedMediaTypes.Last();
-			return context.HttpContext.Response.WriteAsync(formattedResponse);
-		}
-	}
+      context.HttpContext.Response.ContentType = SupportedMediaTypes.Last();
+      return context.HttpContext.Response.WriteAsync(formattedResponse);
+    }
+  }
 }
