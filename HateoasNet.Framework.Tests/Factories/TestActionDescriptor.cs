@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 
-namespace HateoasNet.Framework.Tests.TestHelpers
+namespace HateoasNet.Framework.Tests.Factories
 {
 	/// <summary>
 	/// 	Custom dummy of HttpActionDescriptor abstract class to get RouteAttribute

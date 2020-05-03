@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Routing;
 using Moq;
 using Xunit;
 
-namespace HateoasNet.Core.Tests.Factories.ResourceLinkFactoryTests
+namespace HateoasNet.Core.Tests.Factories
 {
 	public class ResourceLinkFactoryShould
 	{

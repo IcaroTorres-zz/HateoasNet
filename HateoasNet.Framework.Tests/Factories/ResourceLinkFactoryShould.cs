@@ -8,12 +8,11 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using HateoasNet.Abstractions;
 using HateoasNet.Framework.Factories;
-using HateoasNet.Framework.Tests.TestHelpers;
 using HateoasNet.Resources;
 using Moq;
 using Xunit;
 
-namespace HateoasNet.Framework.Tests.Factories.ResourceLinkFactoryTests
+namespace HateoasNet.Framework.Tests.Factories
 {
 	public class ResourceLinkFactoryShould
 	{

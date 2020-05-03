@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 
-namespace HateoasNet.Framework.Tests.TestHelpers
+namespace HateoasNet.Framework.Tests.Factories
 {
     public class TestControllerDescriptor : HttpControllerDescriptor
     {

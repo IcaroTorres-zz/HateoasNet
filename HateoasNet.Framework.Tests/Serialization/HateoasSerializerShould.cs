@@ -1,12 +1,12 @@
 using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Core.Serialization;
+using HateoasNet.Framework.Serialization;
 using HateoasNet.Resources;
 using Xunit;
 
-namespace HateoasNet.Core.Tests.Serialization.HateoasSerializerTests
+namespace HateoasNet.Framework.Tests.Serialization
 {
-  public partial class HateoasSerializerShould
+  public class HateoasSerializerShould
   {
     [Theory]
     [SerializationData]
@@ -29,7 +29,7 @@ namespace HateoasNet.Core.Tests.Serialization.HateoasSerializerTests
     [Trait(nameof(IHateoasSerializer), "Exceptions")]
     public void Throws_ArgumentNullException_FromCalling_SerializeResource()
     {
-      Assert.Throws<ArgumentNullException>("resource", () => new HateoasSerializer().SerializeResource<Resource>(null));
+      Assert.Throws<ArgumentNullException>("resource", () => new HateoasSerializer().SerializeResource(null));
     }
   }
 }

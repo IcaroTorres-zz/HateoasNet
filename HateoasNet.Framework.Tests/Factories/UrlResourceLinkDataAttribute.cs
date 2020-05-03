@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Xunit.Sdk;
 
-namespace HateoasNet.Framework.Tests.TestHelpers
+namespace HateoasNet.Framework.Tests.Factories
 {
 	public class UrlResourceLinkDataAttribute : DataAttribute
 	{
