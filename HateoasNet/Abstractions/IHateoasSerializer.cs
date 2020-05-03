@@ -8,11 +8,10 @@ namespace HateoasNet.Abstractions
   public interface IHateoasSerializer
   {
     /// <summary>
-    ///   Serializes a formatted <typeparamref name="TResource" /> instance.
+    ///   Serializes a formatted instance inheriting from <see cref="Resource" />.
     /// </summary>
-    /// <param name="resource">The formatted <typeparamref name="TResource" /> inheriting from <see cref="Resource" />.</param>
-    /// <typeparam name="TResource">The type inheriting from <see cref="Resource" />.<typeparam/>
-    /// <returns>Json <see langword="string" /> representing formatted <typeparamref name="TResource" /> output.</returns>
-    string SerializeResource<TResource>(TResource resource) where TResource : Resource;
+    /// <param name="resource">The formatted instance inheriting from <see cref="Resource" />.</param>
+    /// <returns>Json <see langword="string" /> representing formatted <see cref="Resource" /> output.</returns>
+    string SerializeResource(Resource resource);
   }
 }

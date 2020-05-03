@@ -15,30 +15,32 @@ namespace HateoasNet.Core.Serialization
     /// <param name="settings">Optional settings for custom output serialization.</param>
     public HateoasSerializer(JsonSerializerOptions settings = null)
     {
-      _settings = settings ?? new JsonSerializerOptions
+      Settings = settings ?? new JsonSerializerOptions
       {
         IgnoreNullValues = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
       };
-      _settings.Converters.Add(new GuidConverter());
-      _settings.Converters.Add(new DateTimeConverter());
+      Settings.Converters.Add(new GuidConverter());
+      Settings.Converters.Add(new DateTimeConverter());
     }
-    private readonly JsonSerializerOptions _settings;
+    internal readonly JsonSerializerOptions Settings;
 
-    public string SerializeResource<TResource>(TResource resource) where TResource : Resource
+    public string SerializeResource(Resource resource)
     {
       if (resource == null) throw new ArgumentNullException(nameof(resource));
 
-      return JsonSerializer.Serialize(resource, typeof(TResource), _settings);
+      return JsonSerializer.Serialize(resource, resource.GetType(), Settings);
     }
 
     /// <summary>
-    ///   Adds a custom <see cref="JsonConverters{T}" /> to the configured collection of converters.
+    ///   Adds a custom <see cref="JsonConverter{T}" /> to the configured collection of converters.
     /// </summary>
     /// <returns>Current <see cref="HateoasSerializer"/> instance.</returns>
     public HateoasSerializer AddConverter<T>(JsonConverter<T> converter)
     {
-      _settings.Converters.Add(converter);
+      if (converter == null) throw new ArgumentNullException(nameof(converter));
+
+      Settings.Converters.Add(converter);
       return this;
     }
 
@@ -48,7 +50,7 @@ namespace HateoasNet.Core.Serialization
     /// <returns>Current <see cref="HateoasSerializer"/> instance.</returns>
     public HateoasSerializer ResetConverters()
     {
-      _settings.Converters.Clear();
+      Settings.Converters.Clear();
       return this;
     }
   }
