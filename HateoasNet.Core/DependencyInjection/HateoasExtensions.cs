@@ -5,7 +5,6 @@ using HateoasNet.Factories;
 using HateoasNet.Core.Formatting;
 using HateoasNet.Core.Serialization;
 using HateoasNet.Core.Factories;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,9 +30,9 @@ namespace HateoasNet.Core.DependencyInjection
 			       .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
 			       .AddSingleton<IUrlHelperFactory, UrlHelperFactory>()
 			       .AddTransient(x => hateoasConfiguration(new HateoasContext()))
-			       .AddTransient<IUrlHelper>(x => x.GetRequiredService<IUrlHelperFactory>()
-			                                       .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext))
-			       .AddTransient<IResourceLinkFactory, Factories.ResourceLinkFactory>()
+			       .AddTransient(x => x.GetRequiredService<IUrlHelperFactory>()
+			                           .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext))
+			       .AddTransient<IResourceLinkFactory, ResourceLinkFactory>()
 			       .AddTransient<IResourceFactory, ResourceFactory>()
 			       .AddTransient<IHateoasSerializer, HateoasSerializer>();
 		}
