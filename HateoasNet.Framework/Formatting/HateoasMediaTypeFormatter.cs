@@ -51,23 +51,22 @@ namespace HateoasNet.Framework.Formatting
 		                                              TransportContext transportContext,
 		                                              CancellationToken cancellationToken)
 		{
-			const string requiredHeader = "application/json+hateoas";
 			var notSupportedMessage =
 				$"The request using '{nameof(HateoasMediaTypeFormatter)}' does not have required Accept header '{SupportedMediaTypes.Last()}'.";
 
-			if (!content.Headers.Any(x => x.Value.Any(header => header.Contains(requiredHeader))))
+			if (!content.Headers.ContentType.Equals(SupportedMediaTypes.Last()))
 				throw new NotSupportedException(notSupportedMessage);
 
-			var effectiveEncoding = SelectCharacterEncoding(content.Headers);
-			using var writer = new StreamWriter(writeStream, effectiveEncoding);
 			Resource resource = value switch
 			{
 				IPagination pagination => _resourceFactory.Create(pagination, type),
 				IEnumerable enumerable => _resourceFactory.Create(enumerable, type),
 				_ => _resourceFactory.Create(value, type)
 			};
-
-			await writer.WriteAsync(_hateoasSerializer.SerializeResource(resource));
+			var effectiveEncoding = SelectCharacterEncoding(content.Headers);
+			var formattedResponse = _hateoasSerializer.SerializeResource(resource);
+			var responseBytes = effectiveEncoding.GetBytes(formattedResponse.ToCharArray());
+			await writeStream.WriteAsync(responseBytes, 0, responseBytes.Length, cancellationToken);
 		}
 	}
 }
