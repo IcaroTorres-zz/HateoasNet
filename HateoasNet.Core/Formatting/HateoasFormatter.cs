@@ -18,7 +18,7 @@ namespace HateoasNet.Core.Formatting
     private IResourceFactory _resourceFactory;
 
     /// <summary>
-    /// 	Constructor with depdendencies injected for testing purposes.
+    /// 	Constructor with dependencies injected for testing purposes.
     /// </summary>
     public HateoasFormatter(IResourceFactory resourceFactory, IHateoasSerializer hateoasSerializer) : this()
     {
@@ -36,13 +36,14 @@ namespace HateoasNet.Core.Formatting
       SupportedMediaTypes.Add("application/json+hateoas");
     }
 
-    public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
+    public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
     {
       if (context.Object is SerializableError error)
       {
         var errorOutput = JsonSerializer.Serialize(error);
         context.HttpContext.Response.ContentType = SupportedMediaTypes.First();
-        return context.HttpContext.Response.WriteAsync(errorOutput);
+        await context.HttpContext.Response.WriteAsync(errorOutput);
+        return;
       }
 
       _resourceFactory ??= context.HttpContext.RequestServices.GetRequiredService<IResourceFactory>();
@@ -57,7 +58,7 @@ namespace HateoasNet.Core.Formatting
       var formattedResponse = _hateoasSerializer.SerializeResource(resource);
 
       context.HttpContext.Response.ContentType = SupportedMediaTypes.Last();
-      return context.HttpContext.Response.WriteAsync(formattedResponse);
+      await context.HttpContext.Response.WriteAsync(formattedResponse);
     }
   }
 }
