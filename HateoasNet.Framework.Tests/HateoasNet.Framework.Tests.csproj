@@ -87,15 +87,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\ResourceLinkFactoryTests\ResourceLinkFactoryShould.cs" />
+    <Compile Include="Factories\ResourceLinkFactoryShould.cs" />
+    <Compile Include="Factories\ResourceLinkFactoryTestData.cs" />
+    <Compile Include="Factories\TestActionDescriptor.cs" />
+    <Compile Include="Factories\TestControllerDescriptor.cs" />
+    <Compile Include="Factories\TestMethodInfo.cs" />
+    <Compile Include="Factories\UrlResourceLinkDataAttribute.cs" />
+    <Compile Include="Formatting\FormattingDataAttribute.cs" />
+    <Compile Include="Formatting\HateoasFormatterShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\HateoasSerializerTests\HateoasSerializerShould.cs" />
-    <Compile Include="Serialization\HateoasSerializerTests\SerializationDataAttribute.cs" />
-    <Compile Include="TestHelpers\ResourceLinkFactoryTestData.cs" />
-    <Compile Include="TestHelpers\TestActionDescriptor.cs" />
-    <Compile Include="TestHelpers\TestControllerDescriptor.cs" />
-    <Compile Include="TestHelpers\TestMethodInfo.cs" />
-    <Compile Include="TestHelpers\UrlResourceLinkDataAttribute.cs" />
+    <Compile Include="Serialization\HateoasSerializerShould.cs" />
+    <Compile Include="Serialization\SerializationDataAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HateoasNet.Framework\HateoasNet.Framework.csproj">
@@ -110,14 +112,14 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Serialization\HateoasSerializerTests\EnumerableResource.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="Serialization\EnumerableResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Serialization\HateoasSerializerTests\PaginationResource.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="Serialization\PaginationResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Serialization\HateoasSerializerTests\SingleResource.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="Serialization\SingleResource.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
