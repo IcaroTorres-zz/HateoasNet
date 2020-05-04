@@ -24,11 +24,11 @@ namespace HateoasNet.Framework.Serialization
 
     private readonly JsonSerializerSettings _settings;
 
-    public string SerializeResource<TResource>(TResource resource) where TResource : Resource
+    public string SerializeResource(Resource resource)
     {
       if (resource == null) throw new ArgumentNullException(nameof(resource));
 
-      return JsonConvert.SerializeObject(resource, typeof(TResource), _settings);
+      return JsonConvert.SerializeObject(resource, resource.GetType(), _settings);
     }
   }
 }

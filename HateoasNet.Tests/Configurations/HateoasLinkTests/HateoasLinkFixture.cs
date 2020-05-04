@@ -9,7 +9,7 @@ namespace HateoasNet.Tests.Configurations.HateoasLinkTests
 	{
 		public HateoasLinkFixture()
 		{
-			Sut = new HateoasResource<Testee>().HasLink("test");
+			Sut = new HateoasLink<Testee>("test");
 		}
 
 		public IHateoasLink<Testee> Sut { get; private set; }

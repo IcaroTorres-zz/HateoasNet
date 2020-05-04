@@ -51,23 +51,28 @@ namespace HateoasNet.Framework.Formatting
 		                                              TransportContext transportContext,
 		                                              CancellationToken cancellationToken)
 		{
-			const string requiredHeader = "application/json+hateoas";
 			var notSupportedMessage =
-				$"The request using '{nameof(HateoasMediaTypeFormatter)}' does not have required Accept header '{SupportedMediaTypes.Last()}'.";
+				$"The request using '{nameof(HateoasMediaTypeFormatter)}' does not have required Content-Type header '{SupportedMediaTypes.Last()}'.";
 
-			if (!content.Headers.Any(x => x.Value.Any(header => header.Contains(requiredHeader))))
-				throw new NotSupportedException(notSupportedMessage);
+			if (!CheckSupportedContent(content)) throw new NotSupportedException(notSupportedMessage);
 
-			var effectiveEncoding = SelectCharacterEncoding(content.Headers);
-			using var writer = new StreamWriter(writeStream, effectiveEncoding);
 			Resource resource = value switch
 			{
 				IPagination pagination => _resourceFactory.Create(pagination, type),
 				IEnumerable enumerable => _resourceFactory.Create(enumerable, type),
 				_ => _resourceFactory.Create(value, type)
 			};
+			var effectiveEncoding = SelectCharacterEncoding(content.Headers);
+			var formattedResponse = _hateoasSerializer.SerializeResource(resource);
+			var responseBytes = effectiveEncoding.GetBytes(formattedResponse.ToCharArray());
+			await writeStream.WriteAsync(responseBytes, 0, responseBytes.Length, cancellationToken);
+		}
 
-			await writer.WriteAsync(_hateoasSerializer.SerializeResource(resource));
+		private bool CheckSupportedContent(HttpContent content)
+		{
+			var supportedType = SupportedMediaTypes.Last().ToString();
+			var contentType = content.Headers.ContentType.ToString();
+			return contentType.Contains(supportedType);
 		}
 	}
 }

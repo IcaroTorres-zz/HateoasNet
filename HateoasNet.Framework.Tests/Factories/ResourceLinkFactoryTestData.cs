@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HateoasNet.Framework.Tests.TestHelpers
+namespace HateoasNet.Framework.Tests.Factories
 {
 	public class ResourceLinkFactoryTestData
 	{

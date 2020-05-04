@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Xunit.Sdk;
 
-namespace HateoasNet.Core.Tests.Factories.ResourceLinkFactoryTests
+namespace HateoasNet.Core.Tests.Factories
 {
     public class CreateResourceLinkDataAttribute : DataAttribute
     {

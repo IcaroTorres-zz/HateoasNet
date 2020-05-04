@@ -1,19 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using System.Reflection;
 using HateoasNet.Resources;
 using HateoasNet.TestingObjects;
 using Xunit.Sdk;
 
-namespace HateoasNet.Core.Tests.Serialization.HateoasSerializerTests
+namespace HateoasNet.Core.Tests.Serialization
 {
-  public class SerializationData : DataAttribute
+  public class SerializationDataAttribute : DataAttribute
   {
     public override IEnumerable<object[]> GetData(MethodInfo testMethod)
     {
-      // Guid and DateTime values shared for serialization test 
+      // Guid and DateTime values shared for serialization test
       var sharedGuid = Guid.Parse("96685bc4-dcb7-4b22-90cc-ca83baff8186");
       var sharedDateTime = DateTime.Parse("Fri, 1 May 2020 00:00:00Z");
 
@@ -50,12 +50,9 @@ namespace HateoasNet.Core.Tests.Serialization.HateoasSerializerTests
       paginationResource.Links.Add(emptyLink);
 
       // expectedOutputs
-      var expectedSingleString = File.ReadAllText(
-        Path.Combine("Serialization", "HateoasSerializerTests", "SingleResource.json"));
-      var expectedEnumerableString = File.ReadAllText(
-        Path.Combine("Serialization", "HateoasSerializerTests", "EnumerableResource.json"));
-      var expectedPaginationString = File.ReadAllText(
-        Path.Combine("Serialization", "HateoasSerializerTests", "PaginationResource.json"));
+      var expectedSingleString = File.ReadAllText(Path.Combine("Serialization", "SingleResource.json"));
+      var expectedEnumerableString = File.ReadAllText(Path.Combine("Serialization", "EnumerableResource.json"));
+      var expectedPaginationString = File.ReadAllText(Path.Combine("Serialization", "PaginationResource.json"));
 
       yield return new object[] { resources.First(), expectedSingleString };
       yield return new object[] { enumerableResource, expectedEnumerableString };

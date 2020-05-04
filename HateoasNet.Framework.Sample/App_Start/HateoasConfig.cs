@@ -6,9 +6,9 @@ namespace HateoasNet.Framework.Sample
 {
 	public static class HateoasConfig
 	{
-		public static IHateoasContext ConfigureFromAssembly(Type containedInAssembly)
+		public static IHateoasContext ConfigureFromAssembly(Type type)
 		{
-			return HateoasExtensions.ConfigureHateoas(context => context.ConfigureFromAssembly(containedInAssembly.Assembly));
+			return HateoasExtensions.ConfigureHateoas(context => context.ConfigureFromAssembly(type.Assembly));
 		}
 	}
 }

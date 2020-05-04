@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Web.Http;
 
-namespace HateoasNet.Framework.Tests.TestHelpers
+namespace HateoasNet.Framework.Tests.Factories
 {
 	/// <summary>
 	/// 	Custom dummy of MethodInfo abstract class to get RouteAttribute values from a
