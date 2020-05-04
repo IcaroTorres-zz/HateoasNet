@@ -52,10 +52,9 @@ namespace HateoasNet.Framework.Formatting
 		                                              CancellationToken cancellationToken)
 		{
 			var notSupportedMessage =
-				$"The request using '{nameof(HateoasMediaTypeFormatter)}' does not have required Accept header '{SupportedMediaTypes.Last()}'.";
+				$"The request using '{nameof(HateoasMediaTypeFormatter)}' does not have required Content-Type header '{SupportedMediaTypes.Last()}'.";
 
-			if (!content.Headers.ContentType.Equals(SupportedMediaTypes.Last()))
-				throw new NotSupportedException(notSupportedMessage);
+			if (!CheckSupportedContent(content)) throw new NotSupportedException(notSupportedMessage);
 
 			Resource resource = value switch
 			{
@@ -67,6 +66,13 @@ namespace HateoasNet.Framework.Formatting
 			var formattedResponse = _hateoasSerializer.SerializeResource(resource);
 			var responseBytes = effectiveEncoding.GetBytes(formattedResponse.ToCharArray());
 			await writeStream.WriteAsync(responseBytes, 0, responseBytes.Length, cancellationToken);
+		}
+
+		private bool CheckSupportedContent(HttpContent content)
+		{
+			var supportedType = SupportedMediaTypes.Last().ToString();
+			var contentType = content.Headers.ContentType.ToString();
+			return contentType.Contains(supportedType);
 		}
 	}
 }
