@@ -27,9 +27,9 @@ namespace HateoasNet.Framework.Sample.Controllers
 
 		[HttpGet]
 		[Route(Name = "get-members")]
-		public IHttpActionResult GetAll(Guid? guildId = default)
+		public IHttpActionResult GetAll(Guid? guildId = null)
 		{
-			var members = _members.Where(m => m.GuildId == guildId || guildId == Guid.Empty).ToList();
+			var members = _members.Where(m => m.GuildId == guildId || guildId == null).ToList();
 			return Ok(members);
 		}
 
