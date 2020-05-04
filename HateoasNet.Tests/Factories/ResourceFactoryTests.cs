@@ -1,19 +1,19 @@
-﻿using HateoasNet.Abstractions;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using HateoasNet.Abstractions;
 using HateoasNet.Factories;
 using HateoasNet.Resources;
 using HateoasNet.Tests.TestHelpers;
 using Moq;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
-namespace HateoasNet.Tests.Factories.ResourceFactoryTests
+namespace HateoasNet.Tests.Factories
 {
-	public class ResourceFactoryShould
+	public class ResourceFactoryTests : IDisposable
 	{
-		public ResourceFactoryShould()
+		public ResourceFactoryTests()
 		{
 			_mockHateoasContext = new Mock<IHateoasContext>();
 			_mockResourceLinkFactory = new Mock<IResourceLinkFactory>();
@@ -25,9 +25,9 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 		private readonly IResourceFactory _sut;
 
 		[Theory]
-		[CreateResourceDataAttribute]
+		[CreateResourceData]
 		[Trait(nameof(IResourceFactory), nameof(IResourceFactory.Create))]
-		public void ReturnsResource_FromCalling_Create<T>(T source) where T : class
+		public void Create_WithValidParameters_ReturnsValidFormattedResource<T>(T source) where T : class
 		{
 			// arrange
 			var resourceLink = GetResourceLinkFromMockArrangements<T>();
@@ -66,7 +66,7 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 		[Theory]
 		[BuildResourceLinksData]
 		[Trait(nameof(IResourceFactory), nameof(ResourceFactory.BuildResourceLinks))]
-		public void AddsLinksToResource_FromCalling_BuildResourceLinks<T>(Resource resource, T source, Type type)
+		public void BuildResourceLinks_WithValidParameters_AddsLinksToResource<T>(Resource resource, T source, Type type)
 			where T : class
 
 		{
@@ -87,7 +87,8 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 		[Theory]
 		[EnumerateToResourceData]
 		[Trait(nameof(IResourceFactory), nameof(ResourceFactory.ToEnumerableOfResources))]
-		public void ReturnsIEnumerable__Resource__FromCalling_EnumerateToResources<T>(T source) where T : class
+		public void ToEnumerableOfResources_WithEnumerableOfTargetType_ReturnsIEnumerableOfSingleResource<T>(T source)
+			where T : class
 		{
 			// arrange
 			var resourceLink = GetResourceLinkFromMockArrangements<T>();
@@ -128,5 +129,11 @@ namespace HateoasNet.Tests.Factories.ResourceFactoryTests
 		string GetDummyMethod() => new[] {"GET", "POST", "PUT", "PATCH", "DELETE"}[new Random().Next(0, 4)];
 
 		string GetDummyUrl(string routeName) => $"http://hateoasnet.api/{routeName}";
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
+		}
 	}
 }

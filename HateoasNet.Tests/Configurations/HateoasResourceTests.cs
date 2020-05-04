@@ -1,31 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HateoasNet.Abstractions;
 using HateoasNet.Configurations;
 using HateoasNet.TestingObjects;
-using HateoasNet.Tests.Configurations.HateoasContextTests;
 using HateoasNet.Tests.TestHelpers;
 using Xunit;
-using Xunit.Abstractions;
 
-namespace HateoasNet.Tests.Configurations.HateoasResourceTests
+namespace HateoasNet.Tests.Configurations
 {
-	public class HateoasResourceShould
+	public class HateoasResourceTests : IDisposable
 	{
-		public HateoasResourceShould(ITestOutputHelper outputHelper)
-		{
-			_outputHelper = outputHelper;
-		}
-
-		private readonly ITestOutputHelper _outputHelper;
-
 		[Theory]
 		[ConfigureData]
-		[Trait(nameof(IHateoasResource), "Instantiation")]
-		public void BeOfType_HateoasResource<T>(T testee) where T : Testee
+		[Trait(nameof(IHateoasResource), "New")]
+		public void New_WithTypeParameter_CreatesHateoasResource<T>(T testee) where T : Testee
 		{
 			// act
 			var sut = new HateoasResource<T>();
 
+			// assert
 			Assert.IsAssignableFrom<IHateoasResource>(sut);
 			Assert.IsAssignableFrom<IHateoasResource<T>>(sut);
 			Assert.IsType<HateoasResource<T>>(sut);
@@ -33,8 +26,8 @@ namespace HateoasNet.Tests.Configurations.HateoasResourceTests
 
 		[Theory]
 		[ConfigureData]
-		[Trait(nameof(IHateoasResource), "HasLink")]
-		public void ReturnsHateoasLink_FromCalling_HasLink<T>(T testee) where T : Testee
+		[Trait(nameof(IHateoasResource), nameof(IHateoasResource<Testee>.HasLink))]
+		public void HasLink_WithNotEmptyString_ReturnsHateoasLink<T>(T testee) where T : class
 		{
 			// act
 			var sut = new HateoasResource<T>();
@@ -50,10 +43,12 @@ namespace HateoasNet.Tests.Configurations.HateoasResourceTests
 		[Theory]
 		[ConfigureData]
 		[Trait(nameof(IHateoasResource), "GetLinks")]
-		public void ReturnsEmptyList_FromCalling_GetLinks_IfNo_LinkConfigured<T>(T testee) where T : Testee
+		public void GetLinks_FromHateoasResource_WithOutConfiguredLinks_ReturnsEmptyLinks<T>(T _) where T : Testee
 		{
-			// act
+			// arrange
 			var sut = new HateoasResource<T>();
+
+			// act
 			var hateoasLinks = sut.GetLinks();
 
 			// assert
@@ -64,23 +59,48 @@ namespace HateoasNet.Tests.Configurations.HateoasResourceTests
 
 		[Theory]
 		[ConfigureData]
-		[Trait(nameof(IHateoasResource), "GetLinks")]
-		public void ReturnsList_FromCalling_GetLinks_IfAny_LinkConfigured<T>(T testee) where T : Testee
+		[Trait(nameof(IHateoasResource), nameof(IHateoasResource<Testee>.GetLinks))]
+		public void GetLinks_FromHateoasResource_WithConfiguredLinks_ReturnsNotEmptyLinks<T>(T _) where T : Testee
 		{
-			// act
+			// arrange
+			const string routeName = "test";
 			var sut = new HateoasResource<T>();
-			var hateoasLink = sut.HasLink("test");
+
+			// act
+			var hateoasLink = sut.HasLink(routeName);
 			var hateoasLinks = sut.GetLinks();
 
 			// assert
 			Assert.IsAssignableFrom<IEnumerable<IHateoasLink>>(hateoasLinks);
 			Assert.IsType<List<IHateoasLink>>(hateoasLinks);
-
 			Assert.IsAssignableFrom<IHateoasLink>(hateoasLink);
 			Assert.IsAssignableFrom<IHateoasLink<T>>(hateoasLink);
 			Assert.IsType<HateoasLink<T>>(hateoasLink);
-
 			Assert.Contains(hateoasLinks, x => x.Equals(hateoasLink));
+		}
+
+
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		[Trait(nameof(IHateoasResource), nameof(IHateoasResource<Testee>.HasLink))]
+		[Trait(nameof(IHateoasResource), "Exceptions")]
+		public void HasLink_WithRouteNameNullOrEmpty_ThrowsArgumentNullException(string routeName)
+		{
+			// arrange
+			var sut = new HateoasResource<Testee>();
+			const string parameterName = "routeName";
+
+			// act
+			Action actual = () => sut.HasLink(routeName);
+
+			Assert.Throws<ArgumentNullException>(parameterName, actual);
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
 		}
 	}
 }

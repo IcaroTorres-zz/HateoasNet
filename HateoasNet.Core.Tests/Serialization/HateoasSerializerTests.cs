@@ -1,23 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.Json.Serialization;
 using HateoasNet.Abstractions;
 using HateoasNet.Core.Serialization;
 using HateoasNet.Resources;
 using Xunit;
-using Xunit.Sdk;
 
 namespace HateoasNet.Core.Tests.Serialization
 {
-	public class HateoasSerializerShould
+	public class HateoasSerializerTests : IDisposable
 	{
 		[Theory]
 		[SerializationData]
 		[Trait(nameof(IHateoasSerializer), nameof(IHateoasSerializer.SerializeResource))]
-		public void ReturnsString_EqualTo_ExpectedOutput_FromCalling_SerializeResource<T>(T resource, string expectedOutput)
-			where T : Resource
+		public void SerializeResource_WithValidResource_ReturnsExpectedString(Resource resource, string expectedOutput)
 		{
 			// arrange
 			var sut = new HateoasSerializer();
@@ -31,7 +28,7 @@ namespace HateoasNet.Core.Tests.Serialization
 
 		[Fact]
 		[Trait(nameof(IHateoasSerializer), nameof(HateoasSerializer.ResetConverters))]
-		public void ResetConverters_ToEmptyList()
+		public void ResetConverters_SetConverters_ToEmptyList()
 		{
 			// arrange
 			var sut = new HateoasSerializer();
@@ -50,7 +47,7 @@ namespace HateoasNet.Core.Tests.Serialization
 		[Theory]
 		[AddConverterData]
 		[Trait(nameof(IHateoasSerializer), nameof(HateoasSerializer.AddConverter))]
-		public void AddConverter<T>(JsonConverter<T> converter)
+		public void AddConverter_WithValidJsonConverter_AddsNewConverter<T>(JsonConverter<T> converter)
 		{
 			// arrange
 			var sut = new HateoasSerializer();
@@ -67,9 +64,16 @@ namespace HateoasNet.Core.Tests.Serialization
 		[Fact]
 		[Trait(nameof(IHateoasSerializer), nameof(IHateoasSerializer.SerializeResource))]
 		[Trait(nameof(IHateoasSerializer), "Exceptions")]
-		public void Throws_ArgumentNullException_FromCalling_SerializeResource()
+		public void SerializeResource_WithResourceNull_Throws_ArgumentNullException()
 		{
-			Assert.Throws<ArgumentNullException>("resource", () => new HateoasSerializer().SerializeResource(null));
+			// arrange
+			var sut = new HateoasSerializer();
+			const string parameterName = "resource";
+
+			// act
+			Action actual = () => sut.SerializeResource(null);
+
+			Assert.Throws<ArgumentNullException>(parameterName, actual);
 		}
 
 		[Fact]
@@ -77,17 +81,20 @@ namespace HateoasNet.Core.Tests.Serialization
 		[Trait(nameof(IHateoasSerializer), "Exceptions")]
 		public void Throws_ArgumentNullException_FromCalling_AddConverter()
 		{
-			Assert.Throws<ArgumentNullException>("converter", () => new HateoasSerializer().AddConverter<Guid>(null));
-		}
-	}
+			// arrange
+			var sut = new HateoasSerializer();
+			const string parameterName = "converter";
 
-	internal class AddConverterDataAttribute : DataAttribute
-	{
+			// act
+			Action actual = () => sut.AddConverter<Guid>(null);
+
+			Assert.Throws<ArgumentNullException>(parameterName, actual);
+		}
+
 		/// <inheritdoc />
-		public override IEnumerable<object[]> GetData(MethodInfo testMethod)
+		public void Dispose()
 		{
-			yield return new object[] {new GuidConverter()};
-			yield return new object[] {new DateTimeConverter()};
+			GC.SuppressFinalize(this);
 		}
 	}
 }

@@ -14,14 +14,16 @@ using Xunit;
 
 namespace HateoasNet.Framework.Tests.Factories
 {
-	public class ResourceLinkFactoryShould
+	public class ResourceLinkFactoryTests : IDisposable
 	{
 		[Fact]
 		[Trait(nameof(IResourceLinkFactory), "Instantiation")]
-		public void BoOfType__ResourceLinkFactory()
+		public void New_WithValidParameters_ReturnsResourceLinkFactory()
 		{
+			// act
 			var sut = GenerateDefaultSut();
 
+			// assert
 			Assert.IsAssignableFrom<IResourceLinkFactory>(sut);
 			Assert.IsType<ResourceLinkFactory>(sut);
 		}
@@ -29,7 +31,7 @@ namespace HateoasNet.Framework.Tests.Factories
 		[Theory]
 		[UrlResourceLinkData]
 		[Trait(nameof(IResourceLinkFactory), nameof(IResourceLinkFactory.Create))]
-		public void ReturnsResourceLink_FromCalling_Create(ResourceLinkFactoryTestData data)
+		public void Create_WithValidParameters_ReturnsValidResourceLink(ResourceLinkFactoryTestData data)
 		{
 			// arrange
 			var sut = GenerateFullSut(data);
@@ -46,7 +48,7 @@ namespace HateoasNet.Framework.Tests.Factories
 		}
 
 		[Theory, UrlResourceLinkData, Trait(nameof(IResourceLinkFactory), nameof(ResourceLinkFactory.GetRouteUrl))]
-		public void ReturnsString_FromCalling_GetRouteUrl(ResourceLinkFactoryTestData data)
+		public void GetRouteUrl_WithValidParameters_ReturnsRouteUrlString(ResourceLinkFactoryTestData data)
 		{
 			var sut = GenerateFullSut(data);
 
@@ -62,11 +64,17 @@ namespace HateoasNet.Framework.Tests.Factories
 		[InlineData(null)]
 		[Trait(nameof(IResourceLinkFactory), nameof(IResourceLinkFactory.Create))]
 		[Trait(nameof(IResourceLinkFactory), "Exceptions")]
-		public void Throws_ArgumentNullException_FromCalling_Create_Using_routeName_NullOrWhiteSpace(string rel)
+		public void Create_WithRouteNameNullOrWhiteSpace_Throws_ArgumentNullException(string rel)
 		{
+			// arrange
 			var sut = GenerateDefaultSut();
+			const string parameterName = "rel";
 
-			Assert.Throws<ArgumentNullException>("rel", () => sut.Create(rel, null));
+			// act
+			Action actual = () => sut.Create(rel, null);
+
+			// act
+			Assert.Throws<ArgumentNullException>(parameterName, actual);
 		}
 
 		[Theory]
@@ -74,18 +82,22 @@ namespace HateoasNet.Framework.Tests.Factories
 		[InlineData(null)]
 		[Trait(nameof(IResourceLinkFactory), nameof(ResourceLinkFactory.GetRouteUrl))]
 		[Trait(nameof(IResourceLinkFactory), "Exceptions")]
-		public void Throws_ArgumentNullException_FromCalling_GetRouteUrl(string routeName)
+		public void GetRouteUrl_WithRouteNameNullOrWhiteSpace_Throws_ArgumentNullException(string routeName)
 		{
 			// arrange
 			var sut = GenerateDefaultSut();
+			const string parameterName = "routeName";
+
+			// act
+			Action actual = () => sut.GetRouteUrl(routeName, null);
 
 			// assert
-			Assert.Throws<ArgumentNullException>("routeName", () => sut.GetRouteUrl(routeName, null));
+			Assert.Throws<ArgumentNullException>(parameterName, actual);
 		}
 
 		ResourceLinkFactory GenerateDefaultSut()
 		{
-			return new ResourceLinkFactory(new[] { new Mock<HttpActionDescriptor>().Object});
+			return new ResourceLinkFactory(new[] {new Mock<HttpActionDescriptor>().Object});
 		}
 
 		// manually arrange aspnet web api dummies and mocks
@@ -93,7 +105,8 @@ namespace HateoasNet.Framework.Tests.Factories
 		{
 			var config = new Mock<HttpConfiguration>().Object;
 			var prefix = new RoutePrefixAttribute(data.Prefix);
-			var controllerDescriptor = new TestControllerDescriptor(config, data.ControllerName, typeof(ApiController), prefix);
+			var controllerDescriptor =
+				new TestControllerDescriptor(config, data.ControllerName, typeof(ApiController), prefix);
 			var actionParameters =
 				data.RouteValues.Keys.Aggregate(new Collection<HttpParameterDescriptor>(),
 				                                (collection, parameterName) =>
@@ -113,6 +126,12 @@ namespace HateoasNet.Framework.Tests.Factories
 			HttpContext.Current = new HttpContext(request, response);
 
 			return new ResourceLinkFactory(new[] {actionDescriptor});
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
 		}
 	}
 }

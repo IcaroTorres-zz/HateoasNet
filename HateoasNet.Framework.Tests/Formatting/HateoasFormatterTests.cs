@@ -16,18 +16,75 @@ using Xunit;
 
 namespace HateoasNet.Framework.Tests.Formatting
 {
-	public class HateoasMediaTypeFormatterShould
+	public class HateoasMediaTypeFormatterTests : IDisposable
 	{
 		[Theory]
 		[FormattingData]
 		[Trait(nameof(HateoasMediaTypeFormatter), nameof(HateoasMediaTypeFormatter.WriteToStreamAsync))]
-		public void Read_ExpectedText_FromResponseBody(object value, Resource resource, string text)
+		public void WriteToStreamAsync_ValidParameters_WriteExpectedText(object value, Resource resource, string text)
 		{
 			// arrange
+			const string supportedContentType = "application/json+hateoas";
 			var type = value.GetType();
 			var stream = new MemoryStream();
 			var testHttpContent = new TestHttpContent();
-			testHttpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json+hateoas");
+			testHttpContent.Headers.ContentType = new MediaTypeHeaderValue(supportedContentType);
+			var mockResourceFactory = GenerateFullResourceFactoryMock(resource, value, type);
+			var sut = new HateoasMediaTypeFormatter(new Mock<IHateoasContext>().Object,
+			                                        mockResourceFactory.Object,
+			                                        new HateoasSerializer());
+
+			// act
+			sut.WriteToStreamAsync(type, value, stream, testHttpContent, null, CancellationToken.None).Wait();
+			stream.Seek(0, SeekOrigin.Begin);
+			mockResourceFactory.Verify();
+			// reset position and read the stream to capture formatted string output
+			var actual = new StreamReader(stream).ReadToEnd();
+
+			// assert
+			Assert.Equal(text, actual);
+		}
+
+		[Fact]
+		[Trait(nameof(HateoasMediaTypeFormatter), nameof(HateoasMediaTypeFormatter.CanReadType))]
+		public void CanReadType_Always_ReturnsFalse()
+		{
+			// arrange
+			var sut = new HateoasMediaTypeFormatter(new Mock<IHateoasContext>().Object,
+			                                        new Mock<IResourceFactory>().Object,
+			                                        new Mock<IHateoasSerializer>().Object);
+
+			// act
+			var actual = sut.CanReadType(It.IsAny<Type>());
+
+			// assert
+			Assert.False(actual);
+		}
+
+		[Theory]
+		[InlineData(typeof(Testee), typeof(NestedTestee))]
+		[InlineData(typeof(NestedTestee), typeof(GenericTestee<Testee>))]
+		[InlineData(typeof(GenericTestee<Testee>), typeof(Testee))]
+		[Trait(nameof(HateoasMediaTypeFormatter), nameof(HateoasMediaTypeFormatter.CanWriteType))]
+		public void CanWriteType_WithTypeParameters_ReturnsExpectedBool(Type validType, Type invalidType)
+		{
+			// arrange
+			var hateoasContextMock = GenerateCanWriteHateoasContextMock(validType, invalidType);
+			var sut = new HateoasMediaTypeFormatter(hateoasContextMock.Object,
+			                                        new Mock<IResourceFactory>().Object,
+			                                        new Mock<IHateoasSerializer>().Object);
+
+			// act
+			var actualValid = sut.CanWriteType(validType);
+			var actualInvalid = sut.CanWriteType(invalidType);
+
+			// assert
+			Assert.True(actualValid);
+			Assert.False(actualInvalid);
+		}
+
+		private Mock<IResourceFactory> GenerateFullResourceFactoryMock(Resource resource, object value, Type type)
+		{
 			var mockResourceFactory = new Mock<IResourceFactory>();
 			switch (value)
 			{
@@ -48,51 +105,22 @@ namespace HateoasNet.Framework.Tests.Formatting
 					break;
 			}
 
-			var sut = new HateoasMediaTypeFormatter(new Mock<IHateoasContext>().Object,
-			                                        mockResourceFactory.Object,
-			                                        new HateoasSerializer());
-
-			// act
-			sut.WriteToStreamAsync(type, value, stream, testHttpContent, null, CancellationToken.None).Wait();
-			stream.Seek(0, SeekOrigin.Begin);
-			mockResourceFactory.Verify();
-
-			// read the stream to capture formatted string output
-			var actual = new StreamReader(stream).ReadToEnd();
-
-			// assert
-			Assert.Equal(text, actual);
+			return mockResourceFactory;
 		}
 
-		[Fact]
-		[Trait(nameof(HateoasMediaTypeFormatter), nameof(HateoasMediaTypeFormatter.CanReadType))]
-		public void ReturnsFalse_FromCalling_CanReadType_WithAnyValue()
+		private Mock<IHateoasContext> GenerateCanWriteHateoasContextMock(Type validType, Type invalidType)
 		{
-			var sut = new HateoasMediaTypeFormatter(new Mock<IHateoasContext>().Object,
-			                                        new Mock<IResourceFactory>().Object,
-			                                        new Mock<IHateoasSerializer>().Object);
-
-			Assert.False(sut.CanReadType(It.IsAny<Type>()));
-		}
-
-		[Theory]
-		[InlineData(typeof(Testee), typeof(NestedTestee))]
-		[InlineData(typeof(NestedTestee), typeof(GenericTestee<Testee>))]
-		[InlineData(typeof(GenericTestee<Testee>), typeof(Testee))]
-		[Trait(nameof(HateoasMediaTypeFormatter), nameof(HateoasMediaTypeFormatter.CanWriteType))]
-		public void ReturnsExpectedBool_FromCalling_CanReadType(Type validType, Type invalidType)
-		{
-			// arrange
 			var mockContext = new Mock<IHateoasContext>();
 			mockContext.Setup(x => x.HasResource(validType)).Returns(true);
 			mockContext.Setup(x => x.HasResource(invalidType)).Returns(false);
-			var sut = new HateoasMediaTypeFormatter(mockContext.Object,
-			                                        new Mock<IResourceFactory>().Object,
-			                                        new Mock<IHateoasSerializer>().Object);
 
-			// act + asserts
-			Assert.True(sut.CanWriteType(validType));
-			Assert.False(sut.CanWriteType(invalidType));
+			return mockContext;
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
 		}
 	}
 
