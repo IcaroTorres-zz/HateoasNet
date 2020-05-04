@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$-alpha</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/IcaroTorres/HateoasNet/tree/master/HateoasNet.Framework</projectUrl>
+    <repository url="https://github.com/IcaroTorres/HateoasNet.git" type="git" branch="master"/>
+    <description>$description$</description>
+    <summary>$description$</summary>
+    <packageTypes><packageType name="Dependency" /></packageTypes>
+    <releaseNotes>
+      HateoasNet.Framework Class library. Targeting Net Framework for platform-specific features of HateoasNet.
+      
+      Features:
+    
+      Formatting, Serialization and Url platform-specific implementations targeting .Net Framework version 4.7.2.
+      Dependency injection and integration extensions;
+      Custom MediaTypeFormatter for HATEOAS.
+
+      visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
+    </releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>json hateoas-response api-rest hateoas-net hateoas-formatting</tags>
+    <dependencies>      
+      <group targetFramework=".NETFramework4.7.2" >
+        <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
+        <dependency id="Microsoft.AspNet.WebApi.WebHost" version="5.2.7" />
+        <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
+        <dependency id="Newtonsoft.Json" version="12.0.3" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

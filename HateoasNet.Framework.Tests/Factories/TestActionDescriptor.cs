@@ -8,38 +8,38 @@ using System.Web.Http.Controllers;
 
 namespace HateoasNet.Framework.Tests.Factories
 {
-	/// <summary>
-	/// 	Custom dummy of HttpActionDescriptor abstract class to get RouteAttribute
-	/// 	and HttpMethod from a Controller Action MethodInfo for testing purposes
-	/// </summary>
-	class TestActionDescriptor : HttpActionDescriptor
-	{
-		private readonly Collection<HttpParameterDescriptor> _parameterDescriptors;
-		public MethodInfo MethodInfo { get; }
+    /// <summary>
+    /// 	Custom dummy of HttpActionDescriptor abstract class to get RouteAttribute
+    /// 	and HttpMethod from a Controller Action MethodInfo for testing purposes
+    /// </summary>
+    internal class TestActionDescriptor : HttpActionDescriptor
+    {
+        private readonly Collection<HttpParameterDescriptor> _parameterDescriptors;
+        public MethodInfo MethodInfo { get; }
 
-		public TestActionDescriptor(HttpControllerDescriptor controllerDescriptor,
-		                            MethodInfo methodInfo,
-		                            Collection<HttpParameterDescriptor> parameterDescriptors) : base(controllerDescriptor)
-		{
-			_parameterDescriptors = parameterDescriptors;
-			MethodInfo = methodInfo;
-		}
+        public TestActionDescriptor(HttpControllerDescriptor controllerDescriptor,
+                                    MethodInfo methodInfo,
+                                    Collection<HttpParameterDescriptor> parameterDescriptors) : base(controllerDescriptor)
+        {
+            _parameterDescriptors = parameterDescriptors;
+            MethodInfo = methodInfo;
+        }
 
-		/// <inheritdoc />
-		public override Collection<HttpParameterDescriptor> GetParameters() => _parameterDescriptors;
+        /// <inheritdoc />
+        public override Collection<HttpParameterDescriptor> GetParameters() => _parameterDescriptors;
 
-		/// <inheritdoc />
-		public override Collection<T> GetCustomAttributes<T>() => new Collection<T>();
+        /// <inheritdoc />
+        public override Collection<T> GetCustomAttributes<T>() => new Collection<T>();
 
-		/// <inheritdoc />
-		public override Task<object> ExecuteAsync(HttpControllerContext controllerContext,
-		                                          IDictionary<string, object> arguments,
-		                                          CancellationToken cancellationToken) => null;
+        /// <inheritdoc />
+        public override Task<object> ExecuteAsync(HttpControllerContext controllerContext,
+                                                  IDictionary<string, object> arguments,
+                                                  CancellationToken cancellationToken) => null;
 
-		/// <inheritdoc />
-		public override string ActionName { get; }
+        /// <inheritdoc />
+        public override string ActionName { get; }
 
-		/// <inheritdoc />
-		public override Type ReturnType { get; }
-	}
+        /// <inheritdoc />
+        public override Type ReturnType { get; }
+    }
 }

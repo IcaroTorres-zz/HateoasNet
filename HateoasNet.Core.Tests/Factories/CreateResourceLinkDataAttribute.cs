@@ -14,7 +14,7 @@ namespace HateoasNet.Core.Tests.Factories
             var url = $"http://dummy.test/api/dummy/{routeName}/{routeData.id}";
             var method = "GET";
 
-            yield return new object[] {routeData, routeName, url, method};
+            yield return new object[] { routeData, routeName, url, method };
 
             routeName = "test2";
             url = $"http://dummy.test/api/dummy/{routeName}";

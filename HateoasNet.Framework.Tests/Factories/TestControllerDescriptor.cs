@@ -18,9 +18,9 @@ namespace HateoasNet.Framework.Tests.Factories
 
         public override Collection<T> GetCustomAttributes<T>() where T : class
         {
-           return typeof(T) == RoutePrefix.GetType() 
-                ? new Collection<T> { RoutePrefix as T } 
-                : base.GetCustomAttributes<T>();
+            return typeof(T) == RoutePrefix.GetType()
+                 ? new Collection<T> { RoutePrefix as T }
+                 : base.GetCustomAttributes<T>();
         }
     }
 }

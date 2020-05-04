@@ -1,17 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <LangVersion>8.0</LangVersion>
-        <PackageVersion>0.0.1</PackageVersion>
+        <PackageVersion>1.0.0-alpha</PackageVersion>
         <Title>HateoasNet.Core</Title>
-        <Authors>Icaro Torres</Authors>
-        <Description>.Net Core Library for ease output formatting Json responses with HATEOAS.</Description>
-        <PackageProjectUrl>https://github.com/icarotorres/HateoasNet</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicenseUrl>
+        <Authors>icarotorres</Authors>
+        <Description>.Net Core 3.1 Library for ease Web Api output formatting Json responses with HATEOAS.</Description>
+        <PackageProjectUrl>https://github.com/IcaroTorres/HateoasNet/tree/master/HateoasNet.Core</PackageProjectUrl>
+        <PackageLicense>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicense>
         <RepositoryUrl>https://github.com/icarotorres/HateoasNet.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>net-core, json, hateoas, api-rest, hateoas-response, hateoasnet-core</PackageTags>
+        <PackageTags>json, hateoas, api-rest, hateoas-response, hateoasnet-core</PackageTags>
+        <Version>1.0.0-alpha</Version>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTypes>
+          <PackageType name="Dependency" />
+        </PackageTypes>
+        <PackageReleaseNotes>
+          Features:
+        
+          Formatting, Serialization and Url platform-specific implementations targeting .Net Core LTS version (3.1).
+          Dependency injection and integration extensions;
+          Custom Mvc OutputFormatter for HATEOAS.
+
+          visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
+        </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
