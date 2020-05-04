@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http.Controllers;
-using System.Web.Routing;
 using HateoasNet.Abstractions;
 using HateoasNet.Factories;
 using HateoasNet.Framework.Factories;
@@ -47,15 +43,6 @@ namespace HateoasNet.Framework.Sample
 				.RegisterType<IResourceFactory, ResourceFactory>()
 				.RegisterType<HateoasMediaTypeFormatter>()
 				.RegisterType<Seeder>();
-		}
-
-		private static IEnumerable<HttpActionDescriptor> GetActionDescriptors()
-		{
-			return RouteTable
-			       .Routes
-			       .OfType<Route>()
-			       .Select(route => route.DataTokens.Values.OfType<HttpActionDescriptor[]>()
-			                             .FirstOrDefault()?.First()).Where(x => x != null);
 		}
 	}
 }
