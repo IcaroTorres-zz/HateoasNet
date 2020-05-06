@@ -1,5 +1,5 @@
-﻿using HateoasNet.Resources;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using HateoasNet.Resources;
 
 namespace HateoasNet.Abstractions
 {
@@ -7,7 +7,7 @@ namespace HateoasNet.Abstractions
     ///   Represents a Factory for creation of <see cref="ResourceLink" /> instances.
     /// </summary>
     public interface IResourceLinkFactory
-    {
+	{
         /// <summary>
         ///   Creates a HATEOAS <see cref="ResourceLink" /> using <paramref name="rel" />
         ///   with <paramref name="routeValues" /> to discover route Url and HTTP method.
@@ -17,9 +17,10 @@ namespace HateoasNet.Abstractions
         ///   <para>see also <seealso cref="IHateoasLink.RouteName" />.</para>
         /// </param>
         /// <param name="routeValues">
-        ///   The <see cref="IDictionary{TKey,TValue}" /> of <see langword="string" />, <see langword="object" /> holding route values.
+        ///   The <see cref="IDictionary{TKey,TValue}" /> of <see langword="string" />, <see langword="object" /> holding route
+        ///   values.
         /// </param>
         /// <returns>The generated <see cref="ResourceLink" /> instance for HATEOAS output.</returns>
         ResourceLink Create(string rel, IDictionary<string, object> routeValues);
-    }
+	}
 }

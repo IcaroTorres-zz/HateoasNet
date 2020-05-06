@@ -1,18 +1,20 @@
-﻿namespace HateoasNet.Resources
+﻿using System;
+
+namespace HateoasNet.Resources
 {
     /// <summary>
-    ///   Represents an item of <see cref="Resource.Links" /> holding a <see cref="Rel"/>,
-    ///   <see cref="Href"/> and <see cref="Method"/>.
+    ///   Represents an item of <see cref="Resource.Links" /> holding a <see cref="Rel" />,
+    ///   <see cref="Href" /> and <see cref="Method" />.
     /// </summary>
-    [System.Serializable]
-    public class ResourceLink
-    {
-        public ResourceLink(string rel, string href, string method)
-        {
-            Rel = rel;
-            Href = href;
-            Method = method;
-        }
+    [Serializable]
+	public class ResourceLink
+	{
+		public ResourceLink(string rel, string href, string method)
+		{
+			Rel = rel;
+			Href = href;
+			Method = method;
+		}
 
         /// <summary>
         ///   The Url to access some available action of the <see cref="Resource" /> containing this
@@ -33,5 +35,5 @@
         /// </summary>
         /// <value>The <see langword="string" /> value of HTTP method.</value>
         public virtual string Method { get; } = string.Empty;
-    }
+	}
 }

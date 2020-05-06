@@ -1,6 +1,6 @@
-﻿using HateoasNet.Resources;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using HateoasNet.Resources;
 
 namespace HateoasNet.Abstractions
 {
@@ -8,7 +8,7 @@ namespace HateoasNet.Abstractions
     ///   Represents a configuration of HATEOAS link displayed to response output.
     /// </summary>
     public interface IHateoasLink
-    {
+	{
         /// <summary>
         ///   An endpoint Route Name assigned on an action method attribute.
         /// </summary>
@@ -43,14 +43,14 @@ namespace HateoasNet.Abstractions
         ///   passes <see cref="IHateoasLink{T}.Predicate" /> for applicability.
         /// </returns>
         bool IsApplicable(object resourceData);
-    }
+	}
 
     /// <summary>
     ///   Represents a <typeparamref name="T" /> configuration of HATEOAS link displayed to response output.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IHateoasLink<T> : IHateoasLink //where T : class
-    {
+	{
         /// <summary>
         ///   A framework function to generate <see cref="IDictionary{TKey, TValue}" /> of <see langword="string" />,
         ///   <see langword="object" /> representing the route values.
@@ -76,5 +76,5 @@ namespace HateoasNet.Abstractions
         /// <param name="predicate">Predicate function to filter applicability of <see cref="IHateoasLink{T}" />.</param>
         /// <returns>Current <see cref="IHateoasLink{T}" /> instance.</returns>
         IHateoasLink<T> HasConditional(Func<T, bool> predicate);
-    }
+	}
 }

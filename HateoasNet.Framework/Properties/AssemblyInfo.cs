@@ -6,7 +6,8 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HateoasNet.Framework")]
-[assembly: AssemblyDescription("Class Library targeting Net Framework 4.72 for ease output formatting .Net Web Api response into Json with HATEOAS.")]
+[assembly:
+	AssemblyDescription("Class Library targeting Net Framework 4.72 for ease output formatting .Net Web Api response into Json with HATEOAS.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Icaro Torres")]
 [assembly: AssemblyProduct("HateoasNet.Framework")]

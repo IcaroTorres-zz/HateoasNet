@@ -1,20 +1,20 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace HateoasNet.Framework.Sample.Models
 {
-    public class Invite
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public InviteStatuses Status { get; set; } = InviteStatuses.Pending;
-        public Guid GuildId { get; set; }
-        public Guid MemberId { get; set; }
-        [JsonIgnore] public Member Member { get; set; }
-        [JsonIgnore] public Guild Guild { get; set; }
-    }
+	public class Invite
+	{
+		public Guid Id { get; set; } = Guid.NewGuid();
+		public InviteStatuses Status { get; set; } = InviteStatuses.Pending;
+		public Guid GuildId { get; set; }
+		public Guid MemberId { get; set; }
+		[JsonIgnore] public Member Member { get; set; }
+		[JsonIgnore] public Guild Guild { get; set; }
+	}
 
-    public enum InviteStatuses : short
-    {
+	public enum InviteStatuses : short
+	{
         /// <summary>
         ///   Waiting for an answer as accepted, declined or canceled
         /// </summary>
@@ -34,5 +34,5 @@ namespace HateoasNet.Framework.Sample.Models
         ///   Canceled by inviting guild
         /// </summary>
         Canceled
-    }
+	}
 }
