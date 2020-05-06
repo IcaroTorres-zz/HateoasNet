@@ -3,21 +3,19 @@
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;netcoreapp3.1;net472;</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
-        <PackageVersion>1.0.0-alpha</PackageVersion>
         <Title>HateoasNet</Title>
+        <Version>$(Version)</Version>
+        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Authors>icarotorres</Authors>
-        <Summary>.Net Standard Library with base abstractions and common implementations for supporting HateoasNet packages.</Summary>
+        <PackageSummary>.Net Standard Library with base abstractions and common implementations for supporting HateoasNet packages.</PackageSummary>
         <Description>.Net Standard Library with base abstractions and common implementations for supporting HateoasNet packages.</Description>
         <PackageProjectUrl>https://github.com/icarotorres/HateoasNet</PackageProjectUrl>
         <PackageLicense>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicense>
         <RepositoryUrl>https://github.com/icarotorres/HateoasNet.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>json, hateoas, api-rest, hateoas-response, hateoasnet</PackageTags>
-        <Version>1.0.0-alpha</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageTypes>
-          <PackageType name="Dependency" />
-        </PackageTypes>
+        <PackageTypes>dependency</PackageTypes>
         <PackageReleaseNotes>
           Features:
 
@@ -29,7 +27,7 @@
 
           visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
         </PackageReleaseNotes>
-      
+
     </PropertyGroup>
 
     <ItemGroup>

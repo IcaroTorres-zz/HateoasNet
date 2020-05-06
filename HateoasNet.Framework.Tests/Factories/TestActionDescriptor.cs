@@ -15,6 +15,8 @@ namespace HateoasNet.Framework.Tests.Factories
     internal class TestActionDescriptor : HttpActionDescriptor
     {
         private readonly Collection<HttpParameterDescriptor> _parameterDescriptors;
+
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public MethodInfo MethodInfo { get; }
 
         public TestActionDescriptor(HttpControllerDescriptor controllerDescriptor,
@@ -37,9 +39,9 @@ namespace HateoasNet.Framework.Tests.Factories
                                                   CancellationToken cancellationToken) => null;
 
         /// <inheritdoc />
-        public override string ActionName { get; }
+        public override string ActionName => "TestAction";
 
         /// <inheritdoc />
-        public override Type ReturnType { get; }
+        public override Type ReturnType => typeof(object);
     }
 }

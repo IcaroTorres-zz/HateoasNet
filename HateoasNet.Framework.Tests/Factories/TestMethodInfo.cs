@@ -56,22 +56,23 @@ namespace HateoasNet.Framework.Tests.Factories
         }
 
         /// <inheritdoc />
+        // ReSharper disable once UnassignedGetOnlyAutoProperty
         public override ICustomAttributeProvider ReturnTypeCustomAttributes { get; }
 
         /// <inheritdoc />
-        public override string Name { get; }
+        public override string Name => "TestAction";
 
         /// <inheritdoc />
-        public override Type DeclaringType { get; }
+        public override Type DeclaringType => typeof(object);
 
         /// <inheritdoc />
-        public override Type ReflectedType { get; }
+        public override Type ReflectedType => typeof(object);
 
         /// <inheritdoc />
-        public override RuntimeMethodHandle MethodHandle { get; }
+        public override RuntimeMethodHandle MethodHandle => new RuntimeMethodHandle();
 
         /// <inheritdoc />
-        public override MethodAttributes Attributes { get; }
+        public override MethodAttributes Attributes => new MethodAttributes();
 
         /// <inheritdoc />
         public override object[] GetCustomAttributes(Type attributeType, bool inherit)

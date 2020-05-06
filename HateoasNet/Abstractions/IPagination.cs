@@ -17,7 +17,7 @@ namespace HateoasNet.Abstractions
         ///   Gets the paginated <see cref="ICollection" /> items as <see cref="IEnumerable" />.
         /// </summary>
         /// <returns></returns>
-        IEnumerable GetEnumeration();
+        IEnumerable GetItems();
     }
 
     /// <summary>
@@ -27,8 +27,9 @@ namespace HateoasNet.Abstractions
     public interface IPagination<out T> : IPagination
     {
         /// <summary>
-        ///   The paginated <see cref="ICollection{T}" /> items as <see cref="IEnumerable{T}" />.
+        ///   Gets paginated <see cref="ICollection{T}" /> items as <see cref="IEnumerable{T}" />.
         /// </summary>
-        IEnumerable<T> Data { get; }
+        /// <returns>paginated <see cref="ICollection{T}" /> items as <see cref="IEnumerable{T}" />.</returns>
+        new IEnumerable<T> GetItems();
     }
 }

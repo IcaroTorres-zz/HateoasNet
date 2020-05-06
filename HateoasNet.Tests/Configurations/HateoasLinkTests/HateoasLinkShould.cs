@@ -33,7 +33,7 @@ namespace HateoasNet.Tests.Configurations.HateoasLinkTests
             // assert
             Assert.NotNull(_fixture.Sut.RouteName);
             Assert.NotNull(_fixture.Sut.RouteDictionaryFunction);
-            Assert.NotNull(_fixture.Sut.PredicateFunction);
+            Assert.NotNull(_fixture.Sut.Predicate);
         }
 
         [Fact]

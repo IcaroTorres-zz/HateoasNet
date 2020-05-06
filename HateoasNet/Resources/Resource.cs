@@ -5,6 +5,7 @@ namespace HateoasNet.Resources
     /// <summary>
     ///   Represents a formatted wrapper of requested data in addition to HATEOAS <see cref="Links" />.
     /// </summary>
+    [System.Serializable]
     public abstract class Resource
     {
         protected Resource(object data)
@@ -20,6 +21,6 @@ namespace HateoasNet.Resources
         /// <summary>
         ///   Additional <see cref="List{T}" /> as HATEOAS data.
         /// </summary>
-        public List<ResourceLink> Links { get; } = new List<ResourceLink>();
+        public virtual List<ResourceLink> Links { get; } = new List<ResourceLink>();
     }
 }

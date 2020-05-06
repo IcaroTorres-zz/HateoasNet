@@ -18,7 +18,7 @@ namespace HateoasNet.Framework.Sample
         /// </summary>
         public static void Start()
         {
-            var resolver = new UnityHierarchicalDependencyResolver(UnityConfig.Container);
+            var resolver = new UnityHierarchicalDependencyResolver(UnityConfig.GetContainer());
 
             GlobalConfiguration.Configuration.DependencyResolver = resolver;
         }
@@ -28,7 +28,7 @@ namespace HateoasNet.Framework.Sample
         /// </summary>
         public static void Shutdown()
         {
-            UnityConfig.Container.Dispose();
+            UnityConfig.GetContainer().Dispose();
         }
     }
 }

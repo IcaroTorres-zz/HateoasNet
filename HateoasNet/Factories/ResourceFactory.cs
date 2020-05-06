@@ -35,7 +35,7 @@ namespace HateoasNet.Factories
 
         public PaginationResource Create(IPagination source, Type type)
         {
-            var singleResources = ToEnumerableOfResources(source.GetEnumeration(), type);
+            var singleResources = ToEnumerableOfResources(source.GetItems(), type);
             var paginationResource = new PaginationResource(singleResources, source.Count, source.PageSize, source.Page);
             BuildResourceLinks(paginationResource, source, type);
             return paginationResource;
@@ -49,12 +49,12 @@ namespace HateoasNet.Factories
         /// <param name="type">
         ///   type parameter of <see cref="IHateoasLink{T}" /> configuration to builds the <see cref="Resource.Links" />.
         /// </param>
-        internal void BuildResourceLinks(Resource resource, object data, Type type)
+        internal void BuildResourceLinks(Resource resource, object value, Type type)
         {
-            foreach (var hateoasLink in _hateoasConfiguration.GetApplicableLinks(type, data))
+            foreach (var hateoasLink in _hateoasConfiguration.GetApplicableLinks(type, value))
             {
                 var createdLink =
-                    _resourceLinkFactory.Create(hateoasLink.RouteName, hateoasLink.GetRouteDictionary(data));
+                    _resourceLinkFactory.Create(hateoasLink.RouteName, hateoasLink.GetRouteDictionary(value));
 
                 resource.Links.Add(createdLink);
             }

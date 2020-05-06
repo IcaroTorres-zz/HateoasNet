@@ -31,7 +31,7 @@ namespace HateoasNet.Abstractions
 
         /// <summary>
         ///   Adds or continues an <see cref="IHateoasResource{T}" /> configuration of
-        ///   <typeparamref name="T" /> using an <see cref="Action{IHateoasResource{T}}" /> action.
+        ///   <typeparamref name="T" /> using an <see cref="Action{T}" /> of <see cref="IHateoasResource{T}" /> action.
         /// </summary>
         /// <param name="resource">Action enabling configuration over the instance of IHateoasResource{T}.</param>
         /// <typeparam name="T">Target class for resource configuration.</typeparam>

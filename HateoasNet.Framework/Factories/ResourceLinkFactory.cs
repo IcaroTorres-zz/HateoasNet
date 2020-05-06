@@ -114,7 +114,7 @@ namespace HateoasNet.Framework.Factories
 
             var replacedTemplate = template;
             const string fromRouteVariablePattern = @"\{(.*?)\}";
-            const string variableIdentifierPattern = @"\w(\w|\d|_)*";
+            const string variableIdentifierPattern = @"\w(\w|\d|testee)*";
 
             foreach (Match match in Regex.Matches(replacedTemplate, fromRouteVariablePattern))
             {

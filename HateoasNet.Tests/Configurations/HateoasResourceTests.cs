@@ -5,6 +5,7 @@ using HateoasNet.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
 using Xunit;
+// ReSharper disable xUnit1026
 
 namespace HateoasNet.Tests.Configurations
 {
@@ -19,6 +20,7 @@ namespace HateoasNet.Tests.Configurations
             var sut = new HateoasResource<T>();
 
             // assert
+            Assert.NotNull(testee);
             Assert.IsAssignableFrom<IHateoasResource>(sut);
             Assert.IsAssignableFrom<IHateoasResource<T>>(sut);
             Assert.IsType<HateoasResource<T>>(sut);
@@ -34,6 +36,7 @@ namespace HateoasNet.Tests.Configurations
             var hateoasLink = sut.HasLink(testee.GetType().Name);
 
             // assert
+            Assert.NotNull(testee);
             Assert.NotNull(hateoasLink);
             Assert.IsAssignableFrom<IHateoasLink>(hateoasLink);
             Assert.IsAssignableFrom<IHateoasLink<T>>(hateoasLink);
@@ -42,8 +45,8 @@ namespace HateoasNet.Tests.Configurations
 
         [Theory]
         [ConfigureData]
-        [Trait(nameof(IHateoasResource), "GetLinks")]
-        public void GetLinks_FromHateoasResource_WithOutConfiguredLinks_ReturnsEmptyLinks<T>(T _) where T : Testee
+        [Trait(nameof(IHateoasResource), nameof(IHateoasResource.GetLinks))]
+        public void GetLinks_FromHateoasResource_WithOutConfiguredLinks_ReturnsEmptyLinks<T>(T testee) where T : Testee
         {
             // arrange
             var sut = new HateoasResource<T>();
@@ -52,6 +55,7 @@ namespace HateoasNet.Tests.Configurations
             var hateoasLinks = sut.GetLinks();
 
             // assert
+            Assert.NotNull(testee);
             Assert.IsAssignableFrom<IEnumerable<IHateoasLink>>(hateoasLinks);
             Assert.IsType<List<IHateoasLink>>(hateoasLinks);
             Assert.Empty(hateoasLinks);
@@ -59,11 +63,11 @@ namespace HateoasNet.Tests.Configurations
 
         [Theory]
         [ConfigureData]
-        [Trait(nameof(IHateoasResource), nameof(IHateoasResource<Testee>.GetLinks))]
-        public void GetLinks_FromHateoasResource_WithConfiguredLinks_ReturnsNotEmptyLinks<T>(T _) where T : Testee
+        [Trait(nameof(IHateoasResource), nameof(IHateoasResource.GetLinks))]
+        public void GetLinks_FromHateoasResource_WithConfiguredLinks_ReturnsNotEmptyLinks<T>(T testee) where T : Testee
         {
             // arrange
-            const string routeName = "test";
+            const string routeName = nameof(testee);
             var sut = new HateoasResource<T>();
 
             // act

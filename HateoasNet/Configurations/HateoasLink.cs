@@ -17,11 +17,11 @@ namespace HateoasNet.Configurations
         {
             RouteName = routeName;
             RouteDictionaryFunction = routeDictionaryFunction;
-            PredicateFunction = predicateFunction;
+            Predicate = predicateFunction;
         }
 
         public string RouteName { get; }
-        public Func<T, bool> PredicateFunction { get; private set; }
+        public Func<T, bool> Predicate { get; private set; }
         public Func<T, IDictionary<string, object>> RouteDictionaryFunction { get; private set; }
 
         public IDictionary<string, object> GetRouteDictionary(object resourceData)
@@ -35,7 +35,7 @@ namespace HateoasNet.Configurations
         {
             if (resourceData == null) throw new ArgumentNullException(nameof(resourceData));
 
-            return PredicateFunction((T)resourceData);
+            return Predicate((T)resourceData);
         }
 
         public IHateoasLink<T> HasRouteData(Func<T, object> routeDataFunction)
@@ -47,7 +47,7 @@ namespace HateoasNet.Configurations
 
         public IHateoasLink<T> HasConditional(Func<T, bool> predicate)
         {
-            PredicateFunction = predicate ?? throw new ArgumentNullException(nameof(predicate));
+            Predicate = predicate ?? throw new ArgumentNullException(nameof(predicate));
             return this;
         }
     }

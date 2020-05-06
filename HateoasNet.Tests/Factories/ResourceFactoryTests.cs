@@ -40,13 +40,13 @@ namespace HateoasNet.Tests.Factories
             {
                 case IEnumerable enumerable:
                     var enumerableResource = _sut.Create(enumerable, typeof(T));
-                    innerLinks = enumerableResource.EnumerableData.SelectMany(x => x.Links).ToList();
+                    innerLinks = enumerableResource.GetItems().SelectMany(x => x.Links).ToList();
                     resource = enumerableResource;
                     break;
 
                 case IPagination pagination:
                     var paginationResource = _sut.Create(pagination, typeof(T));
-                    innerLinks = paginationResource.EnumerableData.SelectMany(x => x.Links).ToList();
+                    innerLinks = paginationResource.GetItems().SelectMany(x => x.Links).ToList();
                     resource = paginationResource;
                     break;
 

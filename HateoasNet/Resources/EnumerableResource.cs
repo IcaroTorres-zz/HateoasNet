@@ -4,21 +4,30 @@ using System.Linq;
 namespace HateoasNet.Resources
 {
     /// <summary>
-    ///   Represents an formatted enumeration wrapper of <see cref="Resource" /> wrapper items which inherit from
-    ///   <see cref="Resource" />.
+    ///   Represents a formatted enumeration wrapper of <see cref="Resource" /> items.
     /// </summary>
+    [System.Serializable]
     public class EnumerableResource : Resource
     {
         public EnumerableResource(IEnumerable<Resource> data) : base(data)
         {
-            EnumerableData = data.ToList();
+            _items = data.ToList();
         }
 
-        internal IEnumerable<Resource> EnumerableData { get; }
+        private readonly List<Resource> _items;
+
 
         /// <summary>
-        ///   The <see cref="Resource.Data"/> property overriden to return <see cref="IEnumerable{Resource}" />.
+        ///   The <see cref="Resource.Data"/> property overriden with actual value being
+        ///   <see cref="IEnumerable{T}" /> of <see cref="Resource"/> as <see langword="object"/>.
         /// </summary>
-        public override object Data => EnumerableData;
+        public override object Data => GetItems();
+
+
+        /// <summary>
+        /// Returns the items as an <see cref="IEnumerable{T}" /> of <see cref="Resource"/>.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IEnumerable<Resource> GetItems() => _items;
     }
 }
