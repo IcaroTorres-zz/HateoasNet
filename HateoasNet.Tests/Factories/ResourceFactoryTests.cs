@@ -1,139 +1,145 @@
-﻿using HateoasNet.Abstractions;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using HateoasNet.Abstractions;
 using HateoasNet.Factories;
 using HateoasNet.Resources;
 using HateoasNet.Tests.TestHelpers;
 using Moq;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace HateoasNet.Tests.Factories
 {
-    public class ResourceFactoryTests : IDisposable
-    {
-        public ResourceFactoryTests()
-        {
-            _mockHateoasContext = new Mock<IHateoasContext>();
-            _mockResourceLinkFactory = new Mock<IResourceLinkFactory>();
-            _sut = new ResourceFactory(_mockHateoasContext.Object, _mockResourceLinkFactory.Object);
-        }
+	public class ResourceFactoryTests : IDisposable
+	{
+		private readonly Mock<IHateoasContext> _mockHateoasContext;
+		private readonly Mock<IResourceLinkFactory> _mockResourceLinkFactory;
+		private readonly IResourceFactory _sut;
 
-        private readonly Mock<IHateoasContext> _mockHateoasContext;
-        private readonly Mock<IResourceLinkFactory> _mockResourceLinkFactory;
-        private readonly IResourceFactory _sut;
+		public ResourceFactoryTests()
+		{
+			_mockHateoasContext = new Mock<IHateoasContext>();
+			_mockResourceLinkFactory = new Mock<IResourceLinkFactory>();
+			_sut = new ResourceFactory(_mockHateoasContext.Object, _mockResourceLinkFactory.Object);
+		}
 
-        [Theory]
-        [CreateResourceData]
-        [Trait(nameof(IResourceFactory), nameof(IResourceFactory.Create))]
-        public void Create_WithValidParameters_ReturnsValidFormattedResource<T>(T source) where T : class
-        {
-            // arrange
-            var resourceLink = GetResourceLinkFromMockArrangements<T>();
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			GC.SuppressFinalize(this);
+		}
 
-            var innerLinks = new List<ResourceLink>();
+		[Theory]
+		[CreateResourceData]
+		[Trait(nameof(IResourceFactory), nameof(IResourceFactory.Create))]
+		public void Create_WithValidParameters_ReturnsValidFormattedResource<T>(T source) where T : class
+		{
+			// arrange
+			var resourceLink = GetResourceLinkFromMockArrangements<T>();
 
-            Resource resource;
-            // act
-            switch (source)
-            {
-                case IEnumerable enumerable:
-                    var enumerableResource = _sut.Create(enumerable, typeof(T));
-                    innerLinks = enumerableResource.EnumerableData.SelectMany(x => x.Links).ToList();
-                    resource = enumerableResource;
-                    break;
+			var innerLinks = new List<ResourceLink>();
 
-                case IPagination pagination:
-                    var paginationResource = _sut.Create(pagination, typeof(T));
-                    innerLinks = paginationResource.EnumerableData.SelectMany(x => x.Links).ToList();
-                    resource = paginationResource;
-                    break;
+			Resource resource;
+			// act
+			switch (source)
+			{
+				case IEnumerable enumerable:
+					var enumerableResource = _sut.Create(enumerable, typeof(T));
+					innerLinks = enumerableResource.GetItems().SelectMany(x => x.Links).ToList();
+					resource = enumerableResource;
+					break;
 
-                default:
-                    resource = _sut.Create(source, typeof(T));
-                    break;
-            }
+				case IPagination pagination:
+					var paginationResource = _sut.Create(pagination, typeof(T));
+					innerLinks = paginationResource.GetItems().SelectMany(x => x.Links).ToList();
+					resource = paginationResource;
+					break;
 
-            // assert
-            Assert.NotNull(resource);
-            Assert.IsAssignableFrom<Resource>(resource);
-            Assert.IsType<List<ResourceLink>>(resource.Links);
-            Assert.Contains(resourceLink, resource.Links);
-            Assert.True(innerLinks.All(l => l == resourceLink));
-        }
+				default:
+					resource = _sut.Create(source, typeof(T));
+					break;
+			}
 
-        [Theory]
-        [BuildResourceLinksData]
-        [Trait(nameof(IResourceFactory), nameof(ResourceFactory.BuildResourceLinks))]
-        public void BuildResourceLinks_WithValidParameters_AddsLinksToResource<T>(Resource resource, T source, Type type)
-            where T : class
+			// assert
+			Assert.NotNull(resource);
+			Assert.IsAssignableFrom<Resource>(resource);
+			Assert.IsType<List<ResourceLink>>(resource.Links);
+			Assert.Contains(resourceLink, resource.Links);
+			Assert.True(innerLinks.All(l => l == resourceLink));
+		}
 
-        {
-            // arrange
-            var wasEmptyBeforeAct = !resource.Links.Any();
-            var resourceLink = GetResourceLinkFromMockArrangements<T>();
+		[Theory]
+		[BuildResourceLinksData]
+		[Trait(nameof(IResourceFactory), nameof(ResourceFactory.BuildResourceLinks))]
+		public void BuildResourceLinks_WithValidParameters_AddsLinksToResource<T>(Resource resource, T source, Type type)
+			where T : class
 
-            // act
-            ((ResourceFactory)_sut).BuildResourceLinks(resource, source, type);
+		{
+			// arrange
+			var wasEmptyBeforeAct = !resource.Links.Any();
+			var resourceLink = GetResourceLinkFromMockArrangements<T>();
 
-            // assert
-            Assert.True(wasEmptyBeforeAct);
-            Assert.IsAssignableFrom<Resource>(resource);
-            Assert.IsType<List<ResourceLink>>(resource.Links);
-            Assert.Contains(resourceLink, resource.Links);
-        }
+			// act
+			((ResourceFactory) _sut).BuildResourceLinks(resource, source, type);
 
-        [Theory]
-        [EnumerateToResourceData]
-        [Trait(nameof(IResourceFactory), nameof(ResourceFactory.ToEnumerableOfResources))]
-        public void ToEnumerableOfResources_WithEnumerableOfTargetType_ReturnsIEnumerableOfSingleResource<T>(T source)
-            where T : class
-        {
-            // arrange
-            var resourceLink = GetResourceLinkFromMockArrangements<T>();
+			// assert
+			Assert.True(wasEmptyBeforeAct);
+			Assert.IsAssignableFrom<Resource>(resource);
+			Assert.IsType<List<ResourceLink>>(resource.Links);
+			Assert.Contains(resourceLink, resource.Links);
+		}
 
-            // act
-            var resources =
-                ((ResourceFactory)_sut).ToEnumerableOfResources(source as IEnumerable, typeof(T)).ToArray();
+		[Theory]
+		[EnumerateToResourceData]
+		[Trait(nameof(IResourceFactory), nameof(ResourceFactory.ToEnumerableOfResources))]
+		public void ToEnumerableOfResources_WithEnumerableOfTargetType_ReturnsIEnumerableOfSingleResource<T>(T source)
+			where T : class
+		{
+			// arrange
+			var resourceLink = GetResourceLinkFromMockArrangements<T>();
 
-            // assert
-            Assert.IsAssignableFrom<IEnumerable<Resource>>(resources);
-            Assert.NotEmpty(resources);
-            Assert.True(resources.All(x => x.Links.All(l => l == resourceLink)));
-        }
+			// act
+			var resources =
+				((ResourceFactory) _sut).ToEnumerableOfResources(source as IEnumerable, typeof(T)).ToArray();
 
-        private ResourceLink GetResourceLinkFromMockArrangements<T>() where T : class
-        {
-            // creating additional stubs
-            const string routeName = "test-route";
-            var resourceLink = new ResourceLink(routeName, GetDummyUrl(routeName), GetDummyMethod());
+			// assert
+			Assert.IsAssignableFrom<IEnumerable<Resource>>(resources);
+			Assert.NotEmpty(resources);
+			Assert.True(resources.All(x => x.Links.All(l => l == resourceLink)));
+		}
 
-            //mocking dependency methods
-            var mockHateoasLink = new Mock<IHateoasLink<T>>();
-            mockHateoasLink.Setup(x => x.RouteName).Returns(routeName);
-            mockHateoasLink.Setup(x => x.GetRouteDictionary(It.IsAny<object>()))
-                           .Returns(It.IsAny<IDictionary<string, object>>());
+		private ResourceLink GetResourceLinkFromMockArrangements<T>() where T : class
+		{
+			// creating additional stubs
+			const string routeName = "test-route";
+			var resourceLink = new ResourceLink(routeName, GetDummyUrl(routeName), GetDummyMethod());
 
-            _mockHateoasContext
-                .Setup(x => x.GetApplicableLinks(It.IsAny<Type>(), It.IsAny<object>()))
-                .Returns(new List<IHateoasLink> { mockHateoasLink.Object });
+			//mocking dependency methods
+			var mockHateoasLink = new Mock<IHateoasLink<T>>();
+			mockHateoasLink.Setup(x => x.RouteName).Returns(routeName);
+			mockHateoasLink.Setup(x => x.GetRouteDictionary(It.IsAny<object>()))
+			               .Returns(It.IsAny<IDictionary<string, object>>());
 
-            _mockResourceLinkFactory
-                .Setup(x => x.Create(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(resourceLink);
+			_mockHateoasContext
+				.Setup(x => x.GetApplicableLinks(It.IsAny<Type>(), It.IsAny<object>()))
+				.Returns(new List<IHateoasLink> {mockHateoasLink.Object});
 
-            return resourceLink;
-        }
+			_mockResourceLinkFactory
+				.Setup(x => x.Create(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+				.Returns(resourceLink);
 
-        private string GetDummyMethod() => new[] { "GET", "POST", "PUT", "PATCH", "DELETE" }[new Random().Next(0, 4)];
+			return resourceLink;
+		}
 
-        private string GetDummyUrl(string routeName) => $"http://hateoasnet.api/{routeName}";
+		private string GetDummyMethod()
+		{
+			return new[] {"GET", "POST", "PUT", "PATCH", "DELETE"}[new Random().Next(0, 4)];
+		}
 
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-    }
+		private string GetDummyUrl(string routeName)
+		{
+			return $"http://hateoasnet.api/{routeName}";
+		}
+	}
 }

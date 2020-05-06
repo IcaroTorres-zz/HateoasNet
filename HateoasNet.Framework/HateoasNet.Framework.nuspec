@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
+  
   <metadata>
-    <id>$id$</id>
-    <version>$version$-alpha</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    
+    <id>HateoasNet.Framework</id>
+    <version>$version$</version>
+    <title>HateoasNet Framework Library</title>
+    <authors>Icaro Torres</authors>
+    <owners>icarotorres</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/IcaroTorres/HateoasNet/tree/master/HateoasNet.Framework</projectUrl>
-    <repository url="https://github.com/IcaroTorres/HateoasNet.git" type="git" branch="master"/>
-    <description>$description$</description>
-    <summary>$description$</summary>
+    <repository url="https://github.com/IcaroTorres/HateoasNet.git" type="git" branch="master" commit="b8656f58a5eac281cb8e1e7814d98ddf88d9a956"/>
+    <description>Class Library targeting Net Framework 4.72 for ease output formatting .Net Web Api response into Json with HATEOAS.</description>
     <packageTypes><packageType name="Dependency" /></packageTypes>
     <releaseNotes>
       HateoasNet.Framework Class library. Targeting Net Framework for platform-specific features of HateoasNet.
-      
+
       Features:
     
       Formatting, Serialization and Url platform-specific implementations targeting .Net Framework version 4.7.2.
@@ -24,10 +25,21 @@
 
       visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
     </releaseNotes>
-    <copyright>Copyright 2020</copyright>
+    <copyright>Copyright ©2020 Icaro Torres</copyright>
     <tags>json hateoas-response api-rest hateoas-net hateoas-formatting</tags>
-    <dependencies>      
-      <group targetFramework=".NETFramework4.7.2" >
+
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System" targetFramework="net472" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="net472" />
+      <frameworkAssembly assemblyName="System.Data" targetFramework="net472" />
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework="net472" />
+      <frameworkAssembly assemblyName="System.Web" targetFramework="net472" />
+      <frameworkAssembly assemblyName="System.Xml" targetFramework="net472" />
+    </frameworkAssemblies>
+
+    <dependencies>
+      <group targetFramework="net472">
+        <dependency id="HateoasNet" version="1.0.0-alpha-0" />
         <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.7" />
         <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" />
         <dependency id="Microsoft.AspNet.WebApi.WebHost" version="5.2.7" />
@@ -35,5 +47,11 @@
         <dependency id="Newtonsoft.Json" version="12.0.3" />
       </group>
     </dependencies>
+    
   </metadata>
+  
+  <files>
+    <file src="bin\Release\*" target="lib\net472" />
+  </files>
+  
 </package>

@@ -1,6 +1,6 @@
-﻿using HateoasNet.Resources;
-using System;
+﻿using System;
 using System.Collections;
+using HateoasNet.Resources;
 
 namespace HateoasNet.Abstractions
 {
@@ -8,7 +8,7 @@ namespace HateoasNet.Abstractions
     ///   Represents a Factory for creation of formatted <see cref="Resource" /> output instances.
     /// </summary>
     public interface IResourceFactory
-    {
+	{
         /// <summary>
         ///   Creates a formatted <see cref="SingleResource" /> using <see cref="IHateoasResource{T}" /> configuration
         ///   of <paramref name="type" /> with <paramref name="source" /> as original value.
@@ -36,5 +36,5 @@ namespace HateoasNet.Abstractions
         /// <param name="type">type parameter of <see cref="IHateoasResource{T}" /> configuration.</param>
         /// <returns>A formatted <see cref="PaginationResource" /> instance.</returns>
         PaginationResource Create(IPagination source, Type type);
-    }
+	}
 }

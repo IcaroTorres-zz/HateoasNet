@@ -6,13 +6,13 @@ namespace HateoasNet.Abstractions
     ///   Represents a HATEOAS resource to be formatted associate with <see cref="IHateoasLink" /> configurations.
     /// </summary>
     public interface IHateoasResource
-    {
+	{
         /// <summary>
         ///   Gets all <see cref="IHateoasLink" /> associated with this <see cref="IHateoasResource" /> instance.
         /// </summary>
         /// <returns><see cref="IEnumerable{IHateoasLink}" /> representing Its Links.</returns>
         IEnumerable<IHateoasLink> GetLinks();
-    }
+	}
 
     /// <summary>
     ///   Represents a HATEOAS resource <typeparamref name="T" /> to be formatted associate with <see cref="IHateoasLink{T}" />
@@ -20,7 +20,7 @@ namespace HateoasNet.Abstractions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IHateoasResource<T> : IHateoasResource where T : class
-    {
+	{
         /// <summary>
         ///   Adds our replaces an <see cref="IHateoasLink{T}" /> configuration with <paramref name="routeName" /> to this
         ///   <see cref="IHateoasResource{T}" /> instance.
@@ -31,5 +31,5 @@ namespace HateoasNet.Abstractions
         /// </param>
         /// <returns>A <see cref="IHateoasLink{T}" /> configuration generated with <paramref name="routeName" />.</returns>
         IHateoasLink<T> HasLink(string routeName);
-    }
+	}
 }

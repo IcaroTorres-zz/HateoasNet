@@ -1,24 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HateoasNet.Resources
 {
     /// <summary>
-    ///   Represents an formatted enumeration wrapper of <see cref="Resource" /> wrapper items which inherit from
-    ///   <see cref="Resource" />.
+    ///   Represents a formatted enumeration wrapper of <see cref="Resource" /> items.
     /// </summary>
-    public class EnumerableResource : Resource
-    {
-        public EnumerableResource(IEnumerable<Resource> data) : base(data)
-        {
-            EnumerableData = data.ToList();
-        }
+    [Serializable]
+	public class EnumerableResource : Resource
+	{
+		private readonly List<Resource> _items;
 
-        internal IEnumerable<Resource> EnumerableData { get; }
+		public EnumerableResource(IEnumerable<Resource> data) : base(data)
+		{
+			_items = data.ToList();
+		}
+
 
         /// <summary>
-        ///   The <see cref="Resource.Data"/> property overriden to return <see cref="IEnumerable{Resource}" />.
+        ///   The <see cref="Resource.Data" /> property overriden with actual value being
+        ///   <see cref="IEnumerable{T}" /> of <see cref="Resource" /> as <see langword="object" />.
         /// </summary>
-        public override object Data => EnumerableData;
-    }
+        public override object Data => GetItems();
+
+
+        /// <summary>
+        ///   Returns the items as an <see cref="IEnumerable{T}" /> of <see cref="Resource" />.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IEnumerable<Resource> GetItems()
+		{
+			return _items;
+		}
+	}
 }

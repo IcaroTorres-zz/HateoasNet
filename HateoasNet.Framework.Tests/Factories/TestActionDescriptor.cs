@@ -9,37 +9,48 @@ using System.Web.Http.Controllers;
 namespace HateoasNet.Framework.Tests.Factories
 {
     /// <summary>
-    /// 	Custom dummy of HttpActionDescriptor abstract class to get RouteAttribute
-    /// 	and HttpMethod from a Controller Action MethodInfo for testing purposes
+    ///   Custom dummy of HttpActionDescriptor abstract class to get RouteAttribute
+    ///   and HttpMethod from a Controller Action MethodInfo for testing purposes
     /// </summary>
     internal class TestActionDescriptor : HttpActionDescriptor
-    {
-        private readonly Collection<HttpParameterDescriptor> _parameterDescriptors;
-        public MethodInfo MethodInfo { get; }
+	{
+		private readonly Collection<HttpParameterDescriptor> _parameterDescriptors;
 
-        public TestActionDescriptor(HttpControllerDescriptor controllerDescriptor,
-                                    MethodInfo methodInfo,
-                                    Collection<HttpParameterDescriptor> parameterDescriptors) : base(controllerDescriptor)
-        {
-            _parameterDescriptors = parameterDescriptors;
-            MethodInfo = methodInfo;
-        }
+		public TestActionDescriptor(HttpControllerDescriptor controllerDescriptor,
+		                            MethodInfo methodInfo,
+		                            Collection<HttpParameterDescriptor> parameterDescriptors) : base(controllerDescriptor)
+		{
+			_parameterDescriptors = parameterDescriptors;
+			MethodInfo = methodInfo;
+		}
 
-        /// <inheritdoc />
-        public override Collection<HttpParameterDescriptor> GetParameters() => _parameterDescriptors;
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
+		public MethodInfo MethodInfo { get; }
 
-        /// <inheritdoc />
-        public override Collection<T> GetCustomAttributes<T>() => new Collection<T>();
+		/// <inheritdoc />
+		public override string ActionName => "TestAction";
 
-        /// <inheritdoc />
-        public override Task<object> ExecuteAsync(HttpControllerContext controllerContext,
-                                                  IDictionary<string, object> arguments,
-                                                  CancellationToken cancellationToken) => null;
+		/// <inheritdoc />
+		public override Type ReturnType => typeof(object);
 
-        /// <inheritdoc />
-        public override string ActionName { get; }
+		/// <inheritdoc />
+		public override Collection<HttpParameterDescriptor> GetParameters()
+		{
+			return _parameterDescriptors;
+		}
 
-        /// <inheritdoc />
-        public override Type ReturnType { get; }
-    }
+		/// <inheritdoc />
+		public override Collection<T> GetCustomAttributes<T>()
+		{
+			return new Collection<T>();
+		}
+
+		/// <inheritdoc />
+		public override Task<object> ExecuteAsync(HttpControllerContext controllerContext,
+		                                          IDictionary<string, object> arguments,
+		                                          CancellationToken cancellationToken)
+		{
+			return null;
+		}
+	}
 }

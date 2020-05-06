@@ -3,16 +3,17 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <LangVersion>8.0</LangVersion>
-        <PackageVersion>1.0.0-alpha</PackageVersion>
         <Title>HateoasNet.Core</Title>
+        <Version>$(Version)</Version>
+        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Authors>icarotorres</Authors>
+        <PackageSummary>.Net Core 3.1 Library for ease Web Api output formatting Json responses with HATEOAS.</PackageSummary>
         <Description>.Net Core 3.1 Library for ease Web Api output formatting Json responses with HATEOAS.</Description>
         <PackageProjectUrl>https://github.com/IcaroTorres/HateoasNet/tree/master/HateoasNet.Core</PackageProjectUrl>
         <PackageLicense>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicense>
         <RepositoryUrl>https://github.com/icarotorres/HateoasNet.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>json, hateoas, api-rest, hateoas-response, hateoasnet-core</PackageTags>
-        <Version>1.0.0-alpha</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTypes>
           <PackageType name="Dependency" />

@@ -1,5 +1,5 @@
-using HateoasNet.Framework.Sample;
 using System.Web.Http;
+using HateoasNet.Framework.Sample;
 using Unity.AspNet.WebApi;
 using WebActivatorEx;
 
@@ -12,23 +12,23 @@ namespace HateoasNet.Framework.Sample
     ///   Provides the bootstrapping for integrating Unity with WebApi when it is hosted in ASP.NET.
     /// </summary>
     public static class UnityWebApiActivator
-    {
+	{
         /// <summary>
         ///   Integrates Unity when the application starts.
         /// </summary>
         public static void Start()
-        {
-            var resolver = new UnityHierarchicalDependencyResolver(UnityConfig.Container);
+		{
+			var resolver = new UnityHierarchicalDependencyResolver(UnityConfig.GetContainer());
 
-            GlobalConfiguration.Configuration.DependencyResolver = resolver;
-        }
+			GlobalConfiguration.Configuration.DependencyResolver = resolver;
+		}
 
         /// <summary>
         ///   Disposes the Unity container when the application is shut down.
         /// </summary>
         public static void Shutdown()
-        {
-            UnityConfig.Container.Dispose();
-        }
-    }
+		{
+			UnityConfig.GetContainer().Dispose();
+		}
+	}
 }

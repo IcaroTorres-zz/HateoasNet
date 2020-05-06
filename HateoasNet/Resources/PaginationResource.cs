@@ -1,43 +1,49 @@
-﻿using HateoasNet.Abstractions;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HateoasNet.Abstractions;
 
 namespace HateoasNet.Resources
 {
-    /// ///
     /// <summary>
-    ///   Represents an formatted pagination wrapper of <see cref="Resource" /> wrapper items which inherit from
-    ///   <see cref="Resource" />.
+    ///   Represents a formatted pagination wrapper of <see cref="Resource" /> items.
     /// </summary>
-    public class PaginationResource : Resource
-    {
-        public PaginationResource(IPagination<Resource> values) : base(values.Data)
-        {
-            EnumerableData = values.Data;
-            Count = values.Count;
-            PageSize = values.PageSize;
-            Page = values.Page;
-        }
+    [Serializable]
+	public class PaginationResource : Resource, IPagination<Resource>
+	{
+		private readonly List<Resource> _items;
 
-        public PaginationResource(IEnumerable<Resource> data, long count, int pageSize, int page) : base(data)
-        {
-            EnumerableData = data.ToList();
-            Count = count;
-            PageSize = pageSize;
-            Page = page;
-        }
-
-        internal IEnumerable<Resource> EnumerableData { get; }
+		public PaginationResource(IEnumerable<Resource> items, long count, int pageSize, int page) : base(items)
+		{
+			_items = items.ToList();
+			Count = count;
+			PageSize = pageSize;
+			Page = page;
+		}
 
         /// <summary>
-        ///   The <see cref="IEnumerable{Resource}" /> items as <see langword="object" />.
+        ///   The <see cref="Resource.Data" /> property overriden with actual value being
+        ///   <see cref="IEnumerable{T}" /> of <see cref="Resource" /> items as <see langword="object" />.
         /// </summary>
-        public override object Data => EnumerableData;
+        public override object Data => GetItems();
 
-        public int InPage => EnumerableData.Count();
-        public int Page { get; }
-        public int PageSize { get; }
-        public long Count { get; }
-        public int Pages => (int)(Count == 0 ? 1 : (Count + PageSize - 1) / PageSize);
-    }
+		public virtual int InPage => GetItems().Count();
+		public virtual int Page { get; }
+		public virtual int PageSize { get; }
+		public virtual long Count { get; }
+		public virtual int Pages => (int) (Count == 0 ? 1 : (Count + PageSize - 1) / PageSize);
+
+        /// <inheritdoc cref="IPagination{Resource}.GetItems" />
+        public virtual IEnumerable<Resource> GetItems()
+		{
+			return _items;
+		}
+
+        /// <inheritdoc cref="IPagination.GetItems" />
+        IEnumerable IPagination.GetItems()
+		{
+			return _items;
+		}
+	}
 }
