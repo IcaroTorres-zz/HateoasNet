@@ -7,8 +7,8 @@ namespace HateoasNet.Abstractions
     /// <summary>
     ///   Represents the entry point for configuring HATEOAS integration.
     /// </summary>
-    public interface IHateoasContext : IDisposable
-    {
+    public interface IHateoasContext
+	{
         /// <summary>
         ///   Checks if <see cref="IHateoasContext" /> has a <see cref="IHateoasResource{T}" />
         ///   for T being <paramref name="type" />.
@@ -58,5 +58,5 @@ namespace HateoasNet.Abstractions
         /// <param name="assembly">Target assembly containing classes implementing <see cref="IHateoasResourceConfiguration{T}" />.</param>
         /// <returns>Current <see cref="IHateoasContext" /> instance.</returns>
         IHateoasContext ConfigureFromAssembly(Assembly assembly);
-    }
+	}
 }

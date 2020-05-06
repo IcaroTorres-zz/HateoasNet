@@ -1,24 +1,21 @@
-﻿using HateoasNet.Abstractions;
-using Microsoft.Win32.SafeHandles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
+using HateoasNet.Abstractions;
 
 namespace HateoasNet.Configurations
 {
 	/// <inheritdoc cref="IHateoasContext" />
 	public sealed class HateoasContext : IHateoasContext
 	{
+		private readonly string _resourceConfigurationTypeName = typeof(IHateoasResourceConfiguration<>).Name;
+
+		private readonly Dictionary<Type, IHateoasResource> _resources = new Dictionary<Type, IHateoasResource>();
+
 		internal HateoasContext()
 		{
 		}
-
-		private readonly SafeHandle _handle = new SafeFileHandle(IntPtr.Zero, true);
-		private readonly Dictionary<Type, IHateoasResource> _resources = new Dictionary<Type, IHateoasResource>();
-		private readonly string _resourceConfigurationTypeName = typeof(IHateoasResourceConfiguration<>).Name;
-		private bool _disposed;
 
 		public IEnumerable<IHateoasLink> GetApplicableLinks(Type type, object value)
 		{
@@ -57,15 +54,13 @@ namespace HateoasNet.Configurations
 		{
 			if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-			var builders = assembly.GetTypes()
-			                       .Where(t => t.GetInterfaces().Any(i => i.Name.Contains(_resourceConfigurationTypeName)))
-			                       .ToList();
+			var builders = assembly.GetTypes().Where(ImplementsHateoasResourceConfiguration).ToList();
 
 			if (!builders.Any()) throw new TargetException(GetTargetExceptionMessage(assembly.FullName));
 
 			builders.ForEach(builderType =>
 			{
-				var interfaceType = builderType.GetInterfaces().Single();
+				var interfaceType = builderType.GetInterfaces().Single(IsHateoasResourceConfiguration);
 				var targetType = interfaceType.GetGenericArguments().First();
 				var hateoasMap = GetOrInsert(targetType);
 				var builder = Activator.CreateInstance(builderType);
@@ -95,30 +90,19 @@ namespace HateoasNet.Configurations
 			return _resources[targetType];
 		}
 
+		private bool ImplementsHateoasResourceConfiguration(Type type)
+		{
+			return type.GetInterfaces().Any(IsHateoasResourceConfiguration);
+		}
+
+		private bool IsHateoasResourceConfiguration(Type type)
+		{
+			return type.IsInterface && type.Name.Contains(_resourceConfigurationTypeName);
+		}
+
 		private string GetTargetExceptionMessage(string assemblyName)
 		{
 			return $"No implementation of '{_resourceConfigurationTypeName}' found in assembly '{assemblyName}'.";
-		}
-
-		private void Dispose(bool disposing)
-		{
-			if (_disposed) return;
-
-			if (disposing)
-				_handle?.Dispose();
-
-			_disposed = true;
-		}
-
-		~HateoasContext()
-		{
-			Dispose(false);
-		}
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
 		}
 	}
 }
