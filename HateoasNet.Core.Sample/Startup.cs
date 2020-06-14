@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace HateoasNet.Core.Sample
 {
@@ -21,16 +24,16 @@ namespace HateoasNet.Core.Sample
 		{
 			services
 				.AddScoped<Seeder>()
-				/*
-				 * switch this lines to test different configuration styles
-				 * Check 'HateoasSetupExtensions.cs' file for details of each one
-				 */
-				//.HateoasInlineConfiguration()
-				//.HateoasConfigurations()
 				.HateoasConfigurationUsingAssembly()
-
-				// MvcBuilder
 				.AddControllers();
+
+			services.AddMvc(options => options.EnableEndpointRouting = false)
+					.AddNewtonsoftJson(options =>
+					{
+						options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+						options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+						options.SerializerSettings.Converters.Add(new StringEnumConverter());
+					});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
