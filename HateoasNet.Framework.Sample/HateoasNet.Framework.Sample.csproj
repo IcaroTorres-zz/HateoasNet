@@ -116,7 +116,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\FormattersConfig.cs" />
     <Compile Include="App_Start\HateoasConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -127,12 +126,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HateoasConfigurations\GuildHateoasResource.cs" />
-    <Compile Include="HateoasConfigurations\InviteHateoasResource.cs" />
-    <Compile Include="HateoasConfigurations\ListGuildHateoasResource.cs" />
-    <Compile Include="HateoasConfigurations\ListMemberHateoasResource.cs" />
-    <Compile Include="HateoasConfigurations\MemberHateoasResource.cs" />
-    <Compile Include="HateoasConfigurations\PaginationInviteHateoasResource.cs" />
+    <Compile Include="HateoasBuilders\GuildHateoasBuilder.cs" />
+    <Compile Include="HateoasBuilders\InviteHateoasBuilder.cs" />
+    <Compile Include="HateoasBuilders\InvitesHateoasBuilder.cs" />
+    <Compile Include="HateoasBuilders\ListGuildHateoasBuilder.cs" />
+    <Compile Include="HateoasBuilders\ListMemberHateoasBuilder.cs" />
+    <Compile Include="HateoasBuilders\MemberHateoasBuilder.cs" />
     <Compile Include="JsonData\Seeder.cs" />
     <Compile Include="Models\Guild.cs" />
     <Compile Include="Models\Invite.cs" />
@@ -172,10 +171,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HateoasNet.Framework\HateoasNet.Framework.csproj">
-      <Project>{71506e23-a91f-41d0-bde4-2e42263a100f}</Project>
-      <Name>HateoasNet.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HateoasNet\HateoasNet.csproj">
       <Project>{b54de20a-fddc-49df-878e-9a8d4b7d973b}</Project>
       <Name>HateoasNet</Name>
