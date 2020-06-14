@@ -1,4 +1,5 @@
 using HateoasNet.Core.Sample.JsonData;
+using HateoasNet.DependencyInjection.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using System.Reflection;
 
 namespace HateoasNet.Core.Sample
 {
@@ -25,6 +27,7 @@ namespace HateoasNet.Core.Sample
 			services
 				.AddScoped<Seeder>()
 				.HateoasConfigurationUsingAssembly()
+				.RegisterAllCustomHateoas(new Assembly[] { typeof(Startup).Assembly }, ServiceLifetime.Scoped)
 				.AddControllers();
 
 			services.AddMvc(options => options.EnableEndpointRouting = false)

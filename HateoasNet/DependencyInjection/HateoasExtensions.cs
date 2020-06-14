@@ -1,15 +1,37 @@
-﻿#if NETCOREAPP3_1
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using HateoasNet.Abstractions;
-using System;
+﻿using HateoasNet.Abstractions;
 using HateoasNet.Infrastructure;
-using HateoasNet;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
+namespace HateoasNet.DependencyInjection
+{
+
+	internal static class CustomHateoasExtensions
+	{
+		internal static IEnumerable<(TypeInfo, Type)> GetServiceTuplesFromAssemblies(this Assembly[] assemblies)
+		{
+			return assemblies.SelectMany(a => a.DefinedTypes
+					.Select(t => (t, t.GetInterfaces().SingleOrDefault(IsCustomHateoas)))
+					.Where(x => x.Item2 != null));
+		}
+
+		internal static bool IsCustomHateoas(Type type)
+		{
+			return type.IsInterface && type.Name.Contains(typeof(IHateoas<>).Name);
+		}
+	}
+}
+
+#if NETCOREAPP3_1
 namespace HateoasNet.DependencyInjection.Core
 {
-    public static class HateoasExtensions
+	using Microsoft.AspNetCore.Mvc.Infrastructure;
+	using Microsoft.AspNetCore.Mvc.Routing;
+	using Microsoft.Extensions.DependencyInjection;
+
+	public static class HateoasExtensions
 	{
 		/// <summary>
 		///   Configure Hateoas Source mapping in .Net Core Web Api and register required services to
@@ -30,24 +52,28 @@ namespace HateoasNet.DependencyInjection.Core
 				   .AddScoped(x => x.GetRequiredService<IUrlHelperFactory>().GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext))
 				   .AddScoped<IHateoas, Hateoas>();
 		}
+
+		public static IServiceCollection RegisterAllCustomHateoas(this IServiceCollection services, Assembly[] assemblies, ServiceLifetime lifetime = ServiceLifetime.Transient)
+		{
+			foreach (var (implementation, abstraction) in assemblies.GetServiceTuplesFromAssemblies())
+				services.Add(new ServiceDescriptor(abstraction, implementation, lifetime));
+
+			return services;
+		}
 	}
 }
 #elif NET472
-using System;
-using HateoasNet.Abstractions;
-using HateoasNet.Infrastructure;
-
 namespace HateoasNet.DependencyInjection.Framework
 {
-    public static class HateoasExtensions
+	public static class HateoasExtensions
 	{
-        /// <summary>
-        ///   Configure Hateoas Resource mapping in .Net Framework (Full) Web Api
-        /// </summary>
-        /// <param name="hateoasOptions"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public static IHateoasContext ConfigureHateoas(Func<IHateoasContext, IHateoasContext> hateoasOptions)
+		/// <summary>
+		///   Configure Hateoas Resource mapping in .Net Framework (Full) Web Api
+		/// </summary>
+		/// <param name="hateoasOptions"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException"></exception>
+		public static IHateoasContext ConfigureHateoas(Func<IHateoasContext, IHateoasContext> hateoasOptions)
 		{
 			if (hateoasOptions == null) throw new ArgumentNullException(nameof(hateoasOptions));
 
