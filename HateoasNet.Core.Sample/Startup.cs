@@ -1,4 +1,3 @@
-using HateoasNet.Core.DependencyInjection;
 using HateoasNet.Core.Sample.JsonData;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,16 +22,15 @@ namespace HateoasNet.Core.Sample
 			services
 				.AddScoped<Seeder>()
 				/*
- * switch this lines to test different configuration styles
- * Check 'HateoasSetupExtensions.cs' file for details of each one
- */
+				 * switch this lines to test different configuration styles
+				 * Check 'HateoasSetupExtensions.cs' file for details of each one
+				 */
 				//.HateoasInlineConfiguration()
 				//.HateoasConfigurations()
 				.HateoasConfigurationUsingAssembly()
 
 				// MvcBuilder
-				.AddControllers()
-				.AddHateoasFormatter();
+				.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

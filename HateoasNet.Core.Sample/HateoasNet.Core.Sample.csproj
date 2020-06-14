@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HateoasNet.Core\HateoasNet.Core.csproj" />
       <ProjectReference Include="..\HateoasNet\HateoasNet.csproj" />
     </ItemGroup>
 
