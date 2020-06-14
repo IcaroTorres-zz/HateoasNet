@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
-using HateoasNet.Core.Serialization;
 
 namespace HateoasNet.Core.Sample.JsonData
 {
@@ -9,16 +9,15 @@ namespace HateoasNet.Core.Sample.JsonData
 	{
 		internal List<T> Seed<T>() where T : class
 		{
-			var serializerOptions = new JsonSerializerOptions
+			var serializerSettings = new JsonSerializerSettings
 			{
-				IgnoreNullValues = true,
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+				ContractResolver = new CamelCasePropertyNamesContractResolver(),
+				NullValueHandling = NullValueHandling.Ignore,
+				ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 			};
-			serializerOptions.Converters.Add(new GuidConverter());
-			serializerOptions.Converters.Add(new DateTimeConverter());
 
 			using var stream = new StreamReader($"JsonData\\{typeof(T).Name.ToLower()}s.json");
-			return JsonSerializer.Deserialize<List<T>>(stream.ReadToEnd(), serializerOptions);
+			return JsonConvert.DeserializeObject<List<T>>(stream.ReadToEnd(), serializerSettings);
 		}
 	}
 }
