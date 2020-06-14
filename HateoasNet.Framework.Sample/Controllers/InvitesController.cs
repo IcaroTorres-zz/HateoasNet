@@ -31,7 +31,7 @@ namespace HateoasNet.Framework.Sample.Controllers
 		[HttpGet, Route(Name = "get-invites")]
 		public IHttpActionResult Get(int pageSize = 5)
 		{
-			var invites = _invites.Take(pageSize);
+			var invites = _invites.Take(pageSize).ToList();
 			var links = _hateoas.Generate(invites);
 			return Ok(new { data = invites, links });
 		}

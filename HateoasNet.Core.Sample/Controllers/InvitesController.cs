@@ -32,7 +32,7 @@ namespace HateoasNet.Core.Sample.Controllers
 		[HttpGet(Name = "get-invites")]
 		public IActionResult Get([FromQuery(Name = "pageSize")] int pageSize = 5)
 		{
-			var invites = _invites.Take(pageSize);
+			var invites = _invites.Take(pageSize).ToList();
 			var links = _hateoas.Generate(invites);
 			return Ok(new { data = invites, links });
 		}
