@@ -24,7 +24,6 @@
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
       <PackageReference Include="Microsoft.AspNetCore.App" />
-      <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
