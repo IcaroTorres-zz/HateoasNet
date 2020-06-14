@@ -23,7 +23,7 @@ namespace HateoasNet.Tests.Infrastructure
 		}
 
 		[Fact]
-		[Trait(nameof(IHateoasSource), "New")]
+		[Trait(nameof(IHateoasSource), "Instance")]
 		public void New_WithTypeParameter_CreatesHateoasSource()
 		{
 			_sut.Should()
