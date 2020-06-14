@@ -1,26 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;netcoreapp3.1;net472;</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;net472;</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
         <Title>HateoasNet</Title>
         <Version>$(Version)</Version>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-        <Authors>icarotorres</Authors>
-        <PackageSummary>.Net Standard Library with base abstractions and common implementations for supporting HateoasNet packages.</PackageSummary>
-        <Description>.Net Standard Library with base abstractions and common implementations for supporting HateoasNet packages.</Description>
+        <Authors>Icaro Torres</Authors>
+        <Owners>icarotorres</Owners>
+        <Description>.Net Library for ease configuration and creationg of HATEOAS Link.</Description>
         <PackageProjectUrl>https://github.com/icarotorres/HateoasNet</PackageProjectUrl>
         <PackageLicense>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicense>
         <RepositoryUrl>https://github.com/icarotorres/HateoasNet.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>json, hateoas, api-rest, hateoas-response, hateoasnet</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageTypes>dependency</PackageTypes>
         <PackageReleaseNotes>
           Features:
 
           Support for ease testing and dependencies replacement by custom implementations signing HateoasNet.Abstractions interface contracts;
-          Example: Serialization can be changed overwriting the default settings through the constructors of HateoasSerializer and Serialization Libraries can be replaced by implementing custom IHateoasSerializer;
           All sealed classes can be tested by their respective interfaces;
           Support three ways of configuration for IHateoasContext: Inline Function, Separated Classes and discovering Configuration classes from the given assembly;
           Conditional link generation for ease per-request output.
@@ -34,23 +32,25 @@
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
         </AssemblyAttribute>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>$(MSBuildProjectName).Framework</_Parameter1>
-        </AssemblyAttribute>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>$(MSBuildProjectName).Framework.Tests</_Parameter1>
-        </AssemblyAttribute>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>$(MSBuildProjectName).Core</_Parameter1>
-        </AssemblyAttribute>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>$(MSBuildProjectName).Core.Tests</_Parameter1>
-        </AssemblyAttribute>
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
         <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+
+        <Reference Include="System" />
+        <Reference Include="System.Net.Http" />
+        <Reference Include="System.Web"/>
+        <Reference Include="System.Web.Routing"/>
+      
+        <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.7" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
+        <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0" />
     </ItemGroup>
 
 </Project>
