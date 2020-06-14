@@ -48,13 +48,13 @@ namespace HateoasNet.Infrastructure
 		{
 			if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-			var builders = assembly.GetTypes().Where(ImplementsHateoasSourceConfiguration).ToList();
+			var builders = assembly.GetTypes().Where(ImplementsHateoasSourceBuilder).ToList();
 
 			if (!builders.Any()) throw new TargetException(GetTargetExceptionMessage(assembly.FullName));
 
 			builders.ForEach(builderType =>
 			{
-				var interfaceType = builderType.GetInterfaces().Single(IsHateoasSourceConfiguration);
+				var interfaceType = builderType.GetInterfaces().Single(IsHateoasSourceBuilder);
 				var targetType = interfaceType.GetGenericArguments().First();
 				var hateoasMap = GetOrInsert(targetType);
 				var builder = Activator.CreateInstance(builderType);
@@ -84,12 +84,12 @@ namespace HateoasNet.Infrastructure
 			return _sources[targetType];
 		}
 
-		private bool ImplementsHateoasSourceConfiguration(Type type)
+		private bool ImplementsHateoasSourceBuilder(Type type)
 		{
-			return type.GetInterfaces().Any(IsHateoasSourceConfiguration);
+			return type.GetInterfaces().Any(IsHateoasSourceBuilder);
 		}
 
-		private bool IsHateoasSourceConfiguration(Type type)
+		private bool IsHateoasSourceBuilder(Type type)
 		{
 			return type.IsInterface && type.Name.Contains(_resourceBuilderTypeName);
 		}
