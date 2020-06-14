@@ -8,13 +8,11 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Routing;
-using HateoasNet.Abstractions;
-using HateoasNet.Resources;
 
 namespace HateoasNet.Framework.Factories
 {
 	/// <inheritdoc cref="IResourceLinkFactory" />
-	public sealed class ResourceLinkFactory : IResourceLinkFactory
+	public sealed class ResourceLinkFactory
 	{
 		private readonly RouteAttribute _dummyRouteAttributeInCaseNotFound = new RouteAttribute("unable-to-find-route");
 		private Dictionary<RouteAttribute, HttpActionDescriptor> _routeActionDescriptors;
@@ -32,15 +30,15 @@ namespace HateoasNet.Framework.Factories
 		{
 		}
 
-		public ResourceLink Create(string rel, IDictionary<string, object> routeValues)
+		public HateoasLink Create(string routeName, IDictionary<string, object> routeValues, string presentedName)
 		{
-			if (string.IsNullOrWhiteSpace(rel)) throw new ArgumentNullException(nameof(rel));
+			if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
 
 			_routeActionDescriptors ??= BuildRouteActionDescriptors();
 
-			var href = GetRouteUrl(rel, routeValues);
-			var method = GetRouteMethod(rel);
-			return new ResourceLink(rel, href, method);
+			var href = GetRouteUrl(routeName, routeValues);
+			var method = GetRouteMethod(routeName);
+			return new HateoasLink(presentedName, href, method);
 		}
 
 		internal Dictionary<RouteAttribute, HttpActionDescriptor> BuildRouteActionDescriptors()
