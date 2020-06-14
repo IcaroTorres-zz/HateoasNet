@@ -1,26 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet", "HateoasNet\HateoasNet.csproj", "{B54DE20A-FDDC-49DF-878E-9A8D4B7D973B}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HateoasNet", "HateoasNet\HateoasNet.csproj", "{B54DE20A-FDDC-49DF-878E-9A8D4B7D973B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet.Core.Sample", "HateoasNet.Core.Sample\HateoasNet.Core.Sample.csproj", "{B73AAD1D-9956-485C-9720-6149F6FD8CD5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet.Core.Tests", "HateoasNet.Core.Tests\HateoasNet.Core.Tests.csproj", "{6CF49853-0A22-40F3-ABEF-6FCBBBD14140}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet.Framework.Tests", "HateoasNet.Framework.Tests\HateoasNet.Framework.Tests.csproj", "{67289125-6490-422B-B1A8-6A5E64EB7D2B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet.Core", "HateoasNet.Core\HateoasNet.Core.csproj", "{C137F3F7-98F4-494A-A8E9-179F52120730}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet.Framework", "HateoasNet.Framework\HateoasNet.Framework.csproj", "{71506E23-A91F-41D0-BDE4-2E42263A100F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B402DCD3-7B57-4C15-8D29-CC165299A6C1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{760C4B85-B999-4C68-9610-0D065E744C27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HateoasNet.Core.Sample", "HateoasNet.Core.Sample\HateoasNet.Core.Sample.csproj", "{B73AAD1D-9956-485C-9720-6149F6FD8CD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet.Framework.Sample", "HateoasNet.Framework.Sample\HateoasNet.Framework.Sample.csproj", "{2AD61D75-2DD0-492D-B9DB-61DCFBD99931}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0A52EC71-CDA9-4C0D-B751-56F8D109988F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HateoasNet.Tests", "HateoasNet.Tests\HateoasNet.Tests.csproj", "{FF568622-9ACE-4361-A7F3-882AD0DBCF4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HateoasNet.Tests", "HateoasNet.Tests\HateoasNet.Tests.csproj", "{FF568622-9ACE-4361-A7F3-882AD0DBCF4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,22 +25,6 @@ Global
 		{B73AAD1D-9956-485C-9720-6149F6FD8CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B73AAD1D-9956-485C-9720-6149F6FD8CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B73AAD1D-9956-485C-9720-6149F6FD8CD5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6CF49853-0A22-40F3-ABEF-6FCBBBD14140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CF49853-0A22-40F3-ABEF-6FCBBBD14140}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CF49853-0A22-40F3-ABEF-6FCBBBD14140}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CF49853-0A22-40F3-ABEF-6FCBBBD14140}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67289125-6490-422B-B1A8-6A5E64EB7D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67289125-6490-422B-B1A8-6A5E64EB7D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67289125-6490-422B-B1A8-6A5E64EB7D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67289125-6490-422B-B1A8-6A5E64EB7D2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C137F3F7-98F4-494A-A8E9-179F52120730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C137F3F7-98F4-494A-A8E9-179F52120730}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C137F3F7-98F4-494A-A8E9-179F52120730}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C137F3F7-98F4-494A-A8E9-179F52120730}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71506E23-A91F-41D0-BDE4-2E42263A100F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71506E23-A91F-41D0-BDE4-2E42263A100F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71506E23-A91F-41D0-BDE4-2E42263A100F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71506E23-A91F-41D0-BDE4-2E42263A100F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2AD61D75-2DD0-492D-B9DB-61DCFBD99931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2AD61D75-2DD0-492D-B9DB-61DCFBD99931}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AD61D75-2DD0-492D-B9DB-61DCFBD99931}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,14 +34,10 @@ Global
 		{FF568622-9ACE-4361-A7F3-882AD0DBCF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF568622-9ACE-4361-A7F3-882AD0DBCF4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{6CF49853-0A22-40F3-ABEF-6FCBBBD14140} = {B402DCD3-7B57-4C15-8D29-CC165299A6C1}
-		{C137F3F7-98F4-494A-A8E9-179F52120730} = {B402DCD3-7B57-4C15-8D29-CC165299A6C1}
-		{71506E23-A91F-41D0-BDE4-2E42263A100F} = {760C4B85-B999-4C68-9610-0D065E744C27}
-		{67289125-6490-422B-B1A8-6A5E64EB7D2B} = {760C4B85-B999-4C68-9610-0D065E744C27}
-		{B73AAD1D-9956-485C-9720-6149F6FD8CD5} = {B402DCD3-7B57-4C15-8D29-CC165299A6C1}
-		{2AD61D75-2DD0-492D-B9DB-61DCFBD99931} = {760C4B85-B999-4C68-9610-0D065E744C27}
-		{B54DE20A-FDDC-49DF-878E-9A8D4B7D973B} = {0A52EC71-CDA9-4C0D-B751-56F8D109988F}
-		{FF568622-9ACE-4361-A7F3-882AD0DBCF4A} = {0A52EC71-CDA9-4C0D-B751-56F8D109988F}
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7396F5B-122C-46B9-829B-8EC8707864C3}
 	EndGlobalSection
 EndGlobal
