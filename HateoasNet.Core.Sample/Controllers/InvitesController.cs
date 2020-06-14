@@ -21,7 +21,7 @@ namespace HateoasNet.Core.Sample.Controllers
 			_hateoas = hateoas;
 		}
 
-		[HttpGet("{id:Guid}", Name = "get-invite")]
+		[HttpGet("{id:guid}", Name = "get-invite")]
 		public IActionResult Get(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);

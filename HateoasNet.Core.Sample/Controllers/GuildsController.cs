@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using HateoasNet.Abstractions;
 using HateoasNet.Core.Sample.JsonData;
@@ -13,15 +14,15 @@ namespace HateoasNet.Core.Sample.Controllers
 	public class GuildsController : ControllerBase
 	{
 		private readonly List<Guild> _guilds;
-		private readonly IHateoas _hateoas;
+		private readonly IHateoas<ImmutableDictionary<string, object>> _hateoas;
 
-		public GuildsController(Seeder seeder, IHateoas hateoas)
+		public GuildsController(Seeder seeder, IHateoas<ImmutableDictionary<string, object>> hateoas)
 		{
 			_guilds = seeder.Seed<Guild>();
 			_hateoas = hateoas;
 		}
 
-		[HttpGet("{id:Guid}", Name = "get-guild")]
+		[HttpGet("{id:guid}", Name = "get-guild")]
 		public IActionResult Get(Guid id)
 		{
 			var guild = _guilds.SingleOrDefault(i => i.Id == id);
@@ -43,7 +44,7 @@ namespace HateoasNet.Core.Sample.Controllers
 			return CreatedAtRoute("get-guild", new {id = guild.Id}, new { data = guild, links });
 		}
 
-		[HttpPut("{id:Guid}", Name = "update-guild")]
+		[HttpPut("{id:guid}", Name = "update-guild")]
 		public IActionResult Put([FromBody] Guild guild)
 		{
 			var links = _hateoas.Generate(guild);

@@ -20,7 +20,7 @@ namespace HateoasNet.Framework.Sample.Controllers
 			_hateoas = hateoas;
 		}
 
-		[HttpGet, Route("{id:Guid}", Name = "get-guild")]
+		[HttpGet, Route("{id:guid}", Name = "get-guild")]
 		public IHttpActionResult Get(Guid id)
 		{
 			var guild = _guilds.SingleOrDefault(i => i.Id == id);
@@ -42,7 +42,7 @@ namespace HateoasNet.Framework.Sample.Controllers
 			return CreatedAtRoute("get-guild", new { id = guild.Id }, new { data = guild, links });
 		}
 
-		[HttpPut, Route("{id:Guid}", Name = "update-guild")]
+		[HttpPut, Route("{id:guid}", Name = "update-guild")]
 		public IHttpActionResult Put([FromBody] Guild guild)
 		{
 			var links = _hateoas.Generate(guild);

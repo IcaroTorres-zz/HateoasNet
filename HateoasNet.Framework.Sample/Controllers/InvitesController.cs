@@ -20,7 +20,7 @@ namespace HateoasNet.Framework.Sample.Controllers
 			_hateoas = hateoas;
 		}
 
-		[HttpGet, Route("{id:Guid}", Name = "get-invite")]
+		[HttpGet, Route("{id:guid}", Name = "get-invite")]
 		public IHttpActionResult Get(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);

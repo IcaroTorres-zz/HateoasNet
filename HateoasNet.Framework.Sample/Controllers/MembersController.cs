@@ -20,7 +20,7 @@ namespace HateoasNet.Framework.Sample.Controllers
 			this.hateoas = hateoas;
 		}
 
-		[HttpGet, Route("{id:Guid}", Name = "get-member")]
+		[HttpGet, Route("{id:guid}", Name = "get-member")]
 		public IHttpActionResult Get(Guid id)
 		{
 			var member = _members.SingleOrDefault(i => i.Id == id);
@@ -43,7 +43,7 @@ namespace HateoasNet.Framework.Sample.Controllers
 			return CreatedAtRoute("get-member", new { id = member.Id }, new { data = member, links });
 		}
 
-		[HttpPut, Route("{id:Guid}", Name = "update-member")]
+		[HttpPut, Route("{id:guid}", Name = "update-member")]
 		public IHttpActionResult Update([FromBody] Member member)
 		{
 			var links = hateoas.Generate(member);
