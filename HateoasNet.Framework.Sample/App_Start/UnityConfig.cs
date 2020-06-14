@@ -37,7 +37,7 @@ namespace HateoasNet.Framework.Sample
 		{
 			container
 				.RegisterFactory<IHateoasContext>(f => HateoasConfig.ConfigureFromAssembly(typeof(GuildHateoasBuilder)))
-				.RegisterType<IHateoas, Hateoas>()
+				.RegisterFactory<IHateoas>(f => new Hateoas(f.Resolve<IHateoasContext>()))
 				.RegisterType<Seeder>();
 		}
 	}
