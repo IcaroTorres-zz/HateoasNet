@@ -9,8 +9,6 @@ namespace HateoasNet.Framework.Sample
 		{
 			GlobalConfiguration.Configure(config =>
 			{
-				FormattersConfig.RegisterFormatters(config);
-
 				RouteConfig.RegisterRoutes(config);
 			});
 		}
