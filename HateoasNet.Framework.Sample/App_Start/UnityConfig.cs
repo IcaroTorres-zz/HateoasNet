@@ -1,11 +1,7 @@
-using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Factories;
-using HateoasNet.Framework.Factories;
-using HateoasNet.Framework.Formatting;
-using HateoasNet.Framework.Sample.HateoasConfigurations;
 using HateoasNet.Framework.Sample.JsonData;
-using HateoasNet.Framework.Serialization;
+using HateoasNet.Framework.Sample.HateoasBuilders;
+using System;
 using Unity;
 
 namespace HateoasNet.Framework.Sample
@@ -23,28 +19,25 @@ namespace HateoasNet.Framework.Sample
 				return container;
 			});
 
-        /// <summary>
-        ///   Configured Unity GetContainer.
-        /// </summary>
-        public static IUnityContainer GetContainer()
+		/// <summary>
+		///   Configured Unity GetContainer.
+		/// </summary>
+		public static IUnityContainer GetContainer()
 		{
 			return Container.Value;
 		}
 
-        /// <summary>
-        ///   Registers the type mappings with the Unity Container.
-        /// </summary>
-        /// <param name="container">The unity Container to configure.</param>
-        /// <remarks>
-        /// </remarks>
-        public static void RegisterTypes(IUnityContainer container)
+		/// <summary>
+		///   Registers the type mappings with the Unity Container.
+		/// </summary>
+		/// <param name="container">The unity Container to configure.</param>
+		/// <remarks>
+		/// </remarks>
+		public static void RegisterTypes(IUnityContainer container)
 		{
 			container
-				.RegisterFactory<IHateoasContext>(f => HateoasConfig.ConfigureFromAssembly(typeof(GuildHateoasResource)))
-				.RegisterFactory<IResourceLinkFactory>(f => new ResourceLinkFactory())
-				.RegisterType<IHateoasSerializer, HateoasSerializer>()
-				.RegisterType<IResourceFactory, ResourceFactory>()
-				.RegisterType<HateoasMediaTypeFormatter>()
+				.RegisterFactory<IHateoasContext>(f => HateoasConfig.ConfigureFromAssembly(typeof(GuildHateoasBuilder)))
+				.RegisterType<IHateoas, Hateoas>()
 				.RegisterType<Seeder>();
 		}
 	}

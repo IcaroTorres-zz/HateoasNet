@@ -1,6 +1,6 @@
 ﻿using System;
 using HateoasNet.Abstractions;
-using HateoasNet.Framework.DependencyInjection;
+using HateoasNet.DependencyInjection.Framework;
 
 namespace HateoasNet.Framework.Sample
 {
