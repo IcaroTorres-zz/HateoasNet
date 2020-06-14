@@ -6,8 +6,8 @@
         <Title>HateoasNet.Core</Title>
         <Version>$(Version)</Version>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-        <Authors>icarotorres</Authors>
-        <PackageSummary>.Net Core 3.1 Library for ease Web Api output formatting Json responses with HATEOAS.</PackageSummary>
+        <Authors>Icaro Torres</Authors>
+        <Owners>icarotorres</Owners>
         <Description>.Net Core 3.1 Library for ease Web Api output formatting Json responses with HATEOAS.</Description>
         <PackageProjectUrl>https://github.com/IcaroTorres/HateoasNet/tree/master/HateoasNet.Core</PackageProjectUrl>
         <PackageLicense>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicense>
@@ -15,12 +15,10 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>json, hateoas, api-rest, hateoas-response, hateoasnet-core</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageTypes>
-          <PackageType name="Dependency" />
-        </PackageTypes>
+        <PackageTypes>dependency</PackageTypes>
         <PackageReleaseNotes>
           Features:
-        
+
           Formatting, Serialization and Url platform-specific implementations targeting .Net Core LTS version (3.1).
           Dependency injection and integration extensions;
           Custom Mvc OutputFormatter for HATEOAS.
