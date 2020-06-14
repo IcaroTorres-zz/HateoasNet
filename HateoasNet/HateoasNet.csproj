@@ -4,7 +4,7 @@
         <TargetFrameworks>netcoreapp3.1;net472;</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
         <Title>HateoasNet</Title>
-        <Version>$(Version)</Version>
+        <Version>2.0.0</Version>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Authors>Icaro Torres</Authors>
         <Owners>icarotorres</Owners>
@@ -18,12 +18,16 @@
         <PackageReleaseNotes>
           Features:
 
-          Support for ease testing and dependencies replacement by custom implementations signing HateoasNet.Abstractions interface contracts;
-          All sealed classes can be tested by their respective interfaces;
-          Support three ways of configuration for IHateoasContext: Inline Function, Separated Classes and discovering Configuration classes from the given assembly;
-          Conditional link generation for ease per-request output.
+          - All features support testability mocking Hateoas Abstractions;
+          - Supports three ways of integration:
+            - Inline configuration with IHateoasContext.Configure method;
+            - Separated IHateoasSourceBuilder implementations instantiated on IHateoasContext.ApplyConfiguration;
+            - Separated IHateoasSourceBuilder implementations configured targeting containing assembly with IHateoasContext.ConfigureFromAssembly.
+          - Fluent-like configurations with lambda expressions;
+          - Conditional link generation for ease per-request output;
+          - Optional custom hateoas output feature through implementations of generic IHateoas abstraction.
 
-          visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
+          Visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
         </PackageReleaseNotes>
 
     </PropertyGroup>
@@ -35,7 +39,7 @@
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-        <PackageReference Include="Microsoft.AspNetCore.App" />
+      <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
