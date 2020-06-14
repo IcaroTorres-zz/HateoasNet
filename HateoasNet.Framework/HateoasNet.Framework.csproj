@@ -61,11 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyInjection\HateoasExtensions.cs" />
     <Compile Include="Factories\ResourceLinkFactory.cs" />
-    <Compile Include="Formatting\HateoasMediaTypeFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\HateoasSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HateoasNet\HateoasNet.csproj">
