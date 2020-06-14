@@ -1,10 +1,10 @@
-﻿using System;
+﻿using HateoasNet.Abstractions;
+using HateoasNet.Framework.Sample.JsonData;
+using HateoasNet.Framework.Sample.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using HateoasNet.Framework.Sample.JsonData;
-using HateoasNet.Framework.Sample.Models;
-using HateoasNet.Resources;
 
 namespace HateoasNet.Framework.Sample.Controllers
 {
@@ -12,62 +12,65 @@ namespace HateoasNet.Framework.Sample.Controllers
 	public class InvitesController : ApiController
 	{
 		private readonly List<Invite> _invites;
+		private readonly IHateoas _hateoas;
 
-		public InvitesController(Seeder seeder)
+		public InvitesController(Seeder seeder, IHateoas hateoas)
 		{
 			_invites = seeder.Seed<Invite>();
+			_hateoas = hateoas;
 		}
 
-		[HttpGet]
-		[Route("{id:Guid}", Name = "get-invite")]
+		[HttpGet, Route("{id:Guid}", Name = "get-invite")]
 		public IHttpActionResult Get(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
-			return invite != null ? Ok(invite) : NotFound() as IHttpActionResult;
+			var links = _hateoas.Generate(invite);
+			return invite != null ? Ok(new { data = invite, links }) : NotFound() as IHttpActionResult;
 		}
 
-		[HttpGet]
-		[Route(Name = "get-invites")]
+		[HttpGet, Route(Name = "get-invites")]
 		public IHttpActionResult Get(int pageSize = 5)
 		{
-			return Ok(new Pagination<Invite>(_invites.Take(pageSize), _invites.Count, pageSize));
+			var invites = _invites.Take(pageSize);
+			var links = _hateoas.Generate(invites);
+			return Ok(new { data = invites, links });
 		}
 
-		[HttpPost]
-		[Route(Name = "invite-member")]
+		[HttpPost, Route(Name = "invite-member")]
 		public IHttpActionResult Post([FromBody] Invite invite)
 		{
-			return CreatedAtRoute("get-invite", new {id = invite.Id}, invite);
+			var links = _hateoas.Generate(invite);
+			return CreatedAtRoute("get-invite", new { id = invite.Id }, new { data = invite, links });
 		}
 
-		[HttpPatch]
-		[Route("{id}/accept", Name = "accept-invite")]
+		[HttpPatch, Route("{id}/accept", Name = "accept-invite")]
 		public IHttpActionResult Accept(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
 			if (invite == null) return NotFound();
 			invite.Status = InviteStatuses.Accepted;
-			return Ok(invite);
+			var links = _hateoas.Generate(invite);
+			return Ok(new { data = invite, links });
 		}
 
-		[HttpPatch]
-		[Route("{id}/decline", Name = "decline-invite")]
+		[HttpPatch, Route("{id}/decline", Name = "decline-invite")]
 		public IHttpActionResult Decline(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
 			if (invite == null) return NotFound();
 			invite.Status = InviteStatuses.Declined;
-			return Ok(invite);
+			var links = _hateoas.Generate(invite);
+			return Ok(new { data = invite, links });
 		}
 
-		[HttpPatch]
-		[Route("{id}/cancel", Name = "cancel-invite")]
+		[HttpPatch, Route("{id}/cancel", Name = "cancel-invite")]
 		public IHttpActionResult Cancel(Guid id)
 		{
 			var invite = _invites.SingleOrDefault(i => i.Id == id);
 			if (invite == null) return NotFound();
 			invite.Status = InviteStatuses.Canceled;
-			return Ok(invite);
+			var links = _hateoas.Generate(invite);
+			return Ok(new { data = invite, links });
 		}
 	}
 }

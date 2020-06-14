@@ -48,9 +48,9 @@ namespace HateoasNet.Core.Tests.Formatting
 			Assert.Equal(text, actualOutput);
 		}
 
-		private Mock<IResourceFactory> GenerateFullResourceFactoryMock(Resource resource, object value, Type type)
+		private Mock<IHateoasFactory> GenerateFullResourceFactoryMock(Resource resource, object value, Type type)
 		{
-			var mockResourceFactory = new Mock<IResourceFactory>();
+			var mockResourceFactory = new Mock<IHateoasFactory>();
 			switch (value)
 			{
 				case IEnumerable enumerable:
