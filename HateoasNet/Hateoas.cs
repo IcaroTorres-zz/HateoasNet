@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Internal;
 #elif NET472
 using System.Net.Http;
 using System.Reflection;
