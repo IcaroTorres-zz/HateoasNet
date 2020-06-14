@@ -61,7 +61,7 @@ namespace HateoasNet.Framework.Tests.Formatting
 			// arrange
 			var hateoasContextMock = GenerateCanWriteHateoasContextMock(validType, invalidType);
 			var sut = new HateoasMediaTypeFormatter(hateoasContextMock.Object,
-			                                        new Mock<IResourceFactory>().Object,
+			                                        new Mock<IHateoasFactory>().Object,
 			                                        new Mock<IHateoasSerializer>().Object);
 
 			// act
@@ -73,9 +73,9 @@ namespace HateoasNet.Framework.Tests.Formatting
 			Assert.False(actualInvalid);
 		}
 
-		private Mock<IResourceFactory> GenerateFullResourceFactoryMock(Resource resource, object value, Type type)
+		private Mock<IHateoasFactory> GenerateFullResourceFactoryMock(Resource resource, object value, Type type)
 		{
-			var mockResourceFactory = new Mock<IResourceFactory>();
+			var mockResourceFactory = new Mock<IHateoasFactory>();
 			switch (value)
 			{
 				case IEnumerable enumerable:
@@ -113,7 +113,7 @@ namespace HateoasNet.Framework.Tests.Formatting
 		{
 			// arrange
 			var sut = new HateoasMediaTypeFormatter(new Mock<IHateoasContext>().Object,
-			                                        new Mock<IResourceFactory>().Object,
+			                                        new Mock<IHateoasFactory>().Object,
 			                                        new Mock<IHateoasSerializer>().Object);
 
 			// act
