@@ -7,7 +7,7 @@ namespace HateoasNet
     ///   Represents an HATEOAS link holding a <see cref="Rel" /> expressing action intent,
     ///   <see cref="Href" /> as the action URL and <see cref="Method" /> being accepted HTTP method.
     /// </summary>
-    [Serializable, ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     public sealed class HateoasLink
     {
         public HateoasLink(string rel, string href, string method)
