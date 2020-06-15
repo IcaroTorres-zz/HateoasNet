@@ -5,10 +5,20 @@ with lambda expressions for building hateoas links with type mapping. Supports e
 custom hateoas output implementations.
 
 ### Get Started
-HateoasNet can be installed using the Nuget package manager or the `dotnet` CLI.
 
+HateoasNet can be installed using the Nuget package manager
 ```
-dotnet add package HateoasNet
+Install-Package HateoasNet -Version 2.0.0
+```
+
+`Dotnet` CLI
+```
+dotnet add package HateoasNet --version 2.0.0
+```
+
+or package reference.
+```
+<PackageReference Include="HateoasNet" Version="2.0.0" />
 ```
 
 ---
