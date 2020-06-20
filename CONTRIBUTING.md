@@ -13,3 +13,13 @@ email, or any other method with the owners of this repository before making a ch
    Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
 4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
+
+## Feature Request Process
+
+Wanting something new? Read our [Feature Request guide](https://github.com/IcaroTorres/HateoasNet/blob/master/.github/ISSUE_TEMPLATE/feature_request.md)
+and describe your desired feature.
+
+## Bug Report Process
+
+Did you find a bug in our project? Use the [Bug Report guide](https://github.com/IcaroTorres/HateoasNet/blob/master/.github/ISSUE_TEMPLATE/bug_report.md)
+to help us finding and solving the bug.

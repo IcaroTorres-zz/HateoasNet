@@ -4,22 +4,36 @@ A small hateoas libarry for .NET with fluent-like configuration and easey integr
 with lambda expressions for building hateoas links with type mapping. Supports ease for 
 custom hateoas output implementations.
 
+### Target Platforms
+
+HateoasNet targets NetCoreApp3.1 and Net Framework 4.72.
+
 ### Get Started
 
-HateoasNet can be installed using the Nuget package manager
+The latest stable version of HateoasNet can be installed using the Nuget package manager
 ```
-Install-Package HateoasNet -Version 2.0.0
+Install-Package HateoasNet -Version 2.0.1
 ```
 
 `Dotnet` CLI
 ```
-dotnet add package HateoasNet --version 2.0.0
+dotnet add package HateoasNet --version 2.0.1
 ```
 
 or package reference.
 ```
-<PackageReference Include="HateoasNet" Version="2.0.0" />
+<PackageReference Include="HateoasNet" Version="2.0.1" />
 ```
+
+---
+
+### Contributing
+
+Before contributing, get started with our [Contributing guide](https://github.com/IcaroTorres/HateoasNet/blob/master/CONTRIBUTING.md).
+
+### Code of conduct
+
+Please note we have a [Code of conduct](https://github.com/IcaroTorres/HateoasNet/blob/master/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 ---
 
@@ -236,18 +250,6 @@ public class GuildsController : ControllerBase
 ```
 
 ---
-
-### Documentation
-
-[Documentation still under development.](https://github.com/IcaroTorres/HateoasNet/blob/master/README.md)
-
-### Target Platforms
-
-HateoasNet targets NetCoreApp3.1 and Net Framework 4.72.
-
-### Contributing
-
-Feel free to *Fork* this repo and send a *Pull Request* with your ideas and improvements, turning this proof of concept any better.
 
 ### Credits
 
