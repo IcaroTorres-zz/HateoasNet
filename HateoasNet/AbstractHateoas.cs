@@ -1,5 +1,4 @@
-﻿using HateoasNet.Abstractions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace HateoasNet
 {
@@ -8,7 +7,7 @@ namespace HateoasNet
     {
         private readonly IHateoas _hateoas;
 
-        public AbstractHateoas(IHateoas hateoas)
+        protected AbstractHateoas(IHateoas hateoas)
         {
             _hateoas = hateoas;
         }
@@ -18,6 +17,15 @@ namespace HateoasNet
             return GenerateCustom(_hateoas.Generate(source));
         }
 
-        public abstract TOutput GenerateCustom(IEnumerable<HateoasLink> links);
+        /// <summary>
+        ///   Transforms an available collection of <see cref="HateoasLink"/> into custom <typeparamref name="TOutput"/>.
+        /// </summary>
+        /// <param name="links">
+        ///   Default generated collection of <see cref="HateoasLink"/> as source to generate customized <typeparamref name="TOutput"/>.
+        /// </param>
+        /// <returns>
+        ///   A custom <typeparamref name="TOutput"/> created from <see cref="IEnumerable{T}" /> of <see cref="HateoasLink"/> ietms.
+        /// </returns>
+        protected abstract TOutput GenerateCustom(IEnumerable<HateoasLink> links);
     }
 }

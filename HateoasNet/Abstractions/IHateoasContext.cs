@@ -10,8 +10,8 @@ namespace HateoasNet.Abstractions
     public interface IHateoasContext
     {
         /// <summary>
-        ///   Gets all applicable <see cref="IHateoasLinkBuilder" /> from a <see cref="IHateoasSource{T}" />
-        ///   for T being <paramref name="type" /> using <paramref name="source" /> to evaluate the applicability.
+        ///   Gets all applicable <see cref="IHateoasLinkBuilder" /> from a <see cref="IHateoasSource{T}" /> configuration
+        ///   of <typeparamref name="T" /> using <paramref name="source" /> to evaluate the applicability.
         /// </summary>
         /// <param name="source">An object used to evaluate the applicability.</param>
         /// <typeparam name="T">Type to look for <see cref="IHateoasSource{T}" /> associated.</typeparam>
@@ -19,8 +19,8 @@ namespace HateoasNet.Abstractions
         IEnumerable<IHateoasLinkBuilder> GetApplicableLinkBuilders<T>(T source);
 
         /// <summary>
-        ///   Adds or continues an <see cref="IHateoasSource{T}" /> configuration of
-        ///   <typeparamref name="T" /> using an <see cref="Action{T}" /> of <see cref="IHateoasSource{T}" /> action.
+        ///   Adds or continues an <see cref="IHateoasSource{T}" /> configuration of <typeparamref name="T" /> 
+        ///   using an <see cref="Action{T}" /> of <see cref="IHateoasSource{T}" /> action.
         /// </summary>
         /// <param name="resource">Action enabling configuration over the instance of IHateoasSource{T}.</param>
         /// <typeparam name="T">Target class for resource configuration.</typeparam>
