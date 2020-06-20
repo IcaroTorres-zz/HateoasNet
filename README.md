@@ -144,6 +144,10 @@ public void ConfigureServices(IServiceCollection services)
 
 #### IHateoas Abstraction usage
 ```csharp
+using HateoasNet;
+using System.Linq;
+using System.Collection.Generics;
+
 [ApiController]
 [Route("[controller]")]
 public class MembersController : ControllerBase
@@ -170,14 +174,17 @@ public class MembersController : ControllerBase
 #### Sample of optional custom Hateoas output implementation
 ```csharp
 using HateoasNet;
+using System.Linq;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 public class DictionaryHateoas : AbstractHateoas<ImmutableDictionary<string, object>>
 {
-    public DictionaryHateoas(IHateoas hateoas) : base(hateoas)
+    protected DictionaryHateoas(IHateoas hateoas) : base(hateoas)
     {
     }
 
-    public override ImmutableDictionary<string, object> GenerateCustom(IEnumerable<HateoasLink> links)
+    protected override ImmutableDictionary<string, object> GenerateCustom(IEnumerable<HateoasLink> links)
     {
         return links.ToImmutableDictionary(x => x.Rel, x => (object)new { x.Href, x.Method });
     }
@@ -201,7 +208,9 @@ public void ConfigureServices(IServiceCollection services)
 
 #### Custom IHateoas<T> Abstraction usage
 ```csharp
-using HateoasNet.Abstractons;
+using HateoasNet;
+using System.Linq;
+using System.Collections.Generic;
 
 [ApiController]
 [Route("[controller]")]
