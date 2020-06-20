@@ -4,7 +4,7 @@
         <TargetFrameworks>netcoreapp3.1;net472;</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
         <Title>HateoasNet</Title>
-        <Version>2.0.0</Version>
+        <Version>2.0.1</Version>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Authors>Icaro Torres</Authors>
         <Owners>icarotorres</Owners>
@@ -18,14 +18,9 @@
         <PackageReleaseNotes>
           Features:
 
-          - All features support testability mocking Hateoas Abstractions;
-          - Supports three ways of integration:
-            - Inline configuration with IHateoasContext.Configure method;
-            - Separated IHateoasSourceBuilder implementations instantiated on IHateoasContext.ApplyConfiguration;
-            - Separated IHateoasSourceBuilder implementations configured targeting containing assembly with IHateoasContext.ConfigureFromAssembly.
-          - Fluent-like configurations with lambda expressions;
-          - Conditional link generation for ease per-request output;
-          - Optional custom hateoas output feature through implementations of generic IHateoas abstraction.
+          - Move main IHateoas abstraction to base namespace "HateoasNet" simplifying usage;
+          - Members of AbstractHateoas (base implementation of custom output) fixed to protect;
+          - Update documentation.
 
           Visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
         </PackageReleaseNotes>
