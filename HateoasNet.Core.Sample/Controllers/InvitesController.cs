@@ -1,5 +1,4 @@
-﻿using HateoasNet.Abstractions;
-using HateoasNet.Core.Sample.JsonData;
+﻿using HateoasNet.Core.Sample.JsonData;
 using HateoasNet.Core.Sample.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;

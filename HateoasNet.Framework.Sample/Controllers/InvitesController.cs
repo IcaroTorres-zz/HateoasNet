@@ -1,5 +1,4 @@
-﻿using HateoasNet.Abstractions;
-using HateoasNet.Framework.Sample.JsonData;
+﻿using HateoasNet.Framework.Sample.JsonData;
 using HateoasNet.Framework.Sample.Models;
 using System;
 using System.Collections.Generic;

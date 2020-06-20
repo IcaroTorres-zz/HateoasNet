@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using HateoasNet.Abstractions;
+using System.Collections.Generic;
 
-namespace HateoasNet.Abstractions
+namespace HateoasNet
 {
     /// <summary>
     ///   Represents a Factory for creating collections of <see cref="HateoasLink" /> output instances.
@@ -30,10 +31,5 @@ namespace HateoasNet.Abstractions
         /// <typeparam name="TSource">type parameter of <see cref="IHateoasSource{T}" />  configuration.</typeparam>
         /// <returns>A custom <see cref="TOutput"/> created from <see cref="IEnumerable{T}" /> of <see cref="HateoasLink"/> ietms.</returns>
         TOutput Generate<TSource>(TSource source);
-
-        /// <summary>Transforms an available collection of <see cref="HateoasLink"/> into custom <see cref="TOutput"/>.</summary>
-        /// <param name="links">Default generated collection of <see cref="HateoasLink"/> as source to generate customized <see cref="TOutput">.</param>
-        /// <returns>A custom <see cref="TOutput"/> created from <see cref="IEnumerable{T}" /> of <see cref="HateoasLink"/> ietms.</returns>
-        TOutput GenerateCustom(IEnumerable<HateoasLink> links);
     }
 }
