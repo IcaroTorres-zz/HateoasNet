@@ -24,7 +24,7 @@ namespace HateoasNet
     public interface IHateoas<TOutput>
     {
         /// <summary>
-        ///   Gets <see cref="TOutput"/> value transformed from available collection of <see cref="HateoasLink"/> using <see cref="IHateoasSource{T}" />
+        ///   Gets <typeparamref name="TOutput"/> value transformed from available collection of <see cref="HateoasLink"/> using <see cref="IHateoasSource{T}" />
         ///   configuration of <typeparamref name="TSource" /> with <paramref name="source" /> as original value.
         /// </summary>
         /// <param name="source">Original value to look for mapped links.</param>
