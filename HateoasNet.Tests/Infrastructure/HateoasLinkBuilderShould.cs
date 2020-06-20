@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using HateoasNet.Abstractions;
+using HateoasNet.Extensions;
 using HateoasNet.Infrastructure;
 using HateoasNet.Tests.TestHelpers;
 using System;

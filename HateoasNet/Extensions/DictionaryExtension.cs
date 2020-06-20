@@ -5,20 +5,15 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace HateoasNet.Tests.TestHelpers
+namespace HateoasNet.Extensions
 {
-    public static class DictionaryExtensions
+    internal static class DictionaryExtension
     {
-        public static IDictionary<string, object> ToRouteDictionary(this object source)
+        internal static IDictionary<string, object> ToRouteDictionary(this object source)
         {
             if (source is IEnumerable) return new Dictionary<string, object>();
 
-            static string NameFunction(MemberInfo info)
-            {
-                return info.Name;
-            }
-
-            object ValueFunction(PropertyInfo info)
+            static object ValueFunction(PropertyInfo info, object source)
             {
                 return info.GetValue(source, BindingFlags.Public, null, null, CultureInfo.InvariantCulture);
             }
@@ -26,7 +21,7 @@ namespace HateoasNet.Tests.TestHelpers
             return source.GetType()
                          .GetProperties()
                          .Where(x => x.CanRead && x.MemberType == MemberTypes.Property)
-                         .ToDictionary(NameFunction, ValueFunction, StringComparer.OrdinalIgnoreCase);
+                         .ToDictionary(info => info.Name, v => ValueFunction(v, source), StringComparer.OrdinalIgnoreCase);
         }
     }
 }
