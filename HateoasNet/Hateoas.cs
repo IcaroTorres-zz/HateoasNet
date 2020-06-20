@@ -148,7 +148,7 @@ namespace HateoasNet
                                                     .Single();
 
             var httpMethod = descriptor.SupportedHttpMethods.FirstOrDefault() ??
-                             throw new InvalidOperationException(Error<HttpMethod>());
+                             throw new InvalidOperationException($"Unable to get '{nameof(HttpMethod)}' needed to create the link.");
 
             return httpMethod.Method;
         }
@@ -200,17 +200,11 @@ namespace HateoasNet
 
         internal RouteAttribute GetRouteAttribute(HttpActionDescriptor descriptor)
         {
-            var methodInfo = descriptor.GetType().GetProperty("MethodInfo")?.GetValue(descriptor) as MethodInfo;
+            var methodInfo = descriptor.GetType().GetProperty(nameof(MethodInfo))?.GetValue(descriptor) as MethodInfo;
 
             return methodInfo?.GetCustomAttributes(true).OfType<RouteAttribute>().FirstOrDefault()
                    ?? _dummyRouteAttributeInCaseNotFound;
         }
-
-        private string Error<T>()
-        {
-            return $"Unable to get '{typeof(T).Name}' needed to create the link.";
-        }
-
 #endif
     }
 }

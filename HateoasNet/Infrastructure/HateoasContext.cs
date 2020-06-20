@@ -9,7 +9,7 @@ namespace HateoasNet.Infrastructure
     /// <inheritdoc cref="IHateoasContext" />
     public sealed class HateoasContext : IHateoasContext
     {
-        private readonly string _resourceBuilderTypeName = typeof(IHateoasSourceBuilder<>).Name;
+        private static string ResourceBuilderTypeName => typeof(IHateoasSourceBuilder<>).Name;
 
         private readonly Dictionary<Type, IHateoasSource> _sources = new Dictionary<Type, IHateoasSource>();
 
@@ -48,7 +48,7 @@ namespace HateoasNet.Infrastructure
         {
             if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-            var builders = assembly.GetTypes().Where(ImplementsHateoasSourceBuilder).ToList();
+            var builders = assembly.GetTypes().Where(i => ImplementsHateoasSourceBuilder(i)).ToList();
 
             if (!builders.Any()) throw new TargetException(GetTargetExceptionMessage(assembly.FullName));
 
@@ -84,19 +84,19 @@ namespace HateoasNet.Infrastructure
             return _sources[targetType];
         }
 
-        private bool ImplementsHateoasSourceBuilder(Type type)
+        private static bool ImplementsHateoasSourceBuilder(Type type)
         {
-            return type.GetInterfaces().Any(IsHateoasSourceBuilder);
+            return type.GetInterfaces().Any(i => IsHateoasSourceBuilder(i));
         }
 
-        private bool IsHateoasSourceBuilder(Type type)
+        private static bool IsHateoasSourceBuilder(Type type)
         {
-            return type.IsInterface && type.Name.Contains(_resourceBuilderTypeName);
+            return type.IsInterface && type.Name.Contains(ResourceBuilderTypeName);
         }
 
-        private string GetTargetExceptionMessage(string assemblyName)
+        private static string GetTargetExceptionMessage(string assemblyName)
         {
-            return $"No implementation of '{_resourceBuilderTypeName}' found in assembly '{assemblyName}'.";
+            return $"No implementation of '{ResourceBuilderTypeName}' found in assembly '{assemblyName}'.";
         }
     }
 }
