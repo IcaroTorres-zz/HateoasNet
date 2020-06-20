@@ -180,7 +180,7 @@ using System.Collections.Immutable;
 
 public class DictionaryHateoas : AbstractHateoas<ImmutableDictionary<string, object>>
 {
-    protected DictionaryHateoas(IHateoas hateoas) : base(hateoas)
+    public DictionaryHateoas(IHateoas hateoas) : base(hateoas)
     {
     }
 
