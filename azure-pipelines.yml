@@ -26,7 +26,7 @@ steps:
     SonarCloud: 'Sonar HateoasNet'
     organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
     scannerMode: 'MSBuild'
-    projectKey: 'hateoasnet-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    projectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
     projectName: 'HateoasNet'
 
 - task: VSBuild@1
