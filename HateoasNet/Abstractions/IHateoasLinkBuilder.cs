@@ -28,7 +28,7 @@ namespace HateoasNet.Abstractions
         ///   Gets a <see cref="IDictionary{TKey, TValue}" /> of <see langword="string" />,
         ///   <see langword="object" /> representing the route values.
         /// </summary>
-        /// <param name="sourceData">
+        /// <param name="source">
         ///   An object to be used as parameter of <see cref="IHateoasLinkBuilder{T}.RouteDictionaryFunction" />
         ///   to generate de dictionary.
         /// </param>
@@ -36,20 +36,20 @@ namespace HateoasNet.Abstractions
         ///   Generated route values dictionary <see cref="IDictionary{TKey, TValue}" /> of <see langword="string" />,
         ///   <see langword="object" />.
         /// </returns>
-        IDictionary<string, object> GetRouteDictionary(object sourceData);
+        IDictionary<string, object> GetRouteDictionary(object source);
 
         /// <summary>
-        ///   Checks if this <see cref="IHateoasLinkBuilder" /> instance is applicable to output of <paramref name="sourceData" /> .
+        ///   Checks if this <see cref="IHateoasLinkBuilder" /> instance is applicable to output of <paramref name="source" /> .
         /// </summary>
-        /// <param name="sourceData">
+        /// <param name="source">
         ///   /// An object to be used as parameter of <see cref="IHateoasLinkBuilder{T}.Predicate" />
         ///   to evaluate predicate.
         /// </param>
         /// <returns>
-        ///   <seealso langword="bool" /> if this <see cref="IHateoasLinkBuilder" /> for <paramref name="sourceData" />
+        ///   <seealso langword="bool" /> if this <see cref="IHateoasLinkBuilder" /> for <paramref name="source" />
         ///   passes <see cref="IHateoasLinkBuilder{T}.Predicate" /> for applicability.
         /// </returns>
-        bool IsApplicable(object sourceData);
+        bool IsApplicable(object source);
     }
 
     /// <summary>

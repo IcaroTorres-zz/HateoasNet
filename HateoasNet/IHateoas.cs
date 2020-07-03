@@ -1,5 +1,4 @@
-﻿using HateoasNet.Abstractions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace HateoasNet
 {
@@ -21,7 +20,7 @@ namespace HateoasNet
     /// <summary>
     ///   Represents a Factory for creating customized <see cref="TOutput"/> from default generated collections of <see cref="HateoasLink" /> output instances.
     /// </summary>
-    public interface IHateoas<TOutput>
+    public interface IHateoas<out TOutput>
     {
         /// <summary>
         ///   Gets <typeparamref name="TOutput"/> value transformed from available collection of <see cref="HateoasLink"/> using <see cref="IHateoasSource{T}" />

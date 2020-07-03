@@ -21,8 +21,8 @@ namespace HateoasNet.Infrastructure
         public IHateoasLinkBuilder<T> AddLink(string routeName)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
-
-            return (_linkBuilders[routeName] = new HateoasLinkBuilder<T>(routeName)) as IHateoasLinkBuilder<T>;
+            _linkBuilders[routeName] = new HateoasLinkBuilder<T>(routeName);
+            return _linkBuilders[routeName] as IHateoasLinkBuilder<T>;
         }
     }
 }
