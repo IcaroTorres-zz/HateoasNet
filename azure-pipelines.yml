@@ -21,6 +21,14 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar HateoasNet'
+    organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    scannerMode: 'MSBuild'
+    projectKey: 'hateoasnetf500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    projectName: 'HateoasNet'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -30,5 +38,20 @@ steps:
 
 - task: VSTest@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    runOnlyImpactedTests: true
+    runAllTestsAfterXBuilds: '10'
+    runInParallel: true
+    codeCoverageEnabled: true
+    
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
