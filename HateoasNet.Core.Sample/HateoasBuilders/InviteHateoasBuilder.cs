@@ -5,23 +5,23 @@ namespace HateoasNet.Core.Sample.HateoasBuilders
 {
     public class InviteHateoasBuilder : IHateoasSourceBuilder<Invite>
     {
-        public void Build(IHateoasSource<Invite> resource)
+        public void Build(IHateoasSource<Invite> source)
         {
-            resource.AddLink("accept-invite")
+            source.AddLink("accept-invite")
                     .HasRouteData(e => new { id = e.Id })
                     .When(e => e.Status == InviteStatuses.Pending);
 
-            resource.AddLink("decline-invite")
+            source.AddLink("decline-invite")
                     .HasRouteData(e => new { id = e.Id })
                     .When(e => e.Status == InviteStatuses.Pending);
 
-            resource.AddLink("cancel-invite")
+            source.AddLink("cancel-invite")
                     .HasRouteData(e => new { id = e.Id })
                     .When(e => e.Status == InviteStatuses.Pending);
 
-            resource.AddLink("get-invite").HasRouteData(i => new { id = i.Id });
-            resource.AddLink("get-guild").HasRouteData(i => new { id = i.GuildId });
-            resource.AddLink("get-member").HasRouteData(i => new { id = i.MemberId });
+            source.AddLink("get-invite").HasRouteData(i => new { id = i.Id });
+            source.AddLink("get-guild").HasRouteData(i => new { id = i.GuildId });
+            source.AddLink("get-member").HasRouteData(i => new { id = i.MemberId });
         }
     }
 }

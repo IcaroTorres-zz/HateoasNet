@@ -6,10 +6,10 @@ namespace HateoasNet.Core.Sample.HateoasBuilders
 {
     public class InvitesHateoasBuilder : IHateoasSourceBuilder<List<Invite>>
     {
-        public void Build(IHateoasSource<List<Invite>> resource)
+        public void Build(IHateoasSource<List<Invite>> source)
         {
-            resource.AddLink("get-invites");
-            resource.AddLink("invite-member");
+            source.AddLink("get-invites");
+            source.AddLink("invite-member");
         }
     }
 }

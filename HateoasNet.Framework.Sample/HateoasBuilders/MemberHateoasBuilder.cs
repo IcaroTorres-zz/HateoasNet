@@ -5,27 +5,27 @@ namespace HateoasNet.Framework.Sample.HateoasBuilders
 {
     public class MemberHateoasBuilder : IHateoasSourceBuilder<Member>
     {
-        public void Build(IHateoasSource<Member> resource)
+        public void Build(IHateoasSource<Member> source)
         {
-            resource.AddLink("get-member").HasRouteData(e => new { id = e.Id });
-            resource.AddLink("update-member").HasRouteData(e => new { id = e.Id });
+            source.AddLink("get-member").HasRouteData(e => new { id = e.Id });
+            source.AddLink("update-member").HasRouteData(e => new { id = e.Id });
 
-            resource
+            source
                 .AddLink("get-guild")
                 .HasRouteData(e => new { id = e.GuildId })
                 .When(e => e.GuildId != null);
 
-            resource
+            source
                 .AddLink("promote-member")
                 .HasRouteData(e => new { id = e.Id })
                 .When(e => e.GuildId != null && !e.IsGuildMaster);
 
-            resource
+            source
                 .AddLink("demote-member")
                 .HasRouteData(e => new { id = e.Id })
                 .When(e => e.GuildId != null && e.IsGuildMaster);
 
-            resource.AddLink("leave-guild")
+            source.AddLink("leave-guild")
                     .HasRouteData(e => new { id = e.Id })
                     .When(e => e.GuildId != null);
         }

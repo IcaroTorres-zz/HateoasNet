@@ -6,11 +6,11 @@ namespace HateoasNet.Framework.Sample.HateoasBuilders
 {
     public class ListMemberHateoasBuilder : IHateoasSourceBuilder<List<Member>>
     {
-        public void Build(IHateoasSource<List<Member>> resource)
+        public void Build(IHateoasSource<List<Member>> source)
         {
-            resource.AddLink("get-members");
-            resource.AddLink("invite-member");
-            resource.AddLink("create-member");
+            source.AddLink("get-members");
+            source.AddLink("invite-member");
+            source.AddLink("create-member");
         }
     }
 }
