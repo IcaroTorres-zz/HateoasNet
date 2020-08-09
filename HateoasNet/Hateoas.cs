@@ -110,14 +110,14 @@ namespace HateoasNet
         internal string GetRouteUrl(string routeName, IDictionary<string, object> routeValues)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
-            if (HttpContext.Current.Request == null) throw new NullReferenceException(nameof(HttpContext.Current.Request));
+            if (HttpContext.Current.Request == null) throw new NotSupportedException($"Not supported execution without a current {nameof(HttpContext.Current.Request)}.");
 
             var (routeAttribute, descriptor) = _routeActionDescriptors.Where(pair => pair.Key.Name == routeName)
                                                                       .Select(x => (x.Key, x.Value)).First();
 
-            if (descriptor == null) throw new ArgumentNullException(nameof(descriptor));
+            if (descriptor == null) throw new NotSupportedException($"Not found the '{nameof(descriptor)}' for route with name '{routeName}'.");
 
-            // set resource name from controller
+            // set source name from controller
             var controllerDescriptor = descriptor.ControllerDescriptor;
             var routePrefixAttribute = controllerDescriptor.GetCustomAttributes<RoutePrefixAttribute>().FirstOrDefault();
             var resourceName = routePrefixAttribute != null

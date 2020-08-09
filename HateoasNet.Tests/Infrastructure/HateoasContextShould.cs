@@ -55,9 +55,9 @@ namespace HateoasNet.Tests.Infrastructure
         [Trait(nameof(IHateoasContext), nameof(IHateoasContext.GetApplicableLinkBuilders))]
         public void GetApplicableLinks_WithConfiguredType_ReturnLinkBuilders()
         {
-            _sut.Configure<HateoasSample>(resource =>
+            _sut.Configure<HateoasSample>(source =>
             {
-                resource.AddLink("test")
+                source.AddLink("test")
                         .When(x => x.Id != null && x.Id != Guid.Empty)
                         .HasRouteData(x => new { id = x.Id });
             }).GetApplicableLinkBuilders(new HateoasSample())
@@ -104,7 +104,7 @@ namespace HateoasNet.Tests.Infrastructure
         public void Configure_WithResourceNull_ThrowsArgumentNullException()
         {
             // arrange
-            const string parameterName = "resource";
+            const string parameterName = "source";
 
             // act
             Action actual = () => _sut.Configure<HateoasSample>(null);

@@ -26,11 +26,11 @@ namespace HateoasNet.Infrastructure
                 : new List<IHateoasLinkBuilder>();
         }
 
-        public IHateoasContext Configure<T>(Action<IHateoasSource<T>> resource) where T : class
+        public IHateoasContext Configure<T>(Action<IHateoasSource<T>> source) where T : class
         {
-            if (resource == null) throw new ArgumentNullException(nameof(resource));
+            if (source == null) throw new ArgumentNullException(nameof(source));
 
-            resource(GetOrInsert<T>());
+            source(GetOrInsert<T>());
 
             return this;
         }
