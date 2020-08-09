@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- develop
 
 pool:
   vmImage: 'windows-latest'
@@ -32,3 +32,17 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar HateoasNet'
+    organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    scannerMode: 'MSBuild'
+    projectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    projectName: 'HateoasNet'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
