@@ -28,6 +28,10 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
     projectName: 'HateoasNet'
+    extraProperties: |
+      sonar.exclusions=**/obj/**,**/*.dll,**.Sample/**, **.Tests/
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
+      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
 
 - task: VSBuild@1
   inputs:
