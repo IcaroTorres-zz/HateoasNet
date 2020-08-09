@@ -6,10 +6,10 @@ namespace HateoasNet.Framework.Sample.HateoasBuilders
 {
     public class ListGuildHateoasBuilder : IHateoasSourceBuilder<List<Guild>>
     {
-        public void Build(IHateoasSource<List<Guild>> resource)
+        public void Build(IHateoasSource<List<Guild>> source)
         {
-            resource.AddLink("get-guilds");
-            resource.AddLink("create-guild");
+            source.AddLink("get-guilds");
+            source.AddLink("create-guild");
         }
     }
 }
