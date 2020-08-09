@@ -8,7 +8,7 @@ namespace HateoasNet.Infrastructure
     /// <inheritdoc cref="IHateoasLinkBuilder{T}" />
     public sealed class HateoasLinkBuilder<T> : IHateoasLinkBuilder<T> where T : class
     {
-        internal HateoasLinkBuilder(string routeName) : this(routeName, e => null, e => true)
+        internal HateoasLinkBuilder(string routeName) : this(routeName, _ => null, _ => true)
         {
         }
 
