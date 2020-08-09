@@ -22,10 +22,10 @@ namespace HateoasNet.Abstractions
         ///   Adds or continues an <see cref="IHateoasSource{T}" /> configuration of <typeparamref name="T" /> 
         ///   using an <see cref="Action{T}" /> of <see cref="IHateoasSource{T}" /> action.
         /// </summary>
-        /// <param name="resource">Action enabling configuration over the instance of IHateoasSource{T}.</param>
-        /// <typeparam name="T">Target class for resource configuration.</typeparam>
+        /// <param name="source">Action enabling configuration over the instance of IHateoasSource{T}.</param>
+        /// <typeparam name="T">Target class for source configuration.</typeparam>
         /// <returns>Current <see cref="IHateoasContext" /> instance.</returns>
-        IHateoasContext Configure<T>(Action<IHateoasSource<T>> resource) where T : class;
+        IHateoasContext Configure<T>(Action<IHateoasSource<T>> source) where T : class;
 
         /// <summary>
         ///   Adds or continues an <see cref="IHateoasSource{T}" /> configuration of <typeparamref name="T" /> using
@@ -35,7 +35,7 @@ namespace HateoasNet.Abstractions
         ///   A <see cref="IHateoasSourceBuilder{T}" /> instance implementing the configuration of
         ///   <typeparamref name="T" /> in separated class.
         /// </param>
-        /// <typeparam name="T">Target class for resource configuration.</typeparam>
+        /// <typeparam name="T">Target class for source configuration.</typeparam>
         /// <returns>Current <see cref="IHateoasContext" /> instance.</returns>
         IHateoasContext ApplyConfiguration<T>(IHateoasSourceBuilder<T> configuration) where T : class;
 
