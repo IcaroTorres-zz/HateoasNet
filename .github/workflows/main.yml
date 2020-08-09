@@ -6,11 +6,7 @@ on:
   pull_request:
     branches: [ master, develop ]
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'the target branch to manually run the pipeline'
-        required: true
-        default: 'develop'
+    branches: [ master, develop ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,4 +25,4 @@ jobs:
       with:
         azure-devops-project-url: 'https://dev.azure.com/icarostuart/HateoasNet'
         azure-pipeline-name: 'HateoasNet CI'
-        azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
+        azure-devops-token: '${{ secrets.HATEOASNET_CI_AZURE_DEVOPS_TOKEN }}'
