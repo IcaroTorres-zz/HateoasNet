@@ -30,7 +30,6 @@ steps:
     projectName: 'HateoasNet'
     extraProperties: |
       sonar.exclusions=**/obj/**,**/*.dll,**.Sample/**, **.Tests/
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
       sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
 
 - task: VSBuild@1
@@ -42,6 +41,10 @@ steps:
 
 - task: VSTest@2
   inputs:
+    runTestsInIsolation: true
+    runAllTestsAfterXBuilds: true
+    runInParallel: true
+    codeCoverageEnabled: true
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
