@@ -60,6 +60,14 @@ namespace HateoasNet.Tests.Infrastructure
         }
 
         [Fact]
+        [Trait(nameof(IHateoasLinkBuilder), nameof(IHateoasLinkBuilder<HateoasSample>.PresentedAs))]
+        public void PresentedAs_PresentedName_ReturnsSameValue()
+        {
+            const string expected = "new-name";
+            _sut.PresentedAs(expected).PresentedName.Should().Be(expected);
+        }
+
+        [Fact]
         [Trait(nameof(IHateoasLinkBuilder), nameof(IHateoasLinkBuilder<HateoasSample>.GetRouteDictionary))]
         [Trait(nameof(IHateoasLinkBuilder), nameof(IHateoasLinkBuilder<HateoasSample>.HasRouteData))]
         public void GetRouteDictionary_HasRouteDataParameterFunction_ReturnsSameValue()
