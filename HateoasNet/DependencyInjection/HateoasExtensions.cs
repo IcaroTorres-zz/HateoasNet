@@ -2,12 +2,13 @@
 using HateoasNet.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
 namespace HateoasNet.DependencyInjection
 {
-
+    [ExcludeFromCodeCoverage]
     internal static class CustomHateoasExtensions
     {
         internal static IEnumerable<(TypeInfo, Type)> GetServiceTuplesFromAssemblies(this Assembly[] assemblies)
@@ -31,6 +32,7 @@ namespace HateoasNet.DependencyInjection.Core
     using Microsoft.AspNetCore.Mvc.Routing;
     using Microsoft.Extensions.DependencyInjection;
 
+    [ExcludeFromCodeCoverage]
     public static class HateoasExtensions
     {
         /// <summary>
