@@ -98,7 +98,7 @@ namespace HateoasNet
         /// <param name="routeName">Name of desired route to discover the url.</param>
         /// <param name="routeValues">Route dictionary to look for parameters and query strings.</param>
         /// <returns>Generated Url <see langword="string" /> value.</returns>
-        internal string GetRouteUrl(string routeName, IDictionary<string, object> routeValues, Dictionary<RouteAttribute, HttpActionDescriptor> routeActionDescriptors)
+        private string GetRouteUrl(string routeName, IDictionary<string, object> routeValues, Dictionary<RouteAttribute, HttpActionDescriptor> routeActionDescriptors)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
             if (HttpContext.Current.Request == null) throw new NotSupportedException($"Not supported execution without a current {nameof(HttpContext.Current.Request)}.");
@@ -130,7 +130,7 @@ namespace HateoasNet
         /// </summary>
         /// <param name="routeName">The wanted endpoint route name to find.</param>
         /// <returns><see langword="string" />value representing HTTP method.</returns>
-        internal string GetRouteMethod(string routeName, Dictionary<RouteAttribute, HttpActionDescriptor> routeActionDescriptors)
+        private string GetRouteMethod(string routeName, Dictionary<RouteAttribute, HttpActionDescriptor> routeActionDescriptors)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
 
@@ -170,7 +170,7 @@ namespace HateoasNet
             return $"{resourceUrl}/{replacedTemplate}";
         }
 
-        internal string HandleQueryStrings(string resourceUrl, string template, IEnumerable<string> parameterNames, IDictionary<string, object> routeValues)
+        private string HandleQueryStrings(string resourceUrl, string template, IEnumerable<string> parameterNames, IDictionary<string, object> routeValues)
         {
             if (resourceUrl == null) throw new ArgumentNullException(nameof(resourceUrl));
             if (routeValues == null) return resourceUrl;
@@ -189,7 +189,7 @@ namespace HateoasNet
                    });
         }
 
-        internal RouteAttribute GetRouteAttribute(HttpActionDescriptor descriptor)
+        private RouteAttribute GetRouteAttribute(HttpActionDescriptor descriptor)
         {
             var methodInfo = descriptor.GetType().GetProperty(nameof(MethodInfo))?.GetValue(descriptor) as MethodInfo;
 
