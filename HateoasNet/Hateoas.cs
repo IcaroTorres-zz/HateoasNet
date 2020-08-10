@@ -64,33 +64,24 @@ namespace HateoasNet
         }
 
 #elif NET472
-
         private readonly RouteAttribute _dummyRouteAttributeInCaseNotFound = new RouteAttribute("unable-to-find-route");
-        private Dictionary<RouteAttribute, HttpActionDescriptor> _routeActionDescriptors;
-
-        public Hateoas(IHateoasContext context, IEnumerable<HttpActionDescriptor> actionDescriptors)
-        {
-            _context = context;
-            _routeActionDescriptors = actionDescriptors.ToDictionary(GetRouteAttribute);
-        }
 
         public Hateoas(IHateoasContext context)
         {
             _context = context;
         }
 
-        private HateoasLink CreateHateoasLink(string routeName, IDictionary<string, object> routeValues, string presentedName)
+        internal HateoasLink CreateHateoasLink(string routeName, IDictionary<string, object> routeValues, string presentedName)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
 
-            _routeActionDescriptors ??= BuildRouteActionDescriptors();
-
-            var href = GetRouteUrl(routeName, routeValues);
-            var method = GetRouteMethod(routeName);
+            var routeActionDescriptors = BuildRouteActionDescriptors();
+            var href = GetRouteUrl(routeName, routeValues, routeActionDescriptors);
+            var method = GetRouteMethod(routeName, routeActionDescriptors);
             return new HateoasLink(presentedName, href, method);
         }
 
-        private Dictionary<RouteAttribute, HttpActionDescriptor> BuildRouteActionDescriptors()
+        internal Dictionary<RouteAttribute, HttpActionDescriptor> BuildRouteActionDescriptors()
         {
             var actionDescriptors = RouteTable
                                     .Routes
@@ -107,13 +98,13 @@ namespace HateoasNet
         /// <param name="routeName">Name of desired route to discover the url.</param>
         /// <param name="routeValues">Route dictionary to look for parameters and query strings.</param>
         /// <returns>Generated Url <see langword="string" /> value.</returns>
-        internal string GetRouteUrl(string routeName, IDictionary<string, object> routeValues)
+        internal string GetRouteUrl(string routeName, IDictionary<string, object> routeValues, Dictionary<RouteAttribute, HttpActionDescriptor> routeActionDescriptors)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
             if (HttpContext.Current.Request == null) throw new NotSupportedException($"Not supported execution without a current {nameof(HttpContext.Current.Request)}.");
 
-            var (routeAttribute, descriptor) = _routeActionDescriptors.Where(pair => pair.Key.Name == routeName)
-                                                                      .Select(x => (x.Key, x.Value)).First();
+            var (routeAttribute, descriptor) = routeActionDescriptors.Where(pair => pair.Key.Name == routeName)
+                                                                     .Select(x => (x.Key, x.Value)).First();
 
             if (descriptor == null) throw new NotSupportedException($"Not found the '{nameof(descriptor)}' for route with name '{routeName}'.");
 
@@ -139,13 +130,13 @@ namespace HateoasNet
         /// </summary>
         /// <param name="routeName">The wanted endpoint route name to find.</param>
         /// <returns><see langword="string" />value representing HTTP method.</returns>
-        internal string GetRouteMethod(string routeName)
+        internal string GetRouteMethod(string routeName, Dictionary<RouteAttribute, HttpActionDescriptor> routeActionDescriptors)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
 
-            var descriptor = _routeActionDescriptors.Where(pair => pair.Key.Name == routeName)
-                                                    .Select(pair => pair.Value)
-                                                    .Single();
+            var descriptor = routeActionDescriptors.Where(pair => pair.Key.Name == routeName)
+                                                   .Select(pair => pair.Value)
+                                                   .Single();
 
             var httpMethod = descriptor.SupportedHttpMethods.FirstOrDefault() ??
                              throw new InvalidOperationException($"Unable to get '{nameof(HttpMethod)}' needed to create the link.");
