@@ -6,10 +6,8 @@ custom hateoas output implementations.
 
 ### Status
 
-#### Github Actions 
 ![CI](https://github.com/IcaroTorres/HateoasNet/workflows/CI/badge.svg)
-
-#### Sonar Cloud
+[![Build status](https://dev.azure.com/icarostuart/HateoasNet/_apis/build/status/HateoasNet%20Publish%20nuget%20package)](https://dev.azure.com/icarostuart/HateoasNet/_build/latest?definitionId=2)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8&metric=alert_status)](https://sonarcloud.io/dashboard?id=hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8&metric=coverage)](https://sonarcloud.io/dashboard?id=hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8&metric=bugs)](https://sonarcloud.io/dashboard?id=hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8)
