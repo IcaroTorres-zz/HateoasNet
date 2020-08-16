@@ -4,6 +4,7 @@
         <TargetFrameworks>netcoreapp3.1;net472;</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <LangVersion>8</LangVersion>
+        <ProjectGuid>{590C5550-D734-4C44-9DDD-64373671383A}</ProjectGuid>
     </PropertyGroup>
 
     <ItemGroup>

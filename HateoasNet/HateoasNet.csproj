@@ -1,50 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;net472;</TargetFrameworks>
-        <LangVersion>8.0</LangVersion>
-        <Title>HateoasNet</Title>
-        <Authors>Icaro Torres</Authors>
-        <Owners>icarotorres</Owners>
-        <Description>.Net Library for ease configuration and creationg of HATEOAS Link.</Description>
-        <PackageProjectUrl>https://github.com/icarotorres/HateoasNet</PackageProjectUrl>
-        <PackageLicense>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicense>
-        <RepositoryUrl>https://github.com/icarotorres/HateoasNet.git</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <PackageTags>json, hateoas, api-rest, hateoas-response, hateoasnet</PackageTags>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>
-          Features:
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net472;</TargetFrameworks>
+    <ProjectGuid>{D235EAB8-29B9-422F-9FA0-51730E22DBCA}</ProjectGuid>
+    <LangVersion>8.0</LangVersion>
+    <Title>HateoasNet</Title>
+    <Authors>Icaro Torres</Authors>
+    <Owners>icarotorres</Owners>
+    <Description>.Net Library for ease configuration and creationg of HATEOAS Link.</Description>
+    <PackageProjectUrl>https://github.com/icarotorres/HateoasNet</PackageProjectUrl>
+    <PackageLicense>https://github.com/IcaroTorres/HateoasNet/blob/master/LICENSE</PackageLicense>
+    <RepositoryUrl>https://github.com/icarotorres/HateoasNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>json, hateoas, api-rest, hateoas-response, hateoasnet</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>
+      Features:
 
-          - Improved codebase, coverage and documentation.
+      - Improved codebase, coverage and documentation.
 
-          Visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
-        </PackageReleaseNotes>
+      Visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
+    </PackageReleaseNotes>
 
-    </PropertyGroup>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
-        </AssemblyAttribute>
-    </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-      <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
 
-        <Reference Include="System" />
-        <Reference Include="System.Net.Http" />
-        <Reference Include="System.Web" />
-        <Reference Include="System.Web.Routing" />
-      
-        <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.7" />
-        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-        <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
-        <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
-        <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0" />
-    </ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Routing" />
+
+    <PackageReference Include="Microsoft.AspNet.WebApi" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0" />
+  </ItemGroup>
 
 </Project>
