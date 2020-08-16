@@ -26,7 +26,7 @@ steps:
   inputs:
     SonarCloud: 'Sonar HateoasNet'
     organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
-    scannerMode: 'MSBuild'
+    scannerMode: 'CLI'
     projectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
     projectName: 'HateoasNet'
     extraProperties: |
@@ -36,14 +36,11 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
   inputs:
-    runTestsInIsolation: true
-    runAllTestsAfterXBuilds: true
     runInParallel: true
     codeCoverageEnabled: true
     platform: '$(buildPlatform)'
@@ -52,8 +49,6 @@ steps:
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
 
 - task: PowerShell@2
   env:
