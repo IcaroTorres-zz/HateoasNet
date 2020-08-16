@@ -4,8 +4,6 @@
         <TargetFrameworks>netcoreapp3.1;net472;</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
         <Title>HateoasNet</Title>
-        <Version>2.0.1</Version>
-        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <Authors>Icaro Torres</Authors>
         <Owners>icarotorres</Owners>
         <Description>.Net Library for ease configuration and creationg of HATEOAS Link.</Description>
@@ -18,9 +16,7 @@
         <PackageReleaseNotes>
           Features:
 
-          - Move main IHateoas abstraction to base namespace "HateoasNet" simplifying usage;
-          - Members of AbstractHateoas (base implementation of custom output) fixed to protect;
-          - Update documentation.
+          - Improved codebase, coverage and documentation.
 
           Visit project repo to contribute: https://github.com/icarotorres/HateoasNet.git
         </PackageReleaseNotes>
