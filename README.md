@@ -20,17 +20,17 @@ HateoasNet targets NetCoreApp3.1 and Net Framework 4.72.
 
 The latest stable version of HateoasNet can be installed using the Nuget package manager
 ```
-Install-Package HateoasNet -Version 2.0.1
+Install-Package HateoasNet -Version <version>
 ```
 
 `Dotnet` CLI
 ```
-dotnet add package HateoasNet --version 2.0.1
+dotnet add package HateoasNet --version <version>
 ```
 
 or package reference.
 ```
-<PackageReference Include="HateoasNet" Version="2.0.1" />
+<PackageReference Include="HateoasNet" Version="<version>" />
 ```
 
 ---
