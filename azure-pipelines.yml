@@ -22,20 +22,6 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'Sonar HateoasNet'
-    organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
-    cliProjectName: 'HateoasNet'
-    cliProjectVersion: '2.0'
-    cliSources: '.'
-    extraProperties: |
-      sonar.exclusions=**/obj/**,**/*.dll,**.Sample/**, **.Tests/,HateoasNet/DependencyInjection/**
-      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
-
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -48,28 +34,3 @@ steps:
     codeCoverageEnabled: true
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-
-- task: PowerShell@2
-  env:
-    SonarToken: $(SonarToken)
-  inputs:
-    targetType: 'inline'
-    script: |
-      $token = [System.Text.Encoding]::UTF8.GetBytes($env:SonarToken + ":")
-      $base64 = [System.Convert]::ToBase64String($token)
-       
-      $basicAuth = [string]::Format("Basic {0}", $base64)
-      $headers = @{ Authorization = $basicAuth }
-       
-      $result = Invoke-RestMethod 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8' -Headers $headers
-      $result | ConvertTo-Json | Write-Host
-       
-      if ($result.projectStatus.status -eq "OK") {
-      Write-Host "Quality Gate Succeeded"
-      }else{
-      throw "Quality gate failed"
-      }
