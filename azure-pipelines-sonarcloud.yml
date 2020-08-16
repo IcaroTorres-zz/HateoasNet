@@ -1,0 +1,63 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- develop
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar HateoasNet'
+    organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    scannerMode: 'MSBuild'
+    projectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    projectName: 'HateoasNet'
+    extraProperties: |
+      sonar.exclusions=**/obj/**,**/*.dll,**.Sample/**, **.Tests/,HateoasNet/DependencyInjection/**
+      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
+
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: |
+     **/HateoasNet.csproj
+     **/*[Tt]ests.csproj
+    vstsFeed: '95c0ead5-2af5-438e-a6c1-67a6151c2e98/614ce658-eeff-4b3e-bb0f-79cd9396a8e1'
+    verbosityRestore: Quiet
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: |
+     **/HateoasNet.csproj
+     **/*[Tt]ests.csproj
+    arguments: '--configuration $(BuildConfiguration) --no-restore /p:DeployOnBuild=true /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip"'
+
+- task: VSTest@2
+  inputs:
+    runTestsInIsolation: true
+    runInParallel: true
+    codeCoverageEnabled: true
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: SonarCloudAnalyze@1
+
+- task: SimondeLang.sonarcloud-buildbreaker.sonar-buildbreaker.sonarcloud-buildbreaker@2
+  displayName: 'Break build on quality gate failure'
+  inputs:
+    SonarCloud: 'Sonar HateoasNet'
+    organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+
