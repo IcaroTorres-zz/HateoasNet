@@ -27,8 +27,11 @@ steps:
     SonarCloud: 'Sonar HateoasNet'
     organization: 'f500510f-d3cc-4979-8ba0-2e70d2c15da8'
     scannerMode: 'CLI'
-    projectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
-    projectName: 'HateoasNet'
+    configMode: 'manual'
+    cliProjectKey: 'hateoas-net-f500510f-d3cc-4979-8ba0-2e70d2c15da8'
+    cliProjectName: 'HateoasNet'
+    cliProjectVersion: '2.0'
+    cliSources: '.'
     extraProperties: |
       sonar.exclusions=**/obj/**,**/*.dll,**.Sample/**, **.Tests/,HateoasNet/DependencyInjection/**
       sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
