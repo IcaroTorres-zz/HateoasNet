@@ -47,7 +47,6 @@ steps:
 
 - task: VSTest@2
   inputs:
-    runTestsInIsolation: true
     runInParallel: true
     codeCoverageEnabled: true
     platform: '$(buildPlatform)'
