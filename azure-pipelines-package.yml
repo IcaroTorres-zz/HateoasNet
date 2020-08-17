@@ -1,0 +1,59 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+stages:
+- stage: Build_Stage
+  jobs:
+  - job: BuildNuget
+    displayName: Build Nuget package
+    variables:
+      BuildPlatform: 'Any CPU'
+      BuildConfiguration: 'Release'
+    steps:
+    - task: bleddynrichards.Assembly-Info-Task.Assembly-Info-NetCore.Assembly-Info-NetCore@2
+      displayName: 'Set Assembly Manifest Data'
+      inputs:
+        FileNames: '**/HateoasNet.csproj'
+        InsertAttributes: true
+        VersionNumber: '$(Build.BuildNumber)'
+        FileVersionNumber: '$(Build.BuildNumber)'
+        PackageVersion: '$(Build.BuildNumber)'
+        LogLevel: off
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: '**/HateoasNet.csproj'
+        feedsToUse: 'select'
+        vstsFeed: '95c0ead5-2af5-438e-a6c1-67a6151c2e98/614ce658-eeff-4b3e-bb0f-79cd9396a8e1'
+        verbosityRestore: 'Quiet'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '**/HateoasNet.csproj'
+        arguments: '--configuration $(BuildConfiguration) --no-restore'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/HateoasNet.csproj'
+        nobuild: true
+        includesymbols: true
+        versioningScheme: 'byBuildNumber'
+        verbosityPack: 'Quiet'
+    
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '95c0ead5-2af5-438e-a6c1-67a6151c2e98/614ce658-eeff-4b3e-bb0f-79cd9396a8e1'
