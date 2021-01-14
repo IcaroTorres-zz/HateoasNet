@@ -12,7 +12,7 @@ namespace HateoasNet
             _hateoas = hateoas;
         }
 
-        public TOutput Generate<TSource>(TSource source)
+        public TOutput Generate(object source)
         {
             return GenerateCustom(_hateoas.Generate(source));
         }

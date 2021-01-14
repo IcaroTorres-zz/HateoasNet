@@ -17,11 +17,11 @@ namespace HateoasNet.Infrastructure
         {
         }
 
-        public IEnumerable<IHateoasLinkBuilder> GetApplicableLinkBuilders<T>(T source)
+        public IEnumerable<IHateoasLinkBuilder> GetApplicableLinkBuilders(object source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
-            return _sources.TryGetValue(typeof(T), out var hateoasSource)
+            return _sources.TryGetValue(source.GetType(), out var hateoasSource)
                 ? hateoasSource?.GetLinkBuilders().Where(link => link.IsApplicable(source)).ToList()
                 : new List<IHateoasLinkBuilder>();
         }
