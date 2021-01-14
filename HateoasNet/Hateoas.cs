@@ -24,7 +24,7 @@ namespace HateoasNet
     {
         private readonly IHateoasContext _context;
 
-        public IEnumerable<HateoasLink> Generate<T>(T source)
+        public IEnumerable<HateoasLink> Generate(object source)
         {
             foreach (var linkBuilder in _context.GetApplicableLinkBuilders(source))
             {
