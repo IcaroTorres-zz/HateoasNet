@@ -7,7 +7,7 @@ namespace HateoasNet.Infrastructure
     /// <inheritdoc cref="IHateoasSource" />
     public sealed class HateoasSource<T> : IHateoasSource<T> where T : class
     {
-        private readonly Dictionary<string, IHateoasLinkBuilder> _linkBuilders = new Dictionary<string, IHateoasLinkBuilder>();
+        private readonly List<IHateoasLinkBuilder> _linkBuilders = new List<IHateoasLinkBuilder>();
 
         internal HateoasSource()
         {
@@ -15,14 +15,15 @@ namespace HateoasNet.Infrastructure
 
         public IEnumerable<IHateoasLinkBuilder> GetLinkBuilders()
         {
-            return _linkBuilders.Values;
+            return _linkBuilders;
         }
 
         public IHateoasLinkBuilder<T> AddLink(string routeName)
         {
             if (string.IsNullOrWhiteSpace(routeName)) throw new ArgumentNullException(nameof(routeName));
-            _linkBuilders[routeName] = new HateoasLinkBuilder<T>(routeName);
-            return _linkBuilders[routeName] as IHateoasLinkBuilder<T>;
+            var linkBuilder = new HateoasLinkBuilder<T>(routeName);
+            _linkBuilders.Add(linkBuilder);
+            return linkBuilder;
         }
     }
 }
