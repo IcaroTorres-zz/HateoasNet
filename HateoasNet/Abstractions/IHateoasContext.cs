@@ -11,12 +11,11 @@ namespace HateoasNet.Abstractions
     {
         /// <summary>
         ///   Gets all applicable <see cref="IHateoasLinkBuilder" /> from a <see cref="IHateoasSource{T}" /> configuration
-        ///   of <typeparamref name="T" /> using <paramref name="source" /> to evaluate the applicability.
+        ///   for the <see cref="Type"/> of <paramref name="source" /> to evaluate the applicability.
         /// </summary>
         /// <param name="source">An object used to evaluate the applicability.</param>
-        /// <typeparam name="T">Type to look for <see cref="IHateoasSource{T}" /> associated.</typeparam>
         /// <returns><see cref="IEnumerable{IHateoasLink}" /> with all applicable <see cref="IHateoasLinkBuilder" />.</returns>
-        IEnumerable<IHateoasLinkBuilder> GetApplicableLinkBuilders<T>(T source);
+        IEnumerable<IHateoasLinkBuilder> GetApplicableLinkBuilders(object source);
 
         /// <summary>
         ///   Adds or continues an <see cref="IHateoasSource{T}" /> configuration of <typeparamref name="T" /> 
