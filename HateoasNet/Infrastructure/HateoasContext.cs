@@ -86,7 +86,7 @@ namespace HateoasNet.Infrastructure
 
         private static bool ImplementsHateoasSourceBuilder(Type type)
         {
-            return type.GetInterfaces().Any(i => IsHateoasSourceBuilder(i));
+            return type.GetInterfaces().Any(IsHateoasSourceBuilder);
         }
 
         private static bool IsHateoasSourceBuilder(Type type)
